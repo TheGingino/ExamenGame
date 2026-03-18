@@ -103,4 +103,10 @@ public class MatchTiles : MonoBehaviour
             }
         }
     }
+    
+    // This function is to remove the missing Reference
+    public void SetSwappingState(bool swapping)
+    {
+        _isSwapping = swapping;
+    }
 }

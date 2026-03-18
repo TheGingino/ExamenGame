@@ -9,6 +9,13 @@ public class SwapTiles : MonoBehaviour
     private GameObject secondTile;
     private bool isSwapping;
     
+    private MatchTiles _matchTiles;
+    
+    private void Start()
+    {
+        _matchTiles = GetComponent<MatchTiles>();
+    }
+    
     private void Update()
     {
         MoveTiles();
@@ -63,9 +70,13 @@ public class SwapTiles : MonoBehaviour
         return null;
     }
     
-    public IEnumerator Swap()
+    private IEnumerator Swap()
     {
         isSwapping = true;
+        //Added to remove MissingReference
+        _matchTiles.SetSwappingState(true);
+        
+        //already existing logic
         Vector3 firstPos = firstTile.transform.position;
         Vector3 secondPos = secondTile.transform.position;
 
@@ -84,6 +95,9 @@ public class SwapTiles : MonoBehaviour
         secondTile.transform.position = firstPos;
         ResetSelection();
         isSwapping = false;
+        
+        //Added to remove MissingReference
+        _matchTiles.SetSwappingState(false);
     }
     
     private bool AreAdjacent(GameObject tile1, GameObject tile2)
