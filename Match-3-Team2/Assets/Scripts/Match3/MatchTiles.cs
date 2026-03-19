@@ -25,16 +25,16 @@ public class MatchTiles : MonoBehaviour
     }
     private void CheckForMatches()
     {
-        List<Vector2> matchingTiles = GetMatchingTiles();
+        List<Vector2Int> matchingTiles = GetMatchingTiles();
         if (matchingTiles.Count >= 3)
         {
             ClearMatches(matchingTiles);
         }
     }
 
-    List<Vector2> GetMatchingTiles()
+    List<Vector2Int> GetMatchingTiles()
     {
-        HashSet<Vector2> matchingTiles = new();
+        HashSet<Vector2Int> matchingTiles = new();
 
         // Check Horizontal Matches
         for (int y = 0; y < _gridSystem.height; y++)
@@ -49,9 +49,9 @@ public class MatchTiles : MonoBehaviour
                 {
                     if (tileA._tileData == tileB._tileData && tileB._tileData == tileC._tileData)
                     {
-                        matchingTiles.Add(new Vector2(x, y));
-                        matchingTiles.Add(new Vector2(x + 1, y));
-                        matchingTiles.Add(new Vector2(x + 2, y));
+                        matchingTiles.Add(new Vector2Int(x, y));
+                        matchingTiles.Add(new Vector2Int(x + 1, y));
+                        matchingTiles.Add(new Vector2Int(x + 2, y));
                     }
                 }
             }
@@ -70,14 +70,14 @@ public class MatchTiles : MonoBehaviour
                 {
                     if (tileA._tileData == tileB._tileData && tileB._tileData == tileC._tileData)
                     {
-                        matchingTiles.Add(new Vector2(x, y));
-                        matchingTiles.Add(new Vector2(x, y + 1));
-                        matchingTiles.Add(new Vector2(x, y + 2));
+                        matchingTiles.Add(new Vector2Int(x, y));
+                        matchingTiles.Add(new Vector2Int(x, y + 1));
+                        matchingTiles.Add(new Vector2Int(x, y + 2));
                     }
                 }
             }
         }
-        return new List<Vector2>(matchingTiles);
+        return new List<Vector2Int>(matchingTiles);
     }
 
     private Tile GetTileAtPosition(int i, int tilePosY)
@@ -92,14 +92,16 @@ public class MatchTiles : MonoBehaviour
         return null;
     }
     
-    private void ClearMatches(List<Vector2> matchingTiles)
+    private void ClearMatches(List<Vector2Int> matchingTiles)
     {
-        foreach (Vector2 pos in matchingTiles)
+        foreach (Vector2Int pos in matchingTiles)
         {
-            Tile tileToDestroy = GetTileAtPosition((int)pos.x, (int)pos.y);
+            Tile tileToDestroy = GetTileAtPosition(pos.x, pos.y);
             if (tileToDestroy != null)
             {
                 tileToDestroy.DestroyTile();
+                SpawnTiles spawnTiles = GetComponent<SpawnTiles>();
+                StartCoroutine(spawnTiles.SpawnTileWithDelay(pos.x, pos.y));
             }
         }
     }

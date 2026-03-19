@@ -2,8 +2,8 @@ using System.Collections;
 using UnityEngine;
 public class SpawnTiles : MonoBehaviour
 {
-    public Tile[] tilePrefabs;
-    public float spawnDelay = 0.5f;
+    [SerializeField] private Tile[] tilePrefabs;
+    [SerializeField] private float spawnDelay = 0.5f;
 
     GridSystem gridSystem;
     private Transform gridTransform;
@@ -30,13 +30,13 @@ public class SpawnTiles : MonoBehaviour
     {
         int randomIndex = Random.Range(0, tilePrefabs.Length);
         Tile tilePrefab = tilePrefabs[randomIndex];
-
-        Vector3 spawnPosition = gridSystem.GetWorldPosition(x, y);
-
-        Instantiate(tilePrefab, spawnPosition, Quaternion.identity, gridTransform);
+        Vector2 spawnPosition = gridSystem.GetWorldPosition(x, y);
+        
+        GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, gridTransform);
+        newTile.name = $"Tile_{x}_{y}";
     }
-
-    private IEnumerator SpawnTileWithDelay(int x, int y)
+    
+    public IEnumerator SpawnTileWithDelay(int x, int y)
     {
         yield return new WaitForSeconds(spawnDelay);
         SpawnTile(x, y);
