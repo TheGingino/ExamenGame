@@ -14,8 +14,7 @@ public class MatchTiles : MonoBehaviour
     {
         _gridSystem = GetComponent<GridSystem>();
     }
-
-
+    
     private void Update()
     {
         if (!_isSwapping)
@@ -110,5 +109,10 @@ public class MatchTiles : MonoBehaviour
     public void SetSwappingState(bool swapping)
     {
         _isSwapping = swapping;
+    }
+    
+    public bool HasMatches()
+    {
+        return GetMatchingTiles().Count >= 3;
     }
 }

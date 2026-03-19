@@ -41,6 +41,7 @@ public class SwapTiles : MonoBehaviour
                     if (AreAdjacent(firstTile, secondTile))
                     {
                         StartCoroutine(Swap());
+                        //DragTiles();
                     }
                     else
                     {
@@ -73,6 +74,7 @@ public class SwapTiles : MonoBehaviour
     private IEnumerator Swap()
     {
         isSwapping = true;
+        
         //Added to remove MissingReference
         _matchTiles.SetSwappingState(true);
         
@@ -93,11 +95,40 @@ public class SwapTiles : MonoBehaviour
 
         firstTile.transform.position = secondPos;
         secondTile.transform.position = firstPos;
-        ResetSelection();
-        isSwapping = false;
         
-        //Added to remove MissingReference
-        _matchTiles.SetSwappingState(false);
+        if (!_matchTiles.HasMatches())
+        {
+            _matchTiles.SetSwappingState(true);
+
+            // Swap back if no match
+            elapsedTime = 0f;
+            while (elapsedTime < swapDuration)
+            {
+                firstTile.transform.position = Vector3.Lerp(secondPos, firstPos, elapsedTime / swapDuration);
+                secondTile.transform.position = Vector3.Lerp(firstPos, secondPos, elapsedTime / swapDuration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            firstTile.transform.position = firstPos;
+            secondTile.transform.position = secondPos; 
+            
+            isSwapping = false;
+            ResetSelection();
+            
+        }
+        isSwapping = false;
+        ResetSelection();
+        MatchCheck();  
+    }
+    
+    private void DragTiles()
+    {
+        // Implement drag logic here
+        
+        //can only move to the adjacent tile
+        
+        ResetSelection();
     }
     
     private bool AreAdjacent(GameObject tile1, GameObject tile2)
@@ -107,6 +138,12 @@ public class SwapTiles : MonoBehaviour
 
         float distance = Vector3.Distance(pos1, pos2);
         return distance < 1.5f; // Adjust this threshold based on your tile size
+    }
+    
+    private void MatchCheck()
+    {
+        // Return tile if there is no match, otherwise destroy the tile and spawn new one
+        _matchTiles.SetSwappingState(false);
     }
 
     private void ResetSelection()
