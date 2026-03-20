@@ -22,14 +22,6 @@ public class MatchTiles : MonoBehaviour
             CheckForMatches();
         }
     }
-    private void CheckForMatches()
-    {
-        List<Vector2Int> matchingTiles = GetMatchingTiles();
-        if (matchingTiles.Count >= 3)
-        {
-            ClearMatches(matchingTiles);
-        }
-    }
 
     List<Vector2Int> GetMatchingTiles()
     {
@@ -104,6 +96,17 @@ public class MatchTiles : MonoBehaviour
             }
         }
     }
+    
+    public void CheckForMatches()
+    {
+        List<Vector2Int> matchingTiles = GetMatchingTiles();
+        if (matchingTiles.Count >= 3)
+        {
+            ClearMatches(matchingTiles);
+        }
+    }
+
+    
     
     // This function is to remove the missing Reference
     public void SetSwappingState(bool swapping)

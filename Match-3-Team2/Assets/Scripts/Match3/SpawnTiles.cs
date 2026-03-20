@@ -18,7 +18,7 @@ public class SpawnTiles : MonoBehaviour
     private void SpawnInitialTiles()
     {
         for (int x = 0; x < gridSystem.width; x++)
-        {
+        {   
             for (int y = 0; y < gridSystem.height; y++)
             {
                 SpawnTile(x, y);
@@ -29,8 +29,7 @@ public class SpawnTiles : MonoBehaviour
 
     private void SpawnTile(int x, int y)
     {
-        //needs to check if there is a match connected to the tile before spawning a new one, if there is a match then it needs to spawn a different tile
-        //SpawnTileWithNoMatch(x,y);
+        SpawnTileWithNoMatch(x,y);
     }
     
     public IEnumerator SpawnTileWithDelay(int x, int y)
@@ -48,27 +47,62 @@ public class SpawnTiles : MonoBehaviour
         GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, gridTransform);
         newTile.name = $"Tile_{x}_{y}";
     }*/
-    
+
     private void SpawnTileWithNoMatch(int x, int y)
     {
-            int randomIndex = Random.Range(0, tilePrefabs.Length);
-            Tile tilePrefab = tilePrefabs[randomIndex];
-            Vector2 spawnPosition = gridSystem.GetWorldPosition(x, y);
-            
-            GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, gridTransform);
-            newTile.name = $"Tile_{x}_{y}";
-            foreach (Tile VARIABLE in gridTransform.GetComponentsInChildren<Tile>())
-            {
-                if (VARIABLE.transform.position == new Vector3(spawnPosition.x, spawnPosition.y + gridSystem.cellSize, 0) ||
-                    VARIABLE.transform.position == new Vector3(spawnPosition.x + gridSystem.cellSize, spawnPosition.y, 0))
-                {
-                    if (VARIABLE._tileData.tileType == tilePrefab._tileData.tileType)
-                    {
-                        Destroy(newTile);
-                        SpawnTileWithNoMatch(x, y);
-                        return;
-                    }
-                }
-            }
+        Tile tilePrefab = GetRandomTileWithoutMatch(x, y);
+        Vector2 spawnPosition = gridSystem.GetWorldPosition(x, y);
+
+        GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, gridTransform);
+        newTile.name = $"Tile_{x}_{y}";
+    }
+
+    private Tile GetRandomTileWithoutMatch(int x, int y)
+    {
+        Tile selectedTile;
+        int randomIndex = Random.Range(0, tilePrefabs.Length);
+        selectedTile = tilePrefabs[randomIndex];
+        while (HasMatch(x, y, selectedTile)) 
+        {
+            randomIndex = Random.Range(0, tilePrefabs.Length);
+            selectedTile = tilePrefabs[randomIndex];
+        }
+
+        return selectedTile;
+    }
+
+    private bool HasMatch(int x, int y, Tile tile)
+    {
+        // Checks horizontal match
+        if (x >= 2 && GetTileTypeAtPosition(x - 1, y) == tile._tileData &&
+            GetTileTypeAtPosition(x - 2, y) == tile._tileData)
+            return true;
+
+        if (x <= gridSystem.width - 3 && GetTileTypeAtPosition(x + 1, y) == tile._tileData &&
+            GetTileTypeAtPosition(x + 2, y) == tile._tileData)
+            return true;
+
+        // Check vertical match
+        if (y >= 2 && GetTileTypeAtPosition(x, y - 1) == tile._tileData &&
+            GetTileTypeAtPosition(x, y - 2) == tile._tileData)
+            return true;
+
+        if (y <= gridSystem.height - 3 && GetTileTypeAtPosition(x, y + 1) == tile._tileData &&
+            GetTileTypeAtPosition(x, y + 2) == tile._tileData)
+            return true;
+
+        return false;
+    }
+    
+    private ScriptableObject GetTileTypeAtPosition(int x, int y)
+    {
+        Vector2 worldPos = gridSystem.GetWorldPosition(x, y);
+        Collider[] hits = Physics.OverlapSphere(worldPos, 0.1f, LayerMask.GetMask("Tile"));
+
+        if (hits.Length > 0)
+        {
+            return hits[0].GetComponent<Tile>()?._tileData;
+        }
+        return null;
     }
 }
