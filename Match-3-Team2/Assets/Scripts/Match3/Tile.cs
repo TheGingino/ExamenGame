@@ -30,5 +30,5 @@ public class Tile : MonoBehaviour
     }
 
     public void DestroyTile() => Destroy(gameObject);
-
+    
 }

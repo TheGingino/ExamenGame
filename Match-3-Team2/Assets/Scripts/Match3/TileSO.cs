@@ -27,5 +27,5 @@ public enum TileType
     GREEN,
     BLUE,
     YELLOW,
-    PURPLE
+    FILLER
 }

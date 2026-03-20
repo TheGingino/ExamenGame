@@ -343,8 +343,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1639137989}
-  - component: {fileID: 1639137990}
   - component: {fileID: 1639137991}
+  - component: {fileID: 1639137990}
   - component: {fileID: 1639137992}
   - component: {fileID: 1639137993}
   m_Layer: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 5
-  height: 6
+  height: 5
   cellSize: 1
 --- !u!114 &1639137992
 MonoBehaviour:
@@ -415,6 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2cb66b4c8f37b419f931f215c111c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapDistanceThreshold: 1.25
 --- !u!114 &1639137993
 MonoBehaviour:
   m_ObjectHideFlags: 0
