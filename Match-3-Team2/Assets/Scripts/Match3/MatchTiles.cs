@@ -14,14 +14,12 @@ public class MatchTiles : MonoBehaviour
     {
         _gridSystem = GetComponent<GridSystem>();
     }
-    
-    private void Update()
+
+    public void TriggerMatchCheck()
     {
-        if (!_isSwapping)
-        {
-            CheckForMatches();
-        }
+        CheckForMatches();
     }
+    
     private void CheckForMatches()
     {
         List<Vector2Int> matchingTiles = GetMatchingTiles();
