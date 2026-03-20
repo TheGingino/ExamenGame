@@ -2,21 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelSelector : MonoBehaviour
 {
-    [SerializeField] private int _buttonID;
+    [SerializeField] private string _buttonID;
+    [SerializeField] private Scene _scene;
 
-    private void LevelSelect()
+    public void LevelSelect()
     {
         switch (_buttonID)
         {
-            //case :
+            case "lvl1":
+                
+            break;
 
-            //break;
+            case "lvl2":
+                
+            break;
 
+            case "lvl3":
+                
+            break;
 
+            case "lvl4":
+                SceneManager.LoadScene("");
+                break;
 
+            case "menu":
+                SceneManager.LoadScene("");
+                break;
         }
     }
 
