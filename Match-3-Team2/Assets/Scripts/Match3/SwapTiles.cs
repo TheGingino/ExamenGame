@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SwapTiles : MonoBehaviour
 {
+
+    [SerializeField] private float swapDistanceThreshold;
+    
     private GameObject firstTile;
     private GameObject secondTile;
     private bool isSwapping;
@@ -137,7 +140,7 @@ public class SwapTiles : MonoBehaviour
         Vector3 pos2 = tile2.transform.position;
 
         float distance = Vector3.Distance(pos1, pos2);
-        return distance < 1.5f; // Adjust this threshold based on your tile size
+        return distance < swapDistanceThreshold;
     }
     
     private void MatchCheck()

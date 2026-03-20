@@ -415,6 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2cb66b4c8f37b419f931f215c111c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapDistanceThreshold: 1.25
 --- !u!114 &1639137993
 MonoBehaviour:
   m_ObjectHideFlags: 0
