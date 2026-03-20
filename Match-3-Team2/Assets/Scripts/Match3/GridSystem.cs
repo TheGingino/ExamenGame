@@ -36,5 +36,4 @@ public class GridSystem : MonoBehaviour
         );
         return new Vector2(originPosition.x + x * cellSize, originPosition.y + y * cellSize);
     }
-
 }
