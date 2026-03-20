@@ -11,14 +11,23 @@ public class SwapTiles : MonoBehaviour
     private GameObject firstTile;
     private GameObject secondTile;
     private bool isSwapping;
+    private bool _inputDisabled = false;
     
     private MatchTiles _matchTiles;
     
     private void Start()
     {
         _matchTiles = GetComponent<MatchTiles>();
+        GameEvents.OnInputDisabled += () => _inputDisabled = true;
+        GameEvents.OnInputEnabled += () => _inputDisabled = false;
     }
-    
+
+    private void OnDestroy()
+    {
+        GameEvents.OnInputDisabled -= () => _inputDisabled = true;
+        GameEvents.OnInputEnabled -= () => _inputDisabled = false;
+    }
+
     private void Update()
     {
         MoveTiles();
@@ -26,7 +35,7 @@ public class SwapTiles : MonoBehaviour
 
     private void MoveTiles()
     {
-        if (isSwapping) return;
+        if (isSwapping|| _inputDisabled) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -146,7 +155,9 @@ public class SwapTiles : MonoBehaviour
     private void MatchCheck()
     {
         // Return tile if there is no match, otherwise destroy the tile and spawn new one
+        _matchTiles.TriggerMatchCheck();
         _matchTiles.SetSwappingState(false);
+        GameEvents.BoardStable();
     }
 
     private void ResetSelection()

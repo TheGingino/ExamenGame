@@ -14,6 +14,11 @@ public class MatchTiles : MonoBehaviour
     {
         _gridSystem = GetComponent<GridSystem>();
     }
+
+    public void TriggerMatchCheck()
+    {
+        CheckForMatches();
+    }
     
     private void Update()
     {
@@ -22,7 +27,7 @@ public class MatchTiles : MonoBehaviour
             CheckForMatches();
         }
     }
-
+    
     List<Vector2Int> GetMatchingTiles()
     {
         HashSet<Vector2Int> matchingTiles = new();

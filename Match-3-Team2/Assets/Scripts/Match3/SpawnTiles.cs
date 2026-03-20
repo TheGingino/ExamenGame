@@ -3,7 +3,7 @@ using UnityEngine;
 public class SpawnTiles : MonoBehaviour
 {
     [SerializeField] private Tile[] tilePrefabs;
-    [SerializeField] private float spawnDelay = 0.5f;
+    [SerializeField] public float spawnDelay = 0.5f;
 
     GridSystem gridSystem;
     private Transform gridTransform;
@@ -36,6 +36,7 @@ public class SpawnTiles : MonoBehaviour
     {
         yield return new WaitForSeconds(spawnDelay);
         SpawnTile(x, y);
+        GameEvents.BoardStable();
     }
 
     /*private void SpawnTiless(int x, int y)
