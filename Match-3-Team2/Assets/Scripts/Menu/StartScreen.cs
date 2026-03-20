@@ -7,7 +7,7 @@ public class StartScreen : MonoBehaviour
     public void PlayGame()
     {
         //clickSFX.Play();
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("LevelSelector");
     }
     
     public void QuitGame()
