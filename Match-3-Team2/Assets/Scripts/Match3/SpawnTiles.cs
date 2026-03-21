@@ -36,7 +36,6 @@ public class SpawnTiles : MonoBehaviour
     {
         yield return new WaitForSeconds(spawnDelay);
         SpawnTile(x, y);
-        GameEvents.BoardStable();
     }
 
     /*private void SpawnTiless(int x, int y)
