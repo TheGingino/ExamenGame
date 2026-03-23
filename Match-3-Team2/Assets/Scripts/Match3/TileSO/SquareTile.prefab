@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2839818777213605075}
   - component: {fileID: 149717146676612516}
   - component: {fileID: 4664232703172497821}
-  - component: {fileID: 7211706466631186632}
+  - component: {fileID: 3609205238125480421}
   m_Layer: 3
   m_Name: SquareTile
   m_TagString: Tile
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1223321713616030574}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.829576, y: -9.077113, z: 18.161526}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: 31eaa32c826376d4892beac8b75d7d48, type: 2}
---- !u!65 &7211706466631186632
-BoxCollider:
+--- !u!135 &3609205238125480421
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,5 +118,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.16, y: 0.16, z: 0.2}
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
