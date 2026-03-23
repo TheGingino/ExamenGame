@@ -1,30 +1,38 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 public class SpawnTiles : MonoBehaviour
 {
     [SerializeField] private Tile[] tilePrefabs;
     [SerializeField] public float spawnDelay = 0.5f;
 
-    GridSystem gridSystem;
-    private Transform gridTransform;
-
+    private GridSystem _gridSystem;
+    private PlayabiltyChecker _playabiltyChecker;
+    private Transform _gridTransform;
+    
+    private void Awake()
+    {
+        _gridSystem = GetComponent<GridSystem>();
+        _playabiltyChecker = GetComponent<PlayabiltyChecker>();
+        _gridTransform = transform;
+    }
+    
     private void Start()
     {
-        gridSystem = GetComponent<GridSystem>();
-        gridTransform = transform;
         SpawnInitialTiles();
     }
 
     private void SpawnInitialTiles()
     {
-        for (int x = 0; x < gridSystem.width; x++)
+        for (int x = 0; x < _gridSystem.width; x++)
         {   
-            for (int y = 0; y < gridSystem.height; y++)
+            for (int y = 0; y < _gridSystem.height; y++)
             {
                 SpawnTile(x, y);
             }
         }
-        
     }
 
     private void SpawnTile(int x, int y)
@@ -37,23 +45,13 @@ public class SpawnTiles : MonoBehaviour
         yield return new WaitForSeconds(spawnDelay);
         SpawnTile(x, y);
     }
-
-    /*private void SpawnTiless(int x, int y)
-    {
-        int randomIndex = Random.Range(0, tilePrefabs.Length);
-        Tile tilePrefab = tilePrefabs[randomIndex];
-        Vector2 spawnPosition = gridSystem.GetWorldPosition(x, y);
-        
-        GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, gridTransform);
-        newTile.name = $"Tile_{x}_{y}";
-    }*/
-
+    
     private void SpawnTileWithNoMatch(int x, int y)
     {
         Tile tilePrefab = GetRandomTileWithoutMatch(x, y);
-        Vector2 spawnPosition = gridSystem.GetWorldPosition(x, y);
+        Vector2 spawnPosition = _gridSystem.GetWorldPosition(x, y);
 
-        GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, gridTransform);
+        GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, _gridTransform);
         newTile.name = $"Tile_{x}_{y}";
     }
 
@@ -62,12 +60,12 @@ public class SpawnTiles : MonoBehaviour
         Tile selectedTile;
         int randomIndex = Random.Range(0, tilePrefabs.Length);
         selectedTile = tilePrefabs[randomIndex];
-        while (HasMatch(x, y, selectedTile)) 
+        int safety = 0;
+        while (HasMatch(x, y, selectedTile) || !_playabiltyChecker.BoardStillPlayable(x, y, selectedTile))
         {
             randomIndex = Random.Range(0, tilePrefabs.Length);
             selectedTile = tilePrefabs[randomIndex];
         }
-
         return selectedTile;
     }
 
@@ -78,7 +76,7 @@ public class SpawnTiles : MonoBehaviour
             GetTileTypeAtPosition(x - 2, y) == tile._tileData)
             return true;
 
-        if (x <= gridSystem.width - 3 && GetTileTypeAtPosition(x + 1, y) == tile._tileData &&
+        if (x <= _gridSystem.width - 3 && GetTileTypeAtPosition(x + 1, y) == tile._tileData &&
             GetTileTypeAtPosition(x + 2, y) == tile._tileData)
             return true;
 
@@ -87,7 +85,7 @@ public class SpawnTiles : MonoBehaviour
             GetTileTypeAtPosition(x, y - 2) == tile._tileData)
             return true;
 
-        if (y <= gridSystem.height - 3 && GetTileTypeAtPosition(x, y + 1) == tile._tileData &&
+        if (y <= _gridSystem.height - 3 && GetTileTypeAtPosition(x, y + 1) == tile._tileData &&
             GetTileTypeAtPosition(x, y + 2) == tile._tileData)
             return true;
 
@@ -96,7 +94,7 @@ public class SpawnTiles : MonoBehaviour
     
     private ScriptableObject GetTileTypeAtPosition(int x, int y)
     {
-        Vector2 worldPos = gridSystem.GetWorldPosition(x, y);
+        Vector2 worldPos = _gridSystem.GetWorldPosition(x, y);
         Collider[] hits = Physics.OverlapSphere(worldPos, 0.1f, LayerMask.GetMask("Tile"));
 
         if (hits.Length > 0)
