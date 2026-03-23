@@ -60,8 +60,10 @@ public class SpawnTiles : MonoBehaviour
         Tile selectedTile;
         int randomIndex = Random.Range(0, tilePrefabs.Length);
         selectedTile = tilePrefabs[randomIndex];
-        int safety = 0;
-        while (HasMatch(x, y, selectedTile) || !_playabiltyChecker.BoardStillPlayable(x, y, selectedTile))
+
+        bool checkPlayabilty = (x * _gridSystem.height + y) >= (_gridSystem.width * _gridSystem.height) - 1;
+
+        while (HasMatch(x, y, selectedTile) || ( checkPlayabilty && !_playabiltyChecker.BoardStillPlayable(x, y, selectedTile)))
         {
             randomIndex = Random.Range(0, tilePrefabs.Length);
             selectedTile = tilePrefabs[randomIndex];
