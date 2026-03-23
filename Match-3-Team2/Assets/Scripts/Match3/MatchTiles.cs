@@ -9,23 +9,18 @@ public class MatchTiles : MonoBehaviour
     private SwapTiles _swapTiles;
     
     private bool _isSwapping = false;
+
+    private PlayabiltyChecker _playabiltyChecker;
     
     private void Start()
     {
         _gridSystem = GetComponent<GridSystem>();
+        _playabiltyChecker = GetComponent<PlayabiltyChecker>();
     }
 
     public void TriggerMatchCheck()
     {
         CheckForMatches();
-    }
-    
-    private void Update()
-    {
-        if (!_isSwapping)
-        {
-            CheckForMatches();
-        }
     }
     
     List<Vector2Int> GetMatchingTiles()
@@ -110,8 +105,6 @@ public class MatchTiles : MonoBehaviour
             ClearMatches(matchingTiles);
         }
     }
-
-    
     
     // This function is to remove the missing Reference
     public void SetSwappingState(bool swapping)
