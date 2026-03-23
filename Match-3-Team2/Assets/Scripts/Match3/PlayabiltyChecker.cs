@@ -15,19 +15,26 @@ public class PlayabiltyChecker : MonoBehaviour
 
     public bool BoardStillPlayable(int x, int y, Tile candidate)
     {
-        TileSO[,] grid = BuildGridWith(x, y, candidate._tileData);
+        TileSO[,] grid;
 
-        for (int gx = 0; gx < _gridSystem.width; gx++)
+        if (candidate == null)
+            grid = BuildCurrentGrid();
+
+        else
+            grid = BuildGridWith(x, y, candidate._tileData);
+
+            for (int gx = 0; gx < _gridSystem.width; gx++)
         {
             for (int gy = 0; gy < _gridSystem.height; gy++)
             {
+                // check horizontal swap
                 if (gx + 1 < _gridSystem.width)
                 {
                     Swap(grid, gx, gy, gx + 1, gy);
                     if (GridHasMatch(grid)) { Swap(grid, gx, gy, gx + 1, gy); return true; }
                     Swap(grid, gx, gy, gx + 1, gy);
                 }
-                
+                //check vertical swap
                 if (gy + 1 < _gridSystem.height)
                 {
                     Swap(grid, gx, gy, gx, gy + 1);
@@ -36,10 +43,25 @@ public class PlayabiltyChecker : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Geen geldige zet gevonden voor kandidaat tile!");
+        Debug.Log("Geen geldige zet gevonden → DEADLOCK");
         return false;
     }
     
+    private TileSO[,] BuildCurrentGrid()
+    {
+        TileSO[,] grid = new TileSO[_gridSystem.width, _gridSystem.height];
+
+        for (int x = 0; x < _gridSystem.width; x++)
+        {
+            for (int y = 0; y < _gridSystem.height; y++)
+            {
+                grid[x, y] = GetTypeAt(x, y);
+            }
+        }
+
+        return grid;
+    }
+
     private TileSO[,] BuildGridWith(int cx, int cy, TileSO candidateData)
     {
         TileSO[,] grid = new TileSO[_gridSystem.width, _gridSystem.height];

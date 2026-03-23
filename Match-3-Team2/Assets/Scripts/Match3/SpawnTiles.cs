@@ -22,6 +22,7 @@ public class SpawnTiles : MonoBehaviour
     private void Start()
     {
         SpawnInitialTiles();
+        StartCoroutine(CheckBoardPlayable());
     }
 
     private void SpawnInitialTiles()
@@ -32,6 +33,32 @@ public class SpawnTiles : MonoBehaviour
             {
                 SpawnTile(x, y);
             }
+        }
+
+        StartCoroutine(CheckBoardPlayable());
+    }
+
+    IEnumerator CheckBoardPlayable()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (!_playabiltyChecker.BoardStillPlayable(0, 0, null))
+        {
+            Debug.Log("Deadlock detected → respawning");
+
+            ClearBoard();
+            
+            SpawnInitialTiles();
+        }
+    }
+
+    private void ClearBoard()
+    {
+        Tile[] tiles = FindObjectsOfType<Tile>();
+
+        foreach (Tile t in tiles)
+        {
+            Destroy(t.gameObject);
         }
     }
 
@@ -44,6 +71,9 @@ public class SpawnTiles : MonoBehaviour
     {
         yield return new WaitForSeconds(spawnDelay);
         SpawnTile(x, y);
+
+        yield return new WaitForSeconds(0.05f);
+        GetComponent<MatchTiles>().TriggerMatchCheck();
     }
     
     private void SpawnTileWithNoMatch(int x, int y)
@@ -60,10 +90,8 @@ public class SpawnTiles : MonoBehaviour
         Tile selectedTile;
         int randomIndex = Random.Range(0, tilePrefabs.Length);
         selectedTile = tilePrefabs[randomIndex];
-
-        bool checkPlayabilty = (x * _gridSystem.height + y) >= (_gridSystem.width * _gridSystem.height) - 1;
-
-        while (HasMatch(x, y, selectedTile) || ( checkPlayabilty && !_playabiltyChecker.BoardStillPlayable(x, y, selectedTile)))
+        
+        while (HasMatch(x, y, selectedTile))
         {
             randomIndex = Random.Range(0, tilePrefabs.Length);
             selectedTile = tilePrefabs[randomIndex];

@@ -20,7 +20,7 @@ public class MatchTiles : MonoBehaviour
 
     public void TriggerMatchCheck()
     {
-        CheckForMatches();
+        StartCoroutine(CheckForMatchesRoutine());
     }
     
     List<Vector2Int> GetMatchingTiles()
@@ -97,12 +97,18 @@ public class MatchTiles : MonoBehaviour
         }
     }
     
-    public void CheckForMatches()
+    private IEnumerator CheckForMatchesRoutine()
     {
-        List<Vector2Int> matchingTiles = GetMatchingTiles();
-        if (matchingTiles.Count >= 3)
+        while (true)
         {
+            List<Vector2Int> matchingTiles = GetMatchingTiles();
+            if (matchingTiles.Count < 3)
+            {
+             yield break;   
+            }
             ClearMatches(matchingTiles);
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
     
