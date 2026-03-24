@@ -1,143 +1,106 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class MatchTiles : MonoBehaviour
 {
     private GridSystem _gridSystem;
-    private SwapTiles _swapTiles;
-    
-    private bool _isSwapping = false;
-    
+    private TileGravity _tileGravity;
+    private SpawnTiles _spawnTiles;
+    private bool _isSwapping;
     private void Start()
     {
         _gridSystem = GetComponent<GridSystem>();
+        _tileGravity = GetComponent<TileGravity>();
+        _spawnTiles = GetComponent<SpawnTiles>();
     }
-
-    public void TriggerMatchCheck()
+    
+    public void TriggerMatchCheck() => CheckForMatches();
+    public void SetSwappingState(bool swapping) => _isSwapping = swapping;
+    public bool HasMatches() => GetMatchingTiles().Count >= 3;
+    
+    private List<Vector2Int> GetMatchingTiles()
     {
-        CheckForMatches();
-    }
-    List<Vector2Int> GetMatchingTiles()
-    {
-        HashSet<Vector2Int> matchingTiles = new();
+        HashSet<Vector2Int> matches = new();
 
-        // Check Horizontal Matches
+        // Horizontal
         for (int y = 0; y < _gridSystem.height; y++)
         {
             for (int x = 0; x < _gridSystem.width - 2; x++)
             {
-                var tileA = GetTileAtPosition(x, y);
-                var tileB = GetTileAtPosition(x + 1, y);
-                var tileC = GetTileAtPosition(x + 2, y);
+                Tile a = _tileGravity.GetTileAt(x,     y);
+                Tile b = _tileGravity.GetTileAt(x + 1, y);
+                Tile c = _tileGravity.GetTileAt(x + 2, y);
 
-                if (tileA != null && tileB != null && tileC != null)
+                if (a != null && b != null && c != null &&
+                    a._tileData == b._tileData && b._tileData == c._tileData)
                 {
-                    if (tileA._tileData == tileB._tileData && tileB._tileData == tileC._tileData)
-                    {
-                        matchingTiles.Add(new Vector2Int(x, y));
-                        matchingTiles.Add(new Vector2Int(x + 1, y));
-                        matchingTiles.Add(new Vector2Int(x + 2, y));
-                    }
+                    matches.Add(new Vector2Int(x,     y));
+                    matches.Add(new Vector2Int(x + 1, y));
+                    matches.Add(new Vector2Int(x + 2, y));
                 }
             }
         }
 
-        // Check Vertical Matches
+        // Vertical
         for (int x = 0; x < _gridSystem.width; x++)
         {
             for (int y = 0; y < _gridSystem.height - 2; y++)
             {
-                var tileA = GetTileAtPosition(x, y);
-                var tileB = GetTileAtPosition(x, y + 1);
-                var tileC = GetTileAtPosition(x, y + 2);
+                Tile a = _tileGravity.GetTileAt(x, y);
+                Tile b = _tileGravity.GetTileAt(x, y + 1);
+                Tile c = _tileGravity.GetTileAt(x, y + 2);
 
-                if (tileA != null && tileB != null && tileC != null)
+                if (a != null && b != null && c != null &&
+                    a._tileData == b._tileData && b._tileData == c._tileData)
                 {
-                    if (tileA._tileData == tileB._tileData && tileB._tileData == tileC._tileData)
-                    {
-                        matchingTiles.Add(new Vector2Int(x, y));
-                        matchingTiles.Add(new Vector2Int(x, y + 1));
-                        matchingTiles.Add(new Vector2Int(x, y + 2));
-                    }
+                    matches.Add(new Vector2Int(x, y));
+                    matches.Add(new Vector2Int(x, y + 1));
+                    matches.Add(new Vector2Int(x, y + 2));
                 }
             }
         }
-        return new List<Vector2Int>(matchingTiles);
-    }
 
-    private Tile GetTileAtPosition(int i, int tilePosY)
-    {
-        Vector2 worldPos = _gridSystem.GetWorldPosition(i, tilePosY);
-        Collider[] hits = Physics.OverlapBox(worldPos, Vector3.one * 0.4f, Quaternion.identity, LayerMask.GetMask("Tile"));
-    
-        if (hits.Length > 0)
-        {
-            return hits[0].GetComponent<Tile>();
-        }
-        return null;
-    }
-    
-    private void ClearMatches(List<Vector2Int> matchingTiles)
-    {
-        foreach (Vector2Int pos in matchingTiles)
-        {
-            Tile tileToDestroy = GetTileAtPosition(pos.x, pos.y);
-            if (tileToDestroy != null)
-            {
-                tileToDestroy.DestroyTile();
-                SpawnTiles spawnTiles = GetComponent<SpawnTiles>();
-                StartCoroutine(spawnTiles.SpawnTileWithDelay(pos.x, pos.y));
-            }
-        }
-        
-        TileGravity tileGravity = GetComponent<TileGravity>();
-        if (tileGravity != null)
-        {
-            StartCoroutine(AutoCheckMatches());
-        }
-    }
-    
-    private IEnumerator AutoCheckMatches()
-    {
-        // Wait for destroyed tiles to fully disappear and spawns to complete
-        // spawnDelay = 0.3f, so wait a bit longer to be safe
-        yield return new WaitForSeconds(0.8f);
-        
-        TileGravity tileGravity = GetComponent<TileGravity>();
-        
-        tileGravity.ClearDestroyedTiles();
-        
-        tileGravity.RefreshGravityGrid();
-        
-        yield return tileGravity.ApplyGravityContinuously();
-
-        yield return new WaitForSeconds(0.3f);
-        
-        // Auto-check for cascading matches
-        CheckForMatches();
+        return new List<Vector2Int>(matches);
     }
     
     public void CheckForMatches()
     {
-        List<Vector2Int> matchingTiles = GetMatchingTiles();
-        if (matchingTiles.Count >= 3)
-        {
-            ClearMatches(matchingTiles);
-        }
+        List<Vector2Int> matches = GetMatchingTiles();
+        Debug.Log($"CheckForMatches found {matches.Count} matching tiles");
+    
+        if (matches.Count >= 3)
+            StartCoroutine(ResolveMatches(matches));
     }
 
-    
-    
-    // This function is to remove the missing Reference
-    public void SetSwappingState(bool swapping)
+    private IEnumerator ResolveMatches(List<Vector2Int> matches)
     {
-        _isSwapping = swapping;
-    }
-    
-    public bool HasMatches()
-    {
-        return GetMatchingTiles().Count >= 3;
+        _tileGravity.SetPaused(true);
+
+        Dictionary<int, int> clearedPerColumn = new();
+        foreach (Vector2Int pos in matches)
+        {
+            if (!clearedPerColumn.ContainsKey(pos.x))
+                clearedPerColumn[pos.x] = 0;
+            clearedPerColumn[pos.x]++;
+        }
+
+        foreach (Vector2Int pos in matches)
+            _tileGravity.DestroyTileAt(pos.x, pos.y);
+        
+        // Drops existing tiles
+        yield return _tileGravity.ApplyGravityContinuously();
+        yield return _tileGravity.WaitForAnimations();
+
+        // Spawn the amount of tiles that got cleared
+        foreach (var kvp in clearedPerColumn)
+            yield return _spawnTiles.FillColumn(kvp.Key, kvp.Value);
+
+        _tileGravity.SetPaused(false);
+
+        yield return _tileGravity.WaitForAnimations();
+        yield return new WaitForSeconds(0.1f);
+
+        CheckForMatches();
     }
 }

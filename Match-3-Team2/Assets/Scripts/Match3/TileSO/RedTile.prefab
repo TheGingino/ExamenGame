@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6995660450644963070}
   - component: {fileID: 8839536790592388986}
   - component: {fileID: -7125892001769332707}
-  - component: {fileID: -5812646033128565201}
+  - component: {fileID: 1497905524886688286}
   m_Layer: 3
   m_Name: RedTile
   m_TagString: Tile
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: d0cac63b04ba5cc4a958c81e9a0ef1d2, type: 2}
---- !u!135 &-5812646033128565201
-SphereCollider:
+--- !u!65 &1497905524886688286
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,5 +118,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}

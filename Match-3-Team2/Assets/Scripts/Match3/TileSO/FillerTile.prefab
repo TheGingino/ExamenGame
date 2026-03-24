@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2839818777213605075}
   - component: {fileID: 149717146676612516}
   - component: {fileID: -1770126410870185199}
-  - component: {fileID: -8584361537970700225}
+  - component: {fileID: -667255044316500717}
   m_Layer: 3
   m_Name: FillerTile
   m_TagString: Tile
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: 4129602ba66ae64408f052b8972a9216, type: 2}
---- !u!135 &-8584361537970700225
-SphereCollider:
+--- !u!65 &-667255044316500717
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,5 +118,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Size: {x: 0.16, y: 0.16, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}

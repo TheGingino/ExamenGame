@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6995660450644963070}
   - component: {fileID: 4153610704082139253}
   - component: {fileID: 6357945004193999705}
-  - component: {fileID: 2182876440730575210}
+  - component: {fileID: 1585985477555014266}
   m_Layer: 3
   m_Name: GreenTile
   m_TagString: Tile
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: befc60de6695d1243b9f293210003a4b, type: 2}
---- !u!135 &2182876440730575210
-SphereCollider:
+--- !u!65 &1585985477555014266
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,5 +118,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}

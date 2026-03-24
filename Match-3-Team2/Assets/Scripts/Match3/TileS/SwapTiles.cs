@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SwapTiles : MonoBehaviour
 {
-
     [SerializeField] private float swapDistanceThreshold;
     
     private GameObject firstTile;
@@ -14,10 +13,15 @@ public class SwapTiles : MonoBehaviour
     private bool _inputDisabled = false;
     
     private MatchTiles _matchTiles;
+    private GridSystem _gridSystem;
+    private TileGravity _tileGravity;
     
     private void Start()
     {
         _matchTiles = GetComponent<MatchTiles>();
+        _gridSystem = GetComponent<GridSystem>();
+        _tileGravity = GetComponent<TileGravity>();
+        
         GameEvents.OnInputDisabled += () => _inputDisabled = true;
         GameEvents.OnInputEnabled += () => _inputDisabled = false;
     }
@@ -86,52 +90,67 @@ public class SwapTiles : MonoBehaviour
     private IEnumerator Swap()
     {
         isSwapping = true;
-        
-        //Added to remove MissingReference
         _matchTiles.SetSwappingState(true);
-        
-        //already existing logic
-        Vector3 firstPos = firstTile.transform.position;
+
+        // ── Cache everything at the START before anything can be destroyed ──
+        Vector3 firstPos  = firstTile.transform.position;
         Vector3 secondPos = secondTile.transform.position;
+        
+        Vector2Int gridPosA = _gridSystem.GetGridPosition(firstPos);
+        Vector2Int gridPosB = _gridSystem.GetGridPosition(secondPos);
+        
+        // Hold local refs so we don't rely on the fields staying valid
+        GameObject tileA = firstTile;
+        GameObject tileB = secondTile;
 
+        // ── Animate visual swap ──
         float swapDuration = 0.2f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < swapDuration)
+        float elapsed = 0f;
+        while (elapsed < swapDuration)
         {
-            firstTile.transform.position = Vector3.Lerp(firstPos, secondPos, elapsedTime / swapDuration);
-            secondTile.transform.position = Vector3.Lerp(secondPos, firstPos, elapsedTime / swapDuration);
-            elapsedTime += Time.deltaTime;
+            if (tileA == null || tileB == null) { isSwapping = false; ResetSelection(); yield break; }
+            tileA.transform.position = Vector3.Lerp(firstPos,  secondPos, elapsed / swapDuration);
+            tileB.transform.position = Vector3.Lerp(secondPos, firstPos,  elapsed / swapDuration);
+            elapsed += Time.deltaTime;
             yield return null;
         }
 
-        firstTile.transform.position = secondPos;
-        secondTile.transform.position = firstPos;
-        
+        if (tileA == null || tileB == null) { isSwapping = false; ResetSelection(); yield break; }
+        tileA.transform.position = secondPos;
+        tileB.transform.position = firstPos;
+
+        // ── Update _tileGrid to reflect the swap ──
+        Tile tileComponentA = _tileGravity._TileGrid[gridPosA.x, gridPosA.y];
+        Tile tileComponentB = _tileGravity._TileGrid[gridPosB.x, gridPosB.y];
+        _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = tileComponentB;
+        _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = tileComponentA;
+
+        // ── Check for matches against updated grid ──
         if (!_matchTiles.HasMatches())
         {
-            _matchTiles.SetSwappingState(true);
-
-            // Swap back if no match
-            elapsedTime = 0f;
-            while (elapsedTime < swapDuration)
+            // No match — swap back visually
+            elapsed = 0f;
+            while (elapsed < swapDuration)
             {
-                firstTile.transform.position = Vector3.Lerp(secondPos, firstPos, elapsedTime / swapDuration);
-                secondTile.transform.position = Vector3.Lerp(firstPos, secondPos, elapsedTime / swapDuration);
-                elapsedTime += Time.deltaTime;
+                if (tileA == null || tileB == null) break;
+                tileA.transform.position = Vector3.Lerp(secondPos, firstPos,  elapsed / swapDuration);
+                tileB.transform.position = Vector3.Lerp(firstPos,  secondPos, elapsed / swapDuration);
+                elapsed += Time.deltaTime;
                 yield return null;
             }
 
-            firstTile.transform.position = firstPos;
-            secondTile.transform.position = secondPos; 
-            
-            isSwapping = false;
-            ResetSelection();
-            
+            if (tileA != null) tileA.transform.position = firstPos;
+            if (tileB != null) tileB.transform.position = secondPos;
+
+            // Revert grid too
+            _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = tileComponentA;
+            _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = tileComponentB;
         }
+
         isSwapping = false;
+        _matchTiles.SetSwappingState(false);
         ResetSelection();
-        MatchCheck();  
+        MatchCheck();
     }
     
     private void DragTiles()

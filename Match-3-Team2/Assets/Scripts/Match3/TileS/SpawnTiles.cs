@@ -1,109 +1,87 @@
 using System.Collections;
 using UnityEngine;
+
 public class SpawnTiles : MonoBehaviour
 {
     [SerializeField] private Tile[] tilePrefabs;
-    [SerializeField] public float spawnDelay = 0.5f;
+    [SerializeField] public float spawnDelay = 0.1f;
 
-    GridSystem gridSystem;
-    private Transform gridTransform;
+    private GridSystem _gridSystem;
+    private TileGravity _tileGravity;
+    private Transform _gridTransform;
+
+    private void Awake()
+    {
+        _gridSystem   = GetComponent<GridSystem>();
+        _tileGravity  = GetComponent<TileGravity>();
+        _gridTransform = transform;
+    }
 
     private void Start()
     {
-        gridSystem = GetComponent<GridSystem>();
-        gridTransform = transform;
         SpawnInitialTiles();
     }
 
+    // Initial spawn — tiles go directly into their slots, no gravity needed
     private void SpawnInitialTiles()
     {
-        for (int x = 0; x < gridSystem.width; x++)
-        {   
-            for (int y = 0; y < gridSystem.height; y++)
-            {
-                SpawnTile(x, y);
-            }
-        }
-        
+        for (int x = 0; x < _gridSystem.width; x++)
+            for (int y = 0; y < _gridSystem.height; y++)
+                SpawnDirect(x, y);
     }
 
-    private void SpawnTile(int x, int y)
+    private void SpawnDirect(int x, int y)
     {
-        SpawnTileWithNoMatch(x,y);
-    }
+        Tile prefab = GetNonMatchingTile(x, y);
+        Vector2 pos = _gridSystem.GetWorldPosition(x, y);
+        GameObject obj = Instantiate(prefab.gameObject, pos, Quaternion.identity, _gridTransform);
+        obj.name = $"Tile-({x},{y})";
     
-    public IEnumerator SpawnTileWithDelay(int x, int y)
-    {
-        yield return new WaitForSeconds(spawnDelay);
-        SpawnTile(x, y);
-        GameEvents.BoardStable();
+        Tile tile = obj.GetComponent<Tile>();
+        _tileGravity.RegisterTile(x, y, tile);
+    
+        // Verify registration worked
+        Debug.Assert(_tileGravity.GetTileAt(x, y) != null, $"RegisterTile failed at ({x},{y})");
     }
 
-    /*private void SpawnTiless(int x, int y)
+    // Post-match spawn — enqueue above the grid, gravity pulls them down
+    public IEnumerator FillColumn(int col, int count)
     {
-        int randomIndex = Random.Range(0, tilePrefabs.Length);
-        Tile tilePrefab = tilePrefabs[randomIndex];
-        Vector2 spawnPosition = gridSystem.GetWorldPosition(x, y);
-        
-        GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, gridTransform);
-        newTile.name = $"Tile_{x}_{y}";
-    }*/
-
-    private void SpawnTileWithNoMatch(int x, int y)
-    {
-        Tile tilePrefab = GetRandomTileWithoutMatch(x, y);
-        Vector2 spawnPosition = gridSystem.GetWorldPosition(x, y);
-
-        GameObject newTile = Instantiate(tilePrefab.gameObject, spawnPosition, Quaternion.identity, gridTransform);
-        newTile.name = $"Tile_{x}_{y}";
-    }
-
-    private Tile GetRandomTileWithoutMatch(int x, int y)
-    {
-        Tile selectedTile;
-        int randomIndex = Random.Range(0, tilePrefabs.Length);
-        selectedTile = tilePrefabs[randomIndex];
-        while (HasMatch(x, y, selectedTile)) 
+        for (int i = 0; i < count; i++)
         {
-            randomIndex = Random.Range(0, tilePrefabs.Length);
-            selectedTile = tilePrefabs[randomIndex];
-        }
+            // Stack spawn positions above the grid top
+            Vector2 spawnPos = _gridSystem.GetWorldPosition(col, _gridSystem.height - 1);
+            spawnPos.y += _gridSystem.cellSize * (i + 1);
 
-        return selectedTile;
+            Tile prefab = GetNonMatchingTile(col, _gridSystem.height - 1);
+            GameObject obj = Instantiate(prefab.gameObject, spawnPos, Quaternion.identity, _gridTransform);
+            obj.name = $"Tile-pending-({col})";
+
+            _tileGravity.EnqueueTile(obj.GetComponent<Tile>(), col);
+
+            yield return new WaitForSeconds(spawnDelay);
+        }
     }
 
-    private bool HasMatch(int x, int y, Tile tile)
+    private Tile GetNonMatchingTile(int x, int y)
     {
-        // Checks horizontal match
-        if (x >= 2 && GetTileTypeAtPosition(x - 1, y) == tile._tileData &&
-            GetTileTypeAtPosition(x - 2, y) == tile._tileData)
-            return true;
+        Tile selected;
+        int attempts = 0;
+        do
+        {
+            selected = tilePrefabs[Random.Range(0, tilePrefabs.Length)];
+            attempts++;
+        } while (attempts < 100 && WouldMatch(x, y, selected));
+        return selected;
+    }
 
-        if (x <= gridSystem.width - 3 && GetTileTypeAtPosition(x + 1, y) == tile._tileData &&
-            GetTileTypeAtPosition(x + 2, y) == tile._tileData)
-            return true;
-
-        // Check vertical match
-        if (y >= 2 && GetTileTypeAtPosition(x, y - 1) == tile._tileData &&
-            GetTileTypeAtPosition(x, y - 2) == tile._tileData)
-            return true;
-
-        if (y <= gridSystem.height - 3 && GetTileTypeAtPosition(x, y + 1) == tile._tileData &&
-            GetTileTypeAtPosition(x, y + 2) == tile._tileData)
-            return true;
-
+    private bool WouldMatch(int x, int y, Tile tile)
+    {
+        var d = tile._tileData;
+        if (x >= 2 && _tileGravity.GetTileAt(x-1,y)?._tileData == d && _tileGravity.GetTileAt(x-2,y)?._tileData == d) return true;
+        if (x <= _gridSystem.width-3 && _tileGravity.GetTileAt(x+1,y)?._tileData == d && _tileGravity.GetTileAt(x+2,y)?._tileData == d) return true;
+        if (y >= 2 && _tileGravity.GetTileAt(x,y-1)?._tileData == d && _tileGravity.GetTileAt(x,y-2)?._tileData == d) return true;
+        if (y <= _gridSystem.height-3 && _tileGravity.GetTileAt(x,y+1)?._tileData == d && _tileGravity.GetTileAt(x,y+2)?._tileData == d) return true;
         return false;
-    }
-    
-    private ScriptableObject GetTileTypeAtPosition(int x, int y)
-    {
-        Vector2 worldPos = gridSystem.GetWorldPosition(x, y);
-        Collider[] hits = Physics.OverlapSphere(worldPos, 0.1f, LayerMask.GetMask("Tile"));
-
-        if (hits.Length > 0)
-        {
-            return hits[0].GetComponent<Tile>()?._tileData;
-        }
-        return null;
     }
 }
