@@ -388,7 +388,7 @@ MonoBehaviour:
   - {fileID: -5215352780821781348, guid: 54ef409f3841b1a449356ea4d5f6007c, type: 3}
   - {fileID: 4664232703172497821, guid: b1da0ac398892324e9937c3b56f88ef7, type: 3}
   - {fileID: -1770126410870185199, guid: 926d011d7dfa51245b2b257ed8f57c8a, type: 3}
-  spawnDelay: 0.5
+  spawnDelay: 1
 --- !u!114 &1639137991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,10 +438,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1639137987}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ed757591fbcda48be4d57b3870c954, type: 3}
+  m_Script: {fileID: 11500000, guid: 55d08131b998fd247b65af15a3bff047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallCheckInterval: 0.1
 --- !u!1 &1652891623
 GameObject:
   m_ObjectHideFlags: 0
