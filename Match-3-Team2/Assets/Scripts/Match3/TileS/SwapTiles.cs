@@ -39,7 +39,7 @@ public class SwapTiles : MonoBehaviour
 
     private void MoveTiles()
     {
-        if (isSwapping|| _inputDisabled) return;
+        if (isSwapping) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -176,7 +176,6 @@ public class SwapTiles : MonoBehaviour
         // Return tile if there is no match, otherwise destroy the tile and spawn new one
         _matchTiles.TriggerMatchCheck();
         _matchTiles.SetSwappingState(false);
-        GameEvents.BoardStable();
     }
 
     private void ResetSelection()
