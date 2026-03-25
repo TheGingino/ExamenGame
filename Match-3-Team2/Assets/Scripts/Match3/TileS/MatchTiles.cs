@@ -1,0 +1,106 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MatchTiles : MonoBehaviour
+{
+    private GridSystem _gridSystem;
+    private TileGravity _tileGravity;
+    private SpawnTiles _spawnTiles;
+    private bool _isSwapping;
+    private void Start()
+    {
+        _gridSystem = GetComponent<GridSystem>();
+        _tileGravity = GetComponent<TileGravity>();
+        _spawnTiles = GetComponent<SpawnTiles>();
+    }
+    
+    public void TriggerMatchCheck() => CheckForMatches();
+    public void SetSwappingState(bool swapping) => _isSwapping = swapping;
+    public bool HasMatches() => GetMatchingTiles().Count >= 3;
+    
+    private List<Vector2Int> GetMatchingTiles()
+    {
+        HashSet<Vector2Int> matches = new();
+
+        // Horizontal
+        for (int y = 0; y < _gridSystem.height; y++)
+        {
+            for (int x = 0; x < _gridSystem.width - 2; x++)
+            {
+                Tile a = _tileGravity.GetTileAt(x,     y);
+                Tile b = _tileGravity.GetTileAt(x + 1, y);
+                Tile c = _tileGravity.GetTileAt(x + 2, y);
+
+                if (a != null && b != null && c != null &&
+                    a._tileData == b._tileData && b._tileData == c._tileData)
+                {
+                    matches.Add(new Vector2Int(x,     y));
+                    matches.Add(new Vector2Int(x + 1, y));
+                    matches.Add(new Vector2Int(x + 2, y));
+                }
+            }
+        }
+
+        // Vertical
+        for (int x = 0; x < _gridSystem.width; x++)
+        {
+            for (int y = 0; y < _gridSystem.height - 2; y++)
+            {
+                Tile a = _tileGravity.GetTileAt(x, y);
+                Tile b = _tileGravity.GetTileAt(x, y + 1);
+                Tile c = _tileGravity.GetTileAt(x, y + 2);
+
+                if (a != null && b != null && c != null &&
+                    a._tileData == b._tileData && b._tileData == c._tileData)
+                {
+                    matches.Add(new Vector2Int(x, y));
+                    matches.Add(new Vector2Int(x, y + 1));
+                    matches.Add(new Vector2Int(x, y + 2));
+                }
+            }
+        }
+
+        return new List<Vector2Int>(matches);
+    }
+    
+    public void CheckForMatches()
+    {
+        List<Vector2Int> matches = GetMatchingTiles();
+        Debug.Log($"CheckForMatches found {matches.Count} matching tiles");
+    
+        if (matches.Count >= 3)
+            StartCoroutine(ResolveMatches(matches));
+    }
+
+    private IEnumerator ResolveMatches(List<Vector2Int> matches)
+    {
+        _tileGravity.SetPaused(true);
+
+        Dictionary<int, int> clearedPerColumn = new();
+        foreach (Vector2Int pos in matches)
+        {
+            if (!clearedPerColumn.ContainsKey(pos.x))
+                clearedPerColumn[pos.x] = 0;
+            clearedPerColumn[pos.x]++;
+        }
+
+        foreach (Vector2Int pos in matches)
+            _tileGravity.DestroyTileAt(pos.x, pos.y);
+        
+        // Drops existing tiles
+        yield return _tileGravity.ApplyGravityContinuously();
+        yield return _tileGravity.WaitForAnimations();
+
+        // Spawn the amount of tiles that got cleared
+        foreach (var kvp in clearedPerColumn)
+            yield return _spawnTiles.FillColumn(kvp.Key, kvp.Value);
+
+        _tileGravity.SetPaused(false);
+
+        yield return _tileGravity.WaitForAnimations();
+        yield return new WaitForSeconds(0.1f);
+
+        CheckForMatches();
+    }
+}

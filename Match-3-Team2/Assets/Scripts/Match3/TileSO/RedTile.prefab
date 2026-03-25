@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6995660450644963070}
   - component: {fileID: 8839536790592388986}
   - component: {fileID: -7125892001769332707}
-  - component: {fileID: -4666010884413459169}
+  - component: {fileID: 1497905524886688286}
   m_Layer: 3
   m_Name: RedTile
   m_TagString: Tile
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: d0cac63b04ba5cc4a958c81e9a0ef1d2, type: 2}
---- !u!65 &-4666010884413459169
+--- !u!65 &1497905524886688286
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
