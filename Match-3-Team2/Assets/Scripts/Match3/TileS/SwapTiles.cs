@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SwapTiles : MonoBehaviour
@@ -21,15 +19,6 @@ public class SwapTiles : MonoBehaviour
         _matchTiles = GetComponent<MatchTiles>();
         _gridSystem = GetComponent<GridSystem>();
         _tileGravity = GetComponent<TileGravity>();
-        
-        GameEvents.OnInputDisabled += () => _inputDisabled = true;
-        GameEvents.OnInputEnabled += () => _inputDisabled = false;
-    }
-
-    private void OnDestroy()
-    {
-        GameEvents.OnInputDisabled -= () => _inputDisabled = true;
-        GameEvents.OnInputEnabled -= () => _inputDisabled = false;
     }
 
     private void Update()
