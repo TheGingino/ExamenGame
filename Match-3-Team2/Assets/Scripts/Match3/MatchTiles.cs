@@ -6,28 +6,20 @@ using UnityEngine;
 public class MatchTiles : MonoBehaviour
 {
     private GridSystem _gridSystem;
-    private SwapTiles _swapTiles;
-    
-    private bool _isSwapping = false;
-    
+    private DeadlockPrevention _deadlock;
+
     private void Start()
     {
         _gridSystem = GetComponent<GridSystem>();
+        _deadlock = GetComponent<DeadlockPrevention>();
     }
 
     public void TriggerMatchCheck()
     {
         CheckForMatches();
+        _deadlock.TriggerDropAndRefill();
     }
-    
-    private void Update()
-    {
-        if (!_isSwapping)
-        {
-            CheckForMatches();
-        }
-    }
-    
+
     List<Vector2Int> GetMatchingTiles()
     {
         HashSet<Vector2Int> matchingTiles = new();
@@ -73,6 +65,7 @@ public class MatchTiles : MonoBehaviour
                 }
             }
         }
+
         return new List<Vector2Int>(matchingTiles);
     }
 
@@ -80,14 +73,15 @@ public class MatchTiles : MonoBehaviour
     {
         Vector2 worldPos = _gridSystem.GetWorldPosition(i, tilePosY);
         Collider[] hits = Physics.OverlapSphere(worldPos, 0.1f, LayerMask.GetMask("Tile"));
-    
+
         if (hits.Length > 0)
         {
             return hits[0].GetComponent<Tile>();
         }
+
         return null;
     }
-    
+
     private void ClearMatches(List<Vector2Int> matchingTiles)
     {
         foreach (Vector2Int pos in matchingTiles)
@@ -101,7 +95,7 @@ public class MatchTiles : MonoBehaviour
             }
         }
     }
-    
+
     public void CheckForMatches()
     {
         List<Vector2Int> matchingTiles = GetMatchingTiles();
@@ -111,16 +105,14 @@ public class MatchTiles : MonoBehaviour
         }
     }
 
-    
-    
-    // This function is to remove the missing Reference
-    public void SetSwappingState(bool swapping)
-    {
-        _isSwapping = swapping;
-    }
-    
     public bool HasMatches()
     {
         return GetMatchingTiles().Count >= 3;
+    }
+    
+    public void SetSwappingState(bool swapping)
+    {
+        if (swapping) _deadlock.TryBegin();
+        else _deadlock.End();
     }
 }

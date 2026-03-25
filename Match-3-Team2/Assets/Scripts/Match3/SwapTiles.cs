@@ -102,8 +102,6 @@ public class SwapTiles : MonoBehaviour
         
         if (!_matchTiles.HasMatches())
         {
-            _matchTiles.SetSwappingState(true);
-
             // Swap back if no match
             elapsedTime = 0f;
             while (elapsedTime < swapDuration)
@@ -146,9 +144,8 @@ public class SwapTiles : MonoBehaviour
     
     private void MatchCheck()
     {
-        // Return tile if there is no match, otherwise destroy the tile and spawn new one
-        _matchTiles.TriggerMatchCheck();
         _matchTiles.SetSwappingState(false);
+        _matchTiles.TriggerMatchCheck();
     }
 
     private void ResetSelection()
