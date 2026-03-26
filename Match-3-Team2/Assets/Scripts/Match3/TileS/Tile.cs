@@ -10,16 +10,17 @@ public class Tile : MonoBehaviour
     //private SpriteRenderer spriteRenderer;
     bool canBeSwapped = true;
     
-    public void SetType(TileSO newTileData)
-    {
-        tileData = newTileData;
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null && tileData.tileSprite != null)
-        {
-            spriteRenderer.sprite = tileData.tileSprite;
-        }
-    }
     public TileSO _tileData => tileData;
+    
+     public void SetType(TileSO newTileData)
+     {
+         tileData = newTileData;
+         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+         if (spriteRenderer != null && tileData.tileSprite != null) 
+         {
+             spriteRenderer.sprite = tileData.tileSprite;
+         }
+     }
     private void Start()
     {
         if (tileData == null)
