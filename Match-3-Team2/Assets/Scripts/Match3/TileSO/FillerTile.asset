@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0112f8d5bd8bbc14a8bbaabe8ae577ca, type: 3}
   m_Name: FillerTile
   m_EditorClassIdentifier: 
+  HealAmount: 0
+  DamageAmount: 0
+  ShieldAmount: 0
+  specialAttackAmount: 0
   tileSprite: {fileID: 0}
-  tileType: 4
+  tileType: 0

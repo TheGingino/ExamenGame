@@ -6,6 +6,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Tile", menuName = "Match3/Tile")]
 public class TileSO : ScriptableObject
 {
+    [Header("Combat Values")] 
+    public int HealAmount;
+    public int DamageAmount;
+    public int ShieldAmount;
+    public int specialAttackAmount;
+
+    [Header("Sprite and Tiletype")]
     public Sprite tileSprite;
     public TileType tileType;
 
@@ -23,9 +30,9 @@ public class TileSO : ScriptableObject
 }
 public enum TileType
 {
-    RED,
-    GREEN,
-    BLUE,
-    YELLOW,
-    FILLER
+    Normal,
+    Heal,
+    Shield, 
+    Damage,
+    Special,
 }
