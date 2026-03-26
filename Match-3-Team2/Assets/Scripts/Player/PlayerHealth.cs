@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
 
     [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private PlayerShield _playerShield;
 
     private bool hasWon = false;
     private bool hasLost = false;
@@ -19,15 +20,23 @@ public class PlayerHealth : MonoBehaviour
         _healthBar.SetMaxHealth(maxHealth);
     }
 
-  public void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (currentHealth <= 0)
             return;
-        
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(currentHealth, 0);
+
+        if (_playerShield.shieldAmmount > 0)
+        {
+            int remainingDamage = _playerShield.TakeDamage(damage);
+
+            if (remainingDamage <= 0)
+                return;
+
+            damage = remainingDamage;
+        }
+
+        currentHealth = Mathf.Max(currentHealth - damage, 0);
         _healthBar.SetHealth(currentHealth);
-        Debug.Log(currentHealth);
         CheckState();
     }
     

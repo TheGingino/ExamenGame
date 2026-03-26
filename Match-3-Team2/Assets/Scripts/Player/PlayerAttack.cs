@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
    [SerializeField] int _attackDamage;
-
+   [SerializeField] int _specialAttackDamage;
    private EnemyHealth enemyHealth;
    private bool playerTurn;
 
@@ -17,13 +17,23 @@ public class PlayerAttack : MonoBehaviour
       if (Input.GetKeyDown(KeyCode.R))
       {
          DoDamage();
-         Debug.Log("DAMANGE");
+      }
+
+      if (Input.GetKeyDown(KeyCode.S))
+      {
+         SpecialAttack();
       }
    }
 
    void DoDamage()
    {
       enemyHealth.TakeDamage(_attackDamage);
+   }
+
+
+   void SpecialAttack()
+   {
+      enemyHealth.TakeDamage(_specialAttackDamage);
    }
    
 }

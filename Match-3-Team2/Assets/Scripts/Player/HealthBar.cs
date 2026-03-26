@@ -23,5 +23,10 @@ public class HealthBar : MonoBehaviour
     private void Update()
     {
         slider.value = Mathf.Lerp(slider.value, targetValue, Time.deltaTime * smoothSpeed);
+
+        if (Mathf.Abs(slider.value - targetValue) < 0.1f)
+        {
+            slider.value = targetValue;
+        }
     }
 }
