@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6995660450644963070}
   - component: {fileID: 1038291156518545156}
   - component: {fileID: -5215352780821781348}
-  - component: {fileID: -5158146010330118975}
+  - component: {fileID: -5024578204090199671}
   m_Layer: 3
   m_Name: BlueTile
   m_TagString: Tile
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: 6e211ed88a82d7845a60bf7f7da6abe7, type: 2}
---- !u!65 &-5158146010330118975
+--- !u!65 &-5024578204090199671
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
