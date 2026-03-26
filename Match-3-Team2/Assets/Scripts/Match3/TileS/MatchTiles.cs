@@ -8,6 +8,7 @@ public class MatchTiles : MonoBehaviour
     private TileGravity _tileGravity;
     private SpawnTiles _spawnTiles;
     private bool _isSwapping;
+    
     private void Start()
     {
         _gridSystem = GetComponent<GridSystem>();
@@ -72,11 +73,38 @@ public class MatchTiles : MonoBehaviour
         if (matches.Count >= 3)
             StartCoroutine(ResolveMatches(matches));
     }
-
-    private IEnumerator ResolveMatches(List<Vector2Int> matches)
+    
+    private IEnumerator ResolveMatches(List<Vector2Int>matches)
     {
         _tileGravity.SetPaused(true);
+        
+        int totalHeal = 0;
+        int totalDamage = 0; // <- attack but the value is the damage
+        int totalShield = 0;
+        int totalSpecial = 0;
 
+        foreach (Vector2Int pos in matches)
+        {
+            Tile tile = _tileGravity.GetTileAt(pos.x, pos.y);
+            if(tile == null) continue;
+
+            switch (tile._tileData.tileType)
+            {
+                case TileType.Heal: totalHeal += tile._tileData.HealAmount; break; 
+                case TileType.Damage: totalDamage += tile._tileData.DamageAmount; break;
+                case TileType.Shield: totalShield += tile._tileData.ShieldAmount; break;
+                case TileType.Special: totalSpecial += tile._tileData.specialAttackAmount; break;
+            }
+        }
+        Debug.Log($"[MatchTiles] Totalen — Heal: {totalHeal}, Damage: {totalDamage}, Shield: {totalShield}, Special: {totalSpecial}");
+        
+        // Feed totals into the meters
+        if (totalHeal    > 0) CombatMeter.Instance.Add(TileType.Heal,    totalHeal);
+        if (totalDamage  > 0) CombatMeter.Instance.Add(TileType.Damage,  totalDamage);
+        if (totalShield   > 0) CombatMeter.Instance.Add(TileType.Shield,  totalShield);
+        if (totalSpecial > 0) CombatMeter.Instance.Add(TileType.Special, totalSpecial);
+
+        // Track cleared tiles per column for respawning
         Dictionary<int, int> clearedPerColumn = new();
         foreach (Vector2Int pos in matches)
         {
@@ -87,12 +115,10 @@ public class MatchTiles : MonoBehaviour
 
         foreach (Vector2Int pos in matches)
             _tileGravity.DestroyTileAt(pos.x, pos.y);
-        
-        // Drops existing tiles
+
         yield return _tileGravity.ApplyGravityContinuously();
         yield return _tileGravity.WaitForAnimations();
 
-        // Spawn the amount of tiles that got cleared
         foreach (var kvp in clearedPerColumn)
             yield return _spawnTiles.FillColumn(kvp.Key, kvp.Value);
 
