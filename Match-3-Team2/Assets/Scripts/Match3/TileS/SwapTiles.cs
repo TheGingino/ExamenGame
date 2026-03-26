@@ -13,12 +13,15 @@ public class SwapTiles : MonoBehaviour
     private MatchTiles _matchTiles;
     private GridSystem _gridSystem;
     private TileGravity _tileGravity;
-    
+
+    private TurnManager _turnManager;
+
     private void Start()
     {
         _matchTiles = GetComponent<MatchTiles>();
         _gridSystem = GetComponent<GridSystem>();
         _tileGravity = GetComponent<TileGravity>();
+        _turnManager = FindObjectOfType<TurnManager>();
     }
 
     private void Update()
@@ -28,7 +31,7 @@ public class SwapTiles : MonoBehaviour
 
     private void MoveTiles()
     {
-        if (isSwapping) return;
+        if (isSwapping || _inputDisabled) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -114,16 +117,19 @@ public class SwapTiles : MonoBehaviour
         _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = tileComponentB;
         _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = tileComponentA;
 
+        bool validSwap = false;
+
         // ── Check for matches against updated grid ──
         if (!_matchTiles.HasMatches())
         {
+            validSwap = false;
             // No match — swap back visually
             elapsed = 0f;
             while (elapsed < swapDuration)
             {
                 if (tileA == null || tileB == null) break;
-                tileA.transform.position = Vector3.Lerp(secondPos, firstPos,  elapsed / swapDuration);
-                tileB.transform.position = Vector3.Lerp(firstPos,  secondPos, elapsed / swapDuration);
+                tileA.transform.position = Vector3.Lerp(secondPos, firstPos, elapsed / swapDuration);
+                tileB.transform.position = Vector3.Lerp(firstPos, secondPos, elapsed / swapDuration);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
@@ -135,11 +141,22 @@ public class SwapTiles : MonoBehaviour
             _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = tileComponentA;
             _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = tileComponentB;
         }
+        else 
+            validSwap = true;
 
-        isSwapping = false;
+
+
+
+            isSwapping = false;
         _matchTiles.SetSwappingState(false);
         ResetSelection();
         MatchCheck();
+
+        // Register this as a turn action
+        if (validSwap && _turnManager != null)
+        {
+            _turnManager.RegisterSwap();
+        }
     }
     
     private void DragTiles()
@@ -171,5 +188,10 @@ public class SwapTiles : MonoBehaviour
     {
         firstTile = null;
         secondTile = null;
+    }
+
+    public void SetInputState(bool state)
+    {
+        _inputDisabled = !state;
     }
 }
