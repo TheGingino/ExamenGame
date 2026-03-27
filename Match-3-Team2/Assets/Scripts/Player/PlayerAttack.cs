@@ -25,7 +25,7 @@ public class PlayerAttack : MonoBehaviour
       }
    }
 
-   void DoDamage()
+   public void DoDamage()
    {
       if (CombatMeter.Instance.UseCharge(TileType.Damage))
       {
@@ -35,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
    }
 
 
-   void SpecialAttack()
+   public void SpecialAttack()
    {
       if (CombatMeter.Instance.UseCharge(TileType.Special))
       {
