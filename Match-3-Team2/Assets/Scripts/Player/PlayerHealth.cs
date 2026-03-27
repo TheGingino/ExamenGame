@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int _maxHealth;
-    [SerializeField] private int _healthToAdd;
+    [SerializeField] private int _healAmount;
     private int currentHealth;
 
     [SerializeField] private HealthBar _healthBar;
@@ -11,8 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
     private bool hasWon = false;
     private bool hasLost = false;
-
-
+    
     private void Start()
     {
         currentHealth = _maxHealth;
@@ -21,8 +20,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (currentHealth <= 0)
-            return;
+        if (currentHealth <= 0) return;
 
         if (_playerShield.shieldAmmount > 0)
         {
@@ -41,18 +39,22 @@ public class PlayerHealth : MonoBehaviour
     }
 
 
-    public void GainHealth()
+    public void Heal() // changed gainHealt to heal it was confusing for me srry
     {
-        currentHealth += _healthToAdd;
+        if (CombatMeter.Instance.UseCharge(TileType.Heal))
+        {
+            currentHealth = Mathf.Min(currentHealth + _healAmount, _maxHealth);
+            _healthBar.SetHealth(currentHealth);
+            Debug.Log("[PlayerHealth] Healed {_healAmount}. HP: {currentHealth}");
+        }
     }
-    
     
   public void CheckState()
     {
         if (currentHealth <= 0)
         {
             hasLost = true;
-            Debug.Log("LOST");
+            Debug.Log("[PlayerHealth] LOST");
         }
     }
 }

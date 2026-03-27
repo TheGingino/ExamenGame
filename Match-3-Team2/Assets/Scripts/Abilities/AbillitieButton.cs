@@ -59,7 +59,7 @@ public class AbillitieButton : MonoBehaviour
                 break;
 
             case TileType.Heal:
-                FindObjectOfType<PlayerHealth>().GainHealth();
+                FindObjectOfType<PlayerHealth>().Heal();
                 break;
 
             case TileType.Shield:
