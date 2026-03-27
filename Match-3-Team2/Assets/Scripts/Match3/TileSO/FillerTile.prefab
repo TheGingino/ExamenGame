@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2839818777213605075}
   - component: {fileID: 149717146676612516}
   - component: {fileID: -1770126410870185199}
-  - component: {fileID: 4199319724628662526}
+  - component: {fileID: -667255044316500717}
   m_Layer: 3
   m_Name: FillerTile
   m_TagString: Tile
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1223321713616030574}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.829576, y: -9.077113, z: 18.161526}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: 4129602ba66ae64408f052b8972a9216, type: 2}
---- !u!65 &4199319724628662526
+--- !u!65 &-667255044316500717
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
