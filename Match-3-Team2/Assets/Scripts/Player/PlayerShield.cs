@@ -4,16 +4,25 @@ using UnityEngine;
 public class PlayerShield : MonoBehaviour
 {
    public int shieldAmmount { get; private set; }
-   private int shieldToAdd;
+   [SerializeField] private int _shieldToAdd;
 
    private void Start()
    {
       shieldAmmount= 0;
    }
 
-  private void GainShield()
+   private void Update()
+   {
+      if (Input.GetKeyDown(KeyCode.A))
+      {
+         GainShield();
+      }
+   }
+
+   public void GainShield()
   {
-     shieldAmmount += shieldToAdd;
+     shieldAmmount += _shieldToAdd;
+     Debug.Log(shieldAmmount);
   }
   
   public int TakeDamage(int damage)

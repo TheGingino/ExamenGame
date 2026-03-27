@@ -29,6 +29,7 @@ public class EnemyAttack : MonoBehaviour
         else if (roll < 75) damage = 2; // 25%
         else if (roll < 90) damage = 3; // 15%
         else damage = 4;                // 10%
+        Debug.Log( "damage" + damage);
         playerHealth.TakeDamage(damage);
     }
 }

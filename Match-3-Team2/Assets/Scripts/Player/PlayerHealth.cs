@@ -1,10 +1,9 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int maxHealth;
+    [SerializeField] private int _maxHealth;
+    [SerializeField] private int _healthToAdd;
     private int currentHealth;
 
     [SerializeField] private HealthBar _healthBar;
@@ -16,8 +15,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = maxHealth;
-        _healthBar.SetMaxHealth(maxHealth);
+        currentHealth = _maxHealth;
+        _healthBar.SetMaxHealth(_maxHealth);
     }
 
     public void TakeDamage(int damage)
@@ -37,8 +36,16 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth = Mathf.Max(currentHealth - damage, 0);
         _healthBar.SetHealth(currentHealth);
+        Debug.Log(currentHealth  + " current health");
         CheckState();
     }
+
+
+    public void GainHealth()
+    {
+        currentHealth += _healthToAdd;
+    }
+    
     
   public void CheckState()
     {
