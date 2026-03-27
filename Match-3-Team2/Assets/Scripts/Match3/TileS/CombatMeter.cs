@@ -3,6 +3,7 @@ using UnityEngine;
 public class CombatMeter : MonoBehaviour
 {
    public static CombatMeter Instance { get; private set; }
+   public System.Action<TileType> OnMeterFull;
 
    [Header("Meter Max Value")] 
    public int healMax = 100;
@@ -10,10 +11,10 @@ public class CombatMeter : MonoBehaviour
    public int shieldMax = 100;
    public int specialMax = 100;
    
-   private int _healCurrent;
-   private int _damageCurrent;
-   private int _shieldCurrent;
-   private int _specialCurrent;
+   private int healCurrent;
+   private int damageCurrent;
+   private int shieldCurrent;
+   private int specialCurrent;
 
    private void Awake()
    {
@@ -25,10 +26,10 @@ public class CombatMeter : MonoBehaviour
    {
       switch (type)
       {
-         case TileType.Heal: AddToMeter(ref _healCurrent, healMax, amount, "Heal"); break;
-         case TileType.Damage: AddToMeter(ref _damageCurrent, damageMax, amount, "Damage"); break;
-         case TileType.Shield: AddToMeter(ref _shieldCurrent, shieldMax, amount, "Shield"); break;
-         case TileType.Special: AddToMeter(ref _specialCurrent, specialMax, amount, "Special"); break;
+         case TileType.Heal: AddToMeter(ref healCurrent, healMax, amount, "Heal"); break;
+         case TileType.Damage: AddToMeter(ref damageCurrent, damageMax, amount, "Damage"); break;
+         case TileType.Shield: AddToMeter(ref shieldCurrent, shieldMax, amount, "Shield"); break;
+         case TileType.Special: AddToMeter(ref specialMax, specialMax, amount, "Special"); break;
       }  
    }
 
@@ -39,14 +40,18 @@ public class CombatMeter : MonoBehaviour
       if (current >= max)
       {
          Debug.Log($"[CombatMeter] {label} VOL — effect triggered! Reset naar 0");
-         current = 0;
-         // TODO: trigger effect once PlayerStats / EnemyStats exist
-         // PlayerStats.Instance.Heal(healMax);
+         //current = 0;
+         OnMeterFull?.Invoke(GetTileType(label));
       }
    }
+   
+   TileType GetTileType(string label)
+   {
+      return (TileType)System.Enum.Parse(typeof(TileType), label);
+   }
 
-   public int HealCurrent => _healCurrent;
-   public int DamageCurrent => _damageCurrent;
-   public int ShieldCurrent => _shieldCurrent;
-   public int SpecialCurrent => _specialCurrent;
+   public int HealCurrent => healCurrent;
+   public int DamageCurrent => damageCurrent;
+   public int ShieldCurrent => shieldCurrent;
+   public int SpecialCurrent => specialMax;
 }
