@@ -19,7 +19,7 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    void DoDamage()
+   public void DoDamage()
     {
         int roll = Random.Range(0, 100);
 

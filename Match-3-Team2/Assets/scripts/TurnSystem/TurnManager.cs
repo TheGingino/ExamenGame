@@ -9,6 +9,9 @@ public class TurnManager : MonoBehaviour
 
     public bool playerTurn = true;
 
+    [SerializeField] private int _waitTurnTime;
+    [SerializeField] private int _waitEnemyTurnTime;
+
     [Header("Enemy Turn Event")]
     public UnityEvent OnEnemyTurn;
 
@@ -56,11 +59,11 @@ public class TurnManager : MonoBehaviour
 
     private System.Collections.IEnumerator EnemyTurnCoroutine()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(_waitEnemyTurnTime);
 
         OnEnemyTurn?.Invoke();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(_waitTurnTime);
 
         StartPlayerTurn(); // This resets swaps + UI
     }
