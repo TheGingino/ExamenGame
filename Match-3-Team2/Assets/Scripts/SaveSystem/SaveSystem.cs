@@ -16,6 +16,8 @@ public class SaveSystem : MonoBehaviour
             Debug.Log($"Loaded level progress: {levelProgress}");
             UpdateLevelButtons();
         }
+        
+        Application.targetFrameRate = 60;
     }
 
     private void UpdateLevelButtons()
