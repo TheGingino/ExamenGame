@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class UsableItem : MonoBehaviour
@@ -9,22 +6,19 @@ public abstract class UsableItem : MonoBehaviour
     [SerializeField] private Sprite itemIcon;
     [SerializeField] private int quantity;
     
-    [SerializeField] private Transform originalPosition;
-
-    public string ItemName => itemName;
-    public Sprite ItemIcon => itemIcon;
     public int Quantity => quantity;
     
     public virtual void Use()
     {
-        if (quantity <= 0) return;
-        quantity--;
+            if (quantity > 0)
+            {
+                quantity--;
+                Debug.Log($"Used {itemName}. Remaining quantity: {quantity}");
+            }
+            else
+            {
+                Debug.Log($"{itemName} is out of stock!");
+            }
     }
-
-    public virtual void OnDrag()
-    {
-        if (!Input.GetMouseButton(0)) return;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(mouseWorldPos.x, mouseWorldPos.y, transform.position.z);
-    }
+    
 }
