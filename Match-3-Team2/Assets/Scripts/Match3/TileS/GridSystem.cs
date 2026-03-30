@@ -6,7 +6,9 @@ public class GridSystem : MonoBehaviour
     public int width;
     public int height;
     public float cellSize;
-    private Vector3 originPosition = Vector3.zero;    
+    private Vector3 originPosition = Vector3.zero;
+
+    [SerializeField] private float gridOffset;
     private void Start()
     {
         CreateGrid();
@@ -34,7 +36,7 @@ public class GridSystem : MonoBehaviour
     {
         originPosition = new Vector3(
             -width * cellSize / 2 + cellSize / 2,
-            -height * cellSize / 2 + cellSize / 2,
+            -height * cellSize / 2 + cellSize / 2 + gridOffset,
             0);
         return new Vector2(originPosition.x + x * cellSize, originPosition.y + y * cellSize);
     }

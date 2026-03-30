@@ -26,11 +26,11 @@ public class LevelSelector : MonoBehaviour
             break;
 
             case "lvl4":
-                SceneManager.LoadScene("");
+                SceneManager.LoadScene("FinalLevel");
                 break;
 
             case "menu":
-                SceneManager.LoadScene("");
+                SceneManager.LoadScene("StartScreen");
                 break;
         }
     }
