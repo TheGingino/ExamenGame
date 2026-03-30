@@ -14,10 +14,7 @@ public class PlayerAttack : MonoBehaviour
    
    private void Update()
    {
-      if (Input.GetKeyDown(KeyCode.R))
-      {
-         DoDamage();
-      }
+     
 
       if (Input.GetKeyDown(KeyCode.S))
       {
@@ -27,21 +24,15 @@ public class PlayerAttack : MonoBehaviour
 
    public void DoDamage()
    {
-      if (CombatMeter.Instance.UseCharge(TileType.Damage))
-      {
-         enemyHealth.TakeDamage(_attackDamage);
-         Debug.Log("[PlayerAttack] Damage used! -{_attackDamage}");
-      }
+      enemyHealth.TakeDamage(_attackDamage);
+      Debug.Log("[PlayerAttack] Damage used! " + _attackDamage);
    }
 
 
    public void SpecialAttack()
    {
-      if (CombatMeter.Instance.UseCharge(TileType.Special))
-      {
          enemyHealth.TakeDamage(_specialAttackDamage);
          Debug.Log("[PlayerAttack] Special used! -{_specialAttackDamage}");
-      }
    }
    
 }

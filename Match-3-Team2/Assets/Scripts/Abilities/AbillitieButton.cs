@@ -18,44 +18,75 @@ public class AbillitieButton : MonoBehaviour
     {
         if (CombatMeter.Instance != null)
         {
-            CombatMeter.Instance.OnMeterFull += HandleMeterFull;
+            CombatMeter.Instance.OnChargeGained += HandleMeterFull;
+        }
+    }
+    
+    void Start()
+    {
+        if (CombatMeter.Instance != null)
+        {
+            CombatMeter.Instance.OnChargeGained += HandleMeterFull;
         }
     }
 
     private void OnDisable()
     {
-        CombatMeter.Instance.OnMeterFull -= HandleMeterFull;
+        CombatMeter.Instance.OnChargeGained -= HandleMeterFull;
     }
 
     void HandleMeterFull(TileType type)
     {
-        // Only react if it's THIS button's ability
+        Debug.Log($"[AbilityButton-{abilityType}] EVENT RECEIVED: {type}");
+
         if (type != abilityType) return;
 
-        Debug.Log($"[AbilityButton-{abilityType}] READY");
+        Debug.Log($"[AbilityButton-{abilityType}] Charge gained");
 
-        isReady = true;
-        button.interactable = true;
+        UpdateButtonState();
     }
 
     public void OnClick()
     {
-        if (!isReady) return;
+        Debug.Log($"[AbilityButton-{abilityType}] CLICKED");
+
+        if (!CombatMeter.Instance.UseCharge(abilityType))
+        {
+            Debug.Log($"[AbilityButton-{abilityType}] No charges available");
+            return;
+        }
 
         Debug.Log($"[AbilityButton-{abilityType}] USED");
 
         ExecuteAbility();
 
-        isReady = false;
-        button.interactable = false;
+        // Update interactable state AFTER using charge
+        UpdateButtonState();
+    }
+    
+    void UpdateButtonState()
+    {
+        int charges = 0;
+
+        switch (abilityType)
+        {
+            case TileType.Heal: charges = CombatMeter.Instance.HealCharges; break;
+            case TileType.Damage: charges = CombatMeter.Instance.DamageCharges; break;
+            case TileType.Shield: charges = CombatMeter.Instance.ShieldCharges; break;
+            case TileType.Special: charges = CombatMeter.Instance.SpecialCharges; break;
+        }
+
+        button.interactable = charges > 0;
     }
 
     void ExecuteAbility()
     {
+        Debug.Log("Execute");
+        
         switch (abilityType)
         {
             case TileType.Damage:
-                FindObjectOfType<EnemyHealth>().TakeDamage(5);
+                FindObjectOfType<PlayerAttack>().DoDamage();
                 break;
 
             case TileType.Heal:

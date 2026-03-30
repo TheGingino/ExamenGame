@@ -21,11 +21,8 @@ public class PlayerShield : MonoBehaviour
 
    public void GainShield()
   {
-     if (CombatMeter.Instance.UseCharge(TileType.Shield))
-     {
         shieldAmmount += _shieldToAdd;
              Debug.Log("[PlayerShield] Shield: {shieldAmmount}");
-     }
   }
   
   public int TakeDamage(int damage)
