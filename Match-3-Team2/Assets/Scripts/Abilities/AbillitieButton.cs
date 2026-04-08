@@ -81,8 +81,6 @@ public class AbillitieButton : MonoBehaviour
 
     void ExecuteAbility()
     {
-        Debug.Log("Execute");
-        
         switch (abilityType)
         {
             case TileType.Damage:
