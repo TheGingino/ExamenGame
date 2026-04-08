@@ -98,7 +98,7 @@ public class AbillitieButton : MonoBehaviour
                 break;
 
             case TileType.Special:
-                Debug.Log("Special not implemented");
+                FindObjectOfType<PlayerAttack>().SpecialAttack();
                 break;
         }
     }
