@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private PlayerShield _playerShield;
 
+
+    private GameEndManager _gameEndManager;
     private bool hasWon = false;
     private bool hasLost = false;
     
@@ -16,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = _maxHealth;
         _healthBar.SetMaxHealth(_maxHealth);
+        _gameEndManager = FindObjectOfType<GameEndManager>();
     }
 
     public void TakeDamage(int damage)
@@ -51,7 +54,12 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             hasLost = true;
-            Debug.Log("[PlayerHealth] LOST");
+            Debug.Log("LOST");
+
+            if (_gameEndManager != null)
+            {
+                _gameEndManager.Lose();
+            }
         }
     }
 }
