@@ -14,6 +14,7 @@ public class TileGravity : MonoBehaviour
 
     // Tiles waiting above the grid to fall in
     private readonly List<PendingTile> _pendingTiles = new();
+    private Coroutine _immediateCoroutine; // handle for immediate gravity coroutine
 
     private struct PendingTile
     {
@@ -44,13 +45,20 @@ public class TileGravity : MonoBehaviour
     
     public void EnqueueTile(Tile tile, int column)
     {
+        if (tile == null) return;
+
         _pendingTiles.Add(new PendingTile { tile = tile, column = column });
     
-        StopCoroutine(ImmediateGravityPulse());
-        StartCoroutine(ImmediateGravityPulse());
+        // Ensure only one ImmediateGravity coroutine is running at a time
+        if (_immediateCoroutine != null)
+        {
+            StopCoroutine(_immediateCoroutine);
+            _immediateCoroutine = null;
+        }
+        _immediateCoroutine = StartCoroutine(ImmediateGravity());
     }
 
-    private IEnumerator ImmediateGravityPulse()
+    private IEnumerator ImmediateGravity()
     {
         bool _moved = true;
         while (_moved || _pendingTiles.Count > 0)
@@ -58,6 +66,9 @@ public class TileGravity : MonoBehaviour
             _moved = ApplyGravityOnce();
             yield return new WaitForSeconds(fallCheckInterval);
         }
+
+        // mark immediate coroutine as finished
+        _immediateCoroutine = null;
     }
 
     public Tile GetTileAt(int x, int y)
@@ -85,10 +96,15 @@ public class TileGravity : MonoBehaviour
 
     public IEnumerator ApplyGravityContinuously()
     {
+        // clean up any destroyed references first
+        PurgeDestroyedTiles();
+
         bool moved = true;
         while (moved || _pendingTiles.Count > 0)
         {
             moved = ApplyGravityOnce();
+            // after a pass, purge any destroyed references that may have been left behind
+            PurgeDestroyedTiles();
             yield return new WaitForSeconds(fallCheckInterval);
         }
         // Final wait for animations to visually complete
@@ -111,6 +127,9 @@ public class TileGravity : MonoBehaviour
     {
         _isApplying = true;
         bool anyMoved = false;
+
+        // Make sure destroyed objects are removed from the grid references
+        PurgeDestroyedTiles();
 
         for (int y = 0; y < _gridSystem.height - 1; y++)
         {
@@ -137,6 +156,9 @@ public class TileGravity : MonoBehaviour
         List<PendingTile> stillPending = new();
         foreach (PendingTile pending in _pendingTiles)
         {
+            if (pending.tile == null || pending.tile.gameObject == null)
+                continue; // skip destroyed pending tiles
+
             int col = pending.column;
             int emptyRow = -1;
             for (int y = _gridSystem.height - 1; y >= 0; y--)
