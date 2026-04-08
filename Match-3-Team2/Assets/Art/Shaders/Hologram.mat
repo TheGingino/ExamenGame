@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Hologram
-  m_Shader: {fileID: -6465566751694194690, guid: f0adc0919d040ed428f6ff1141dac90a,
+  m_Shader: {fileID: -6465566751694194690, guid: fceedddb4108eb74e8153e72ddb7dd5b,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -62,7 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HologramScanlines:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c3c621f50e807fd488013316bdcc6623, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -79,6 +79,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_da13063dfb8a4f89b43bde1f67f98978_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: c3c621f50e807fd488013316bdcc6623, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -118,11 +122,14 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Fresnel_Power: 3
-    - _GlitchStrength: 0.02
+    - _GlitchStrength: 0.002
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Max: -0.357
     - _Metallic: 0
+    - _Min: 0.5
+    - _Noise: 843.4
     - _NoiseScale: 500
     - _NoiseStrength: 0.5
     - _OcclusionStrength: 1
@@ -132,6 +139,7 @@ Material:
     - _ReceiveShadows: 1
     - _ScanlineOffset: 0
     - _ScrollSpeed: 0.05
+    - _Shades: 0.0694
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -144,7 +152,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Fresnel_Color: {r: 0, g: 0.30162817, b: 0.7509433, a: 0}
+    - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _HologramTiling: {r: 62.51, g: 64, b: 0, a: 0}
     - _Main_Color: {r: 1, g: 0.82144797, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
