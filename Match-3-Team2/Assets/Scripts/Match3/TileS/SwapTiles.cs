@@ -3,17 +3,20 @@ using UnityEngine;
 
 public class SwapTiles : MonoBehaviour
 {
-    [SerializeField] private float swapDistanceThreshold;
+    [SerializeField] private float swapDistanceThreshold = 1.1f;
+    [SerializeField] private float dragThreshold = 12f;
 
-    // Click-to-swap state
-    private GameObject firstTile;
-    private GameObject secondTile;
-    private bool isSwapping;
     private bool _inputDisabled = false;
+    private bool _isSwapping = false;
 
-    // Drag-to-swap state
-    private GameObject _draggedTile;
-    private bool _isDragging = false;
+    // Gedeelde pointer-state
+    private GameObject _pointerTile;
+    private Vector2 _pointerDownPos;
+    private bool _dragStarted;
+    private bool _swapQueued;
+
+    // Click-to-swap (two Tabs to swap)
+    private GameObject _firstClickTile;
 
     private MatchTiles _matchTiles;
     private GridSystem _gridSystem;
@@ -22,207 +25,206 @@ public class SwapTiles : MonoBehaviour
 
     private void Start()
     {
-        _matchTiles  = GetComponent<MatchTiles>();
-        _gridSystem  = GetComponent<GridSystem>();
+        _matchTiles = GetComponent<MatchTiles>();
+        _gridSystem = GetComponent<GridSystem>();
         _tileGravity = GetComponent<TileGravity>();
         _turnManager = FindObjectOfType<TurnManager>();
     }
 
     private void Update()
     {
-        HandleClickSwap();
-        HandleDrag();
-    }
-    
-    private void HandleClickSwap()
-    {
-        if (isSwapping || _inputDisabled || _isDragging) return;
+        if (_isSwapping || _inputDisabled) return;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameObject clickedTile = GetTileFromScreenPos(Input.mousePosition);
-            if (clickedTile == null) return;
-
-            if (firstTile == null)
-            {
-                firstTile = clickedTile;
-            }
-            else if (secondTile == null && clickedTile != firstTile)
-            {
-                secondTile = clickedTile;
-
-                if (AreAdjacent(firstTile, secondTile))
-                    StartCoroutine(Swap());
-                else
-                    ResetSelection();
-            }
-        }
-    }
-    
-    private void HandleDrag()
-    {
-        if (isSwapping || _inputDisabled) return;
-
-        // --- Touch (telefoon) ---
+        // Touch has priority
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-
-            switch (touch.phase)
-            {
-                case TouchPhase.Began:
-                    TryBeginDrag(touch.position);
-                    break;
-
-                case TouchPhase.Moved:
-                    TryCompleteDrag(touch.position);
-                    break;
-
-                case TouchPhase.Ended:
-                case TouchPhase.Canceled:
-                    ResetSelection();
-                    break;
-            }
+            HandleTouch(Input.GetTouch(0));
             return;
         }
 
-        // --- Muis (editor/PC) ---
-        if (Input.GetMouseButtonDown(0))
-            TryBeginDrag(Input.mousePosition);
-
-        if (_isDragging && Input.GetMouseButton(0))
-            TryCompleteDrag(Input.mousePosition);
-
-        if (Input.GetMouseButtonUp(0))
-            ResetSelection();
+        HandleMouse();
     }
-
-    private void TryBeginDrag(Vector2 screenPos)
+    
+    private void HandleTouch(Touch t)
     {
-        GameObject tile = GetTileFromScreenPos(screenPos);
-        if (tile == null) return;
-
-        _draggedTile = tile;
-        _isDragging  = true;
-        firstTile    = tile;
-    }
-
-    private void TryCompleteDrag(Vector2 screenPos)
-    {
-        if (!_isDragging || _draggedTile == null) return;
-
-        GameObject target = GetTileFromScreenPos(screenPos);
-
-        // Zodra de vinger een andere aangrenzende tile raakt → swap
-        if (target != null && target != _draggedTile && AreAdjacent(_draggedTile, target))
+        switch (t.phase)
         {
-            secondTile  = target;
-            _isDragging = false;
-            StartCoroutine(Swap());
+            case TouchPhase.Began:
+                OnPointerDown(t.position);
+                break;
+            case TouchPhase.Moved:
+            case TouchPhase.Stationary:
+                OnPointerMove(t.position);
+                break;
+            case TouchPhase.Ended:
+            case TouchPhase.Canceled:
+                OnPointerUp(t.position);
+                break;
         }
     }
     
-    private IEnumerator Swap()
+    //For pc testing (eddtior)
+    private void HandleMouse()
     {
-        isSwapping = true;
+        if (Input.GetMouseButtonDown(0))
+            OnPointerDown(Input.mousePosition);
+        else if (Input.GetMouseButton(0))
+            OnPointerMove(Input.mousePosition);
+        else if (Input.GetMouseButtonUp(0))
+            OnPointerUp(Input.mousePosition);
+    }
+    
+    private void OnPointerDown(Vector2 screenPos)
+    {
+        _pointerTile    = GetTileAtScreenPos(screenPos);
+        _pointerDownPos = screenPos;
+        _dragStarted    = false;
+        _swapQueued     = false;
+    }
+
+    private void OnPointerMove(Vector2 screenPos)
+    {
+        if (_pointerTile == null || _swapQueued) return;
+        
+        //If you dragg far away with your finger, dragg modus is activated
+        if (!_dragStarted &&
+            Vector2.Distance(screenPos, _pointerDownPos) >= dragThreshold)
+        {
+            _dragStarted = true;
+        }
+
+        if (!_dragStarted) return;
+        
+        //Checks if the pointer touches adjacent tile
+        GameObject target = GetTileAtScreenPos(screenPos);
+        if (target != null && target != _pointerTile && AreAdjacent(_pointerTile, target))
+        {
+            _swapQueued = true;
+            StartCoroutine(Swap(_pointerTile, target));
+        }
+    }
+
+    private void OnPointerUp(Vector2 screenPos)
+    {
+       //If pointer was released without dragging, treat it like a tab
+        if (_pointerTile != null && !_dragStarted && !_swapQueued)
+        {
+            HandleTapSwap(_pointerTile);
+        }
+        //Rest pointerstate aftehr release, (_firstClickTile is NOT reset here because tap-swap needs it)
+        _pointerTile = null;
+        _dragStarted = false;
+        _swapQueued  = false;
+    }
+
+    //Tap swap
+    private void HandleTapSwap(GameObject tapped)
+    {
+        if (_firstClickTile == null)
+        {
+            _firstClickTile = tapped;
+            return;
+        }
+
+        if (tapped == _firstClickTile)
+        {
+            // same tille tapped twice = deselect
+            _firstClickTile = null;
+            return;
+        }
+
+        if (AreAdjacent(_firstClickTile, tapped))
+        {
+            StartCoroutine(Swap(_firstClickTile, tapped));
+        }
+
+        _firstClickTile = null;
+    }
+    
+    private IEnumerator Swap(GameObject tileA, GameObject tileB)
+    {
+        _isSwapping = true;
         _matchTiles.SetSwappingState(true);
 
-        // Sla posities en grid-coordinaten op voordat er iets verandert
-        Vector3 firstPos  = firstTile.transform.position;
-        Vector3 secondPos = secondTile.transform.position;
+        Vector3    posA     = tileA.transform.position;
+        Vector3    posB     = tileB.transform.position;
+        Vector2Int gridPosA = _gridSystem.GetGridPosition(posA);
+        Vector2Int gridPosB = _gridSystem.GetGridPosition(posB);
+        
+        yield return AnimateSwap(tileA, tileB, posA, posB, 0.2f);
 
-        Vector2Int gridPosA = _gridSystem.GetGridPosition(firstPos);
-        Vector2Int gridPosB = _gridSystem.GetGridPosition(secondPos);
-
-        GameObject tileA = firstTile;
-        GameObject tileB = secondTile;
-
-        // Animeer de visuele swap
-        float swapDuration = 0.2f;
-        float elapsed = 0f;
-
-        while (elapsed < swapDuration)
+        if (tileA == null || tileB == null)
         {
-            if (tileA == null || tileB == null) { isSwapping = false; ResetSelection(); yield break; }
-            tileA.transform.position = Vector3.Lerp(firstPos,  secondPos, elapsed / swapDuration);
-            tileB.transform.position = Vector3.Lerp(secondPos, firstPos,  elapsed / swapDuration);
-            elapsed += Time.deltaTime;
-            yield return null;
+            FinishSwap();
+            yield break;
         }
 
-        if (tileA == null || tileB == null) { isSwapping = false; ResetSelection(); yield break; }
-        tileA.transform.position = secondPos;
-        tileB.transform.position = firstPos;
+        tileA.transform.position = posB;
+        tileB.transform.position = posA;
 
-        // Update het grid
-        Tile tileComponentA = _tileGravity._TileGrid[gridPosA.x, gridPosA.y];
-        Tile tileComponentB = _tileGravity._TileGrid[gridPosB.x, gridPosB.y];
-        _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = tileComponentB;
-        _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = tileComponentA;
+        // Update grid
+        Tile compA = _tileGravity._TileGrid[gridPosA.x, gridPosA.y];
+        Tile compB = _tileGravity._TileGrid[gridPosB.x, gridPosB.y];
+        _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = compB;
+        _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = compA;
 
-        bool validSwap = false;
+        bool validSwap = _matchTiles.HasMatches();
 
-        if (!_matchTiles.HasMatches())
+        if (!validSwap)
         {
-            // Geen match → swap terugdraaien
-            elapsed = 0f;
-            while (elapsed < swapDuration)
-            {
-                if (tileA == null || tileB == null) break;
-                tileA.transform.position = Vector3.Lerp(secondPos, firstPos,  elapsed / swapDuration);
-                tileB.transform.position = Vector3.Lerp(firstPos,  secondPos, elapsed / swapDuration);
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-
-            if (tileA != null) tileA.transform.position = firstPos;
-            if (tileB != null) tileB.transform.position = secondPos;
-
-            _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = tileComponentA;
-            _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = tileComponentB;
-        }
-        else
-        {
-            validSwap = true;
+            // No match = Rollback
+            yield return AnimateSwap(tileA, tileB, posB, posA, 0.2f);
+            if (tileA != null) tileA.transform.position = posA;
+            if (tileB != null) tileB.transform.position = posB;
+            _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = compA;
+            _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = compB;
         }
 
-        isSwapping = false;
-        _matchTiles.SetSwappingState(false);
-        ResetSelection();
-
+        FinishSwap();
         _matchTiles.TriggerMatchCheck();
 
         if (validSwap && _turnManager != null)
+
             _turnManager.RegisterSwap();
     }
+
+    private IEnumerator AnimateSwap(GameObject a, GameObject b,
+                                    Vector3 fromA, Vector3 fromB, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            if (a == null || b == null) yield break;
+            float t = elapsed / duration;
+            a.transform.position = Vector3.Lerp(fromA, fromB, t);
+            b.transform.position = Vector3.Lerp(fromB, fromA, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void FinishSwap()
+    {
+        _isSwapping = false;
+        _matchTiles.SetSwappingState(false);
+        _firstClickTile = null;
+        _pointerTile    = null;
+        _dragStarted    = false;
+        _swapQueued     = false;
+    }
     
-    private GameObject GetTileFromScreenPos(Vector2 screenPos)
+    private GameObject GetTileAtScreenPos(Vector2 screenPos)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, LayerMask.GetMask("Tile"));
-
         foreach (RaycastHit hit in hits)
             if (hit.collider != null && hit.collider.GetComponent<Tile>() != null)
                 return hit.collider.gameObject;
-
         return null;
     }
 
-    private bool AreAdjacent(GameObject tile1, GameObject tile2)
-    {
-        return Vector3.Distance(tile1.transform.position, tile2.transform.position) < swapDistanceThreshold;
-    }
+    private bool AreAdjacent(GameObject a, GameObject b) =>
+        Vector3.Distance(a.transform.position, b.transform.position) < swapDistanceThreshold;
 
-    private void ResetSelection()
-    {
-        firstTile    = null;
-        secondTile   = null;
-        _draggedTile = null;
-        _isDragging  = false;
-    }
-
-    public void SetInputState(bool state)
-    {
-        _inputDisabled = !state;
-    }
+    public void SetInputState(bool state) => _inputDisabled = !state;
 }
