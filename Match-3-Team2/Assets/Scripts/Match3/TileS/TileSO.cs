@@ -20,11 +20,11 @@ public class TileSO : ScriptableObject
     {
         if (tileSprite == null)
         {
-            Debug.LogWarning($"TileSO '{name}' has no sprite assigned.");
+            Debug.LogWarning("TileSO '{name}' has no sprite assigned.");
         }
         if (!Enum.IsDefined(typeof(TileType), tileType))
         {
-            Debug.LogWarning($"TileSO '{name}' has an invalid TileType assigned.");
+            Debug.LogWarning("TileSO '{name}' has an invalid TileType assigned.");
         }
     }
 }

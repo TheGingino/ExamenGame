@@ -6,10 +6,12 @@ public class GridSystem : MonoBehaviour
     public int width;
     public int height;
     public float cellSize;
-    private Vector3 originPosition = Vector3.zero;    
-    
+
     [SerializeField] private Sprite[] backgroundSprites;
     
+    private Vector3 originPosition = Vector3.zero;
+
+    [SerializeField] private float gridOffset;
     private void Start()
     {
         CreateGrid();
