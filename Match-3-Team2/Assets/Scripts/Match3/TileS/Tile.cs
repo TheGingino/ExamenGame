@@ -1,14 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Tile : MonoBehaviour
 {
     [SerializeField] private TileSO tileData;
-    //private SpriteRenderer spriteRenderer;
-    bool canBeSwapped = true;
+    private bool _canBeSwapped = true;
+    
+    [SerializeField] private SpriteRenderer  defaultBackgroundSprite;
+    [SerializeField] private Sprite[] backgroundSprites;
     
     public TileSO _tileData => tileData;
     
@@ -28,8 +32,22 @@ public class Tile : MonoBehaviour
             Debug.LogWarning($"Tile '{name}' has no TileSO assigned.");
             return;
         }
+        SetBackground();
     }
+    private void SetBackground()
+    {
+        if (defaultBackgroundSprite == null || backgroundSprites.Length == 0)
+        {
+            Debug.LogWarning($"Tile '{name}' missing defaultBackgroundSprite or backgroundSprites array is empty.");
+            return;
+        }
 
+        int randomIndex = Random.Range(0, backgroundSprites.Length);
+        defaultBackgroundSprite.sprite = backgroundSprites[randomIndex];
+        defaultBackgroundSprite.transform.localScale = Vector3.one;
+        Debug.Log($"Tile '{name}' assigned background sprite: {defaultBackgroundSprite.sprite.name}");
+    }
+    
     public void DestroyTile() => Destroy(gameObject);
 
     public void Highlight()
@@ -40,4 +58,6 @@ public class Tile : MonoBehaviour
             spriteRenderer.color = Color.yellow; // Example highlight color
         }
     }
+
+
 }
