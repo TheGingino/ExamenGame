@@ -448,6 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelProgress: 3
+  saveKey: LevelProgress
   levelButtons:
   - {fileID: 997093449}
   - {fileID: 1947985936}
@@ -1840,7 +1841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a15e8dd862edb479ac8f8468191c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonID: menu
+  _buttonID: StartScreen
   _scene:
     m_Handle: 0
 --- !u!1 &1627046906
