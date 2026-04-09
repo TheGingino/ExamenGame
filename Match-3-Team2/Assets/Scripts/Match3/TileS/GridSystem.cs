@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,13 @@ public class GridSystem : MonoBehaviour
     private Vector3 originPosition = Vector3.zero;
 
     [SerializeField] private float gridOffset;
+
+    private void Awake()
+    {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 120;
+    }
+
     private void Start()
     {
         CreateGrid();
