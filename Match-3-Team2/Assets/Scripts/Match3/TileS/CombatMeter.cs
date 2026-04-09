@@ -105,7 +105,7 @@ public class CombatMeter : MonoBehaviour
 
    public int HealCharges => healCharges;
    public int DamageCharges => damageCharges;
-   public int ShieldCharges => shieldCurrent;
+   public int ShieldCharges => shieldCharges;
    public int SpecialCharges => specialCharges;
    private bool SpecialLockedOut => specialLockedOut;
    
