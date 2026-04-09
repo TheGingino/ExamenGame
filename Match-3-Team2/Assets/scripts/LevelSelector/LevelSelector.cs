@@ -20,7 +20,7 @@ public class LevelSelector : MonoBehaviour
             case "lvl3": 
                 break;
             case "lvl4":
-                SceneManager.LoadScene("GridSystem"); 
+                SceneManager.LoadScene("FinalLevel"); 
                 break;
             case "menu":
                 SceneManager.LoadScene("StartScreen");
