@@ -10,19 +10,10 @@ public class PlayerShield : MonoBehaviour
    {
       shieldAmmount= 0;
    }
-
-   private void Update()
-   {
-      if (Input.GetKeyDown(KeyCode.A))
-      {
-         GainShield();
-      }
-   }
-
    public void GainShield()
   {
         shieldAmmount += _shieldToAdd;
-             Debug.Log("[PlayerShield] Shield: {shieldAmmount}");
+        Debug.Log("[PlayerShield] Shield: {shieldAmmount}");
   }
   
   public int TakeDamage(int damage)
