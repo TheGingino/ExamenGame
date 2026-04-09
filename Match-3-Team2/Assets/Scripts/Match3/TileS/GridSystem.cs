@@ -51,7 +51,7 @@ public class GridSystem : MonoBehaviour
     {
         originPosition = new Vector3(
             -width * cellSize / 2 + cellSize / 2,
-            -height * cellSize / 2 + cellSize / 2 ,
+            -height * cellSize / 2 + cellSize / 2 + gridOffset,
             0);
         return new Vector2(originPosition.x + x * cellSize, originPosition.y + y * cellSize);
     }

@@ -81,8 +81,6 @@ public class AbillitieButton : MonoBehaviour
 
     void ExecuteAbility()
     {
-        Debug.Log("Execute");
-        
         switch (abilityType)
         {
             case TileType.Damage:
@@ -98,7 +96,7 @@ public class AbillitieButton : MonoBehaviour
                 break;
 
             case TileType.Special:
-                Debug.Log("Special not implemented");
+                FindObjectOfType<PlayerAttack>().SpecialAttack();
                 break;
         }
     }
