@@ -8,9 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Enviroment_Walls
-  m_Shader: {fileID: -6465566751694194690, guid: aa04efb330d5dd94b89a3ee3571374bc,
+  m_Shader: {fileID: -6465566751694194690, guid: 3fdfaa2ffbbb3394fbdb28b9b49f1d5c,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: 412e5fc4128254f41adaee97796bb03f, type: 2}
+  m_Parent: {fileID: 2100000, guid: 4c3f6feb2618652439c620f818a6e6f3, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -33,7 +33,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Max: -0.026
+    - _Min: 0.006
+    - _Noise: 34.3
+    - _Shades: 0.17
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &599329651879461359
