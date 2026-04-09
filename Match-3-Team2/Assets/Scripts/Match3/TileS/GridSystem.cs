@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,13 +12,6 @@ public class GridSystem : MonoBehaviour
     private Vector3 originPosition = Vector3.zero;
 
     [SerializeField] private float gridOffset;
-
-    private void Awake()
-    {
-        Application.targetFrameRate = 120;
-        QualitySettings.vSyncCount = 0;
-    }
-
     private void Start()
     {
         CreateGrid();
@@ -38,6 +30,19 @@ public class GridSystem : MonoBehaviour
                 backgroundTile.transform.localScale = Vector3.one * cellSize;
                 backgroundTile.GetComponent<Renderer>().material.color = Color.black;
                 DestroyImmediate(backgroundTile.GetComponent<MeshCollider>());
+                    
+                    
+                /*for (int i = 0; i < backgroundSprites.Length; i++)
+                {
+                    var texture = Random.Range(0, backgroundSprites.Length);
+                    GameObject backgroundTile = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                    backgroundTile.transform.parent = transform;
+                    backgroundTile.transform.position = spawnPosition;
+                    backgroundTile.transform.localScale = Vector3.one * cellSize;
+                    backgroundTile.GetComponent<MeshRenderer>().material = new Material(Shader.Find("Sprites/Default"));
+                    backgroundTile.GetComponent<MeshRenderer>().material.mainTexture = backgroundSprites[texture].texture;
+                }*/
+
             }
         }
     }
@@ -46,7 +51,7 @@ public class GridSystem : MonoBehaviour
     {
         originPosition = new Vector3(
             -width * cellSize / 2 + cellSize / 2,
-            -height * cellSize / 2 + cellSize / 2 + gridOffset ,
+            -height * cellSize / 2 + cellSize / 2 + gridOffset,
             0);
         return new Vector2(originPosition.x + x * cellSize, originPosition.y + y * cellSize);
     }
