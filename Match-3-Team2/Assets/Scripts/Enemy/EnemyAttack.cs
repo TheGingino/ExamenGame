@@ -10,16 +10,8 @@ public class EnemyAttack : MonoBehaviour
     {
        playerHealth=FindObjectOfType<PlayerHealth>();
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            DoDamage();
-        }
-    }
-
-    public void DoDamage()
+    
+    void DoDamage()
     {
         int roll = Random.Range(0, 100);
 

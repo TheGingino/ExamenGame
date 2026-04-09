@@ -59,18 +59,22 @@ public class Bomb : UsableItem
         yield return _tileGravity.ApplyGravityContinuously();
 
         SpawnTiles spawnTiles = FindObjectOfType<SpawnTiles>();
+        MatchTiles matchTiles = FindObjectOfType<MatchTiles>();
+
         if (spawnTiles != null)
         {
             for (int x = 0; x < _gridSystem.width; x++)
             {
-                int empties = 0;
+                int emptyCount = 0;
                 for (int y = 0; y < _gridSystem.height; y++)
                 {
-                    if (_tileGravity.GetTileAt(x, y) == null) empties++;
+                    if (_tileGravity.GetTileAt(x, y) == null)
+                        emptyCount++;
                 }
-
-                if (empties > 0)
-                    yield return spawnTiles.FillColumn(x, empties);
+                if (emptyCount > 0)
+                    yield return spawnTiles.FillColumn(x, emptyCount);
+                
+                if(matchTiles != null) matchTiles.CheckForMatches();
             }
         }
         yield return _tileGravity.ApplyGravityContinuously();

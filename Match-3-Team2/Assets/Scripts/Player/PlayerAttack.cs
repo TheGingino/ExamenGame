@@ -12,22 +12,11 @@ public class PlayerAttack : MonoBehaviour
       enemyHealth = FindObjectOfType<EnemyHealth>();
    }
    
-   private void Update()
-   {
-     
-
-      if (Input.GetKeyDown(KeyCode.S))
-      {
-         SpecialAttack();
-      }
-   }
-
    public void DoDamage()
    {
       enemyHealth.TakeDamage(_attackDamage);
       Debug.Log("[PlayerAttack] Damage used! " + _attackDamage);
    }
-
 
    public void SpecialAttack()
    {

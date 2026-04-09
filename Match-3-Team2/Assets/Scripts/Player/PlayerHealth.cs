@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
 
-    public void Heal() // changed gainHealt to heal it was confusing for me srry
+    public void Heal() 
     {
             currentHealth = Mathf.Min(currentHealth + _healAmount, _maxHealth);
             _healthBar.SetHealth(currentHealth);
