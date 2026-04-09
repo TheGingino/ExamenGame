@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Properties;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(SpriteRenderer))]
+//[RequireComponent(typeof(SpriteRenderer))]
 public class Tile : MonoBehaviour
 {
     [SerializeField] private TileSO tileData;
