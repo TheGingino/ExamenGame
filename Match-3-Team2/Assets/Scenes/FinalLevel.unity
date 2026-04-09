@@ -1924,6 +1924,23 @@ PrefabInstance:
       propertyPath: gridOffset
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 3714722703390735296, guid: ab52d72ac28349a47bb76c62b14cd63e,
+        type: 3}
+      propertyPath: backgroundSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7900ebc1ce7fa1e43955b543c65535ee,
+        type: 3}
+    - target: {fileID: 3714722703390735296, guid: ab52d72ac28349a47bb76c62b14cd63e,
+        type: 3}
+      propertyPath: backgroundSprites.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714722703390735296, guid: ab52d72ac28349a47bb76c62b14cd63e,
+        type: 3}
+      propertyPath: backgroundSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0eaa9fd1cdbe8ed418f7656a9e58d40d,
+        type: 3}
     - target: {fileID: 6771077731886554903, guid: ab52d72ac28349a47bb76c62b14cd63e,
         type: 3}
       propertyPath: m_LocalScale.x
