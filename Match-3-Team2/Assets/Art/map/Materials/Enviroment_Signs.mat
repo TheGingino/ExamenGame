@@ -8,9 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Enviroment_Signs
-  m_Shader: {fileID: -6465566751694194690, guid: 3fdfaa2ffbbb3394fbdb28b9b49f1d5c,
+  m_Shader: {fileID: -6465566751694194690, guid: d175aaf732c3f504693c9376fa150668,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: 4c3f6feb2618652439c620f818a6e6f3, type: 2}
+  m_Parent: {fileID: 2100000, guid: ccbc3a3748b2e37418e948be4edd8943, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,9 +34,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Max: -0.062
+    - _Max: -0.374
     - _Min: 0
-    - _Noise: -88.5
+    - _Noise: 19.6
     - _Shades: 0.17
     m_Colors: []
   m_BuildTextureStacks: []
