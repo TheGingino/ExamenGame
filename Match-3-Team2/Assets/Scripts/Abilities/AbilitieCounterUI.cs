@@ -8,10 +8,8 @@ public class AbilitieCounterUI : MonoBehaviour
 {
     [SerializeField] private GameObject dotPrefab;
     [SerializeField] private Transform dotContainer;
-    [SerializeField] private Color activeColor = Color.white;
-    [SerializeField] private Color usedColor = new Color(1, 1, 1, 0.2f);
 
-    private Image[] dots;
+    private Image[] _dots;
 
     private void OnEnable()
     {
@@ -23,7 +21,7 @@ public class AbilitieCounterUI : MonoBehaviour
     {
         CombatMeter.Instance.OnAbilityLimitChanged -= UpdateDots;
     }
-    
+
     private void Start()
     {
         SpawnDots();
@@ -37,22 +35,25 @@ public class AbilitieCounterUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        dots = new Image[CombatMeter.Instance.maxAbilitiesPerTurn];
+        _dots = new Image[CombatMeter.Instance.maxAbilitiesPerTurn];
 
-        for (int i = 0; i < dots.Length; i++)
+        for (int i = 0; i < _dots.Length; i++)
         {
             GameObject dot = Instantiate(dotPrefab, dotContainer);
-            dots[i] = dot.GetComponent<Image>();
+            _dots[i] = dot.GetComponent<Image>();
             Debug.Log("Dot {i} image: {dots[i]}");
         }
     }
 
     private void UpdateDots()
     {
-        if (dots == null) return;
-        int remaining = CombatMeter.Instance.AbilitiesRemaining;
+        if (_dots == null) return;
 
-        for (int i = 0; i < dots.Length; i++)
-            dots[i].color = i < remaining ? activeColor : usedColor;
+        int used = CombatMeter.Instance.maxAbilitiesPerTurn - CombatMeter.Instance.AbilitiesRemaining;
+
+        for (int i = 0; i < _dots.Length; i++)
+        {
+            _dots[i].gameObject.SetActive(i >= used); // turns off when ability is used
+        }
     }
 }

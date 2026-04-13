@@ -66,25 +66,25 @@ public class CombatMeter : MonoBehaviour
       // Special: permanently blocked after being used
       if (type == TileType.Special && specialLockedOut)
       {
-         Debug.Log("[CombatMeter] Special is permanently locked out.");
+         Debug.Log($"[CombatMeter] Special is permanently locked out.");
          return;
       }
  
       // Don't fill the meter if already at max charges
       if (charges >= maxCharges)
       {
-         Debug.Log("[CombatMeter] {type} at max charges ({maxCharges}), meter won't fill.");
+         Debug.Log($"[CombatMeter] {type} at max charges ({maxCharges}), meter won't fill.");
          return;
       }
  
       current += amount;
-      Debug.Log("[CombatMeter] {type} meter: {current}/{max} (+{amount})");
+      Debug.Log($"[CombatMeter] {type} meter: {current}/{max} (+{amount})");
  
       if (current >= max)
       {
          current = 0;
          charges++;
-         Debug.Log("[CombatMeter] {type} charge gained! Total: {charges}/{maxCharges}");
+         Debug.Log($"[CombatMeter] {type} charge gained! Total: {charges}/{maxCharges}");
          OnChargeGained?.Invoke(type);
       }
    }
@@ -96,35 +96,39 @@ public class CombatMeter : MonoBehaviour
          Debug.Log("[CombatMeter] Ability limit reached this turn.");
          return false;
       }
+
       switch (type)
       {
          case TileType.Heal:
             if (healCharges <= 0) { Debug.Log("[CombatMeter] No Heal charges."); return false; }
             healCharges--;
-            return true;
+            break;
 
          case TileType.Damage:
             if (damageCharges <= 0) { Debug.Log("[CombatMeter] No Damage charges."); return false; }
             damageCharges--;
-            return true;
+            break;
 
          case TileType.Shield:
             if (shieldCharges <= 0) { Debug.Log("[CombatMeter] No Shield charges."); return false; }
             shieldCharges--;
-            return true;
+            break;
 
          case TileType.Special:
             if (specialLockedOut || specialCharges <= 0) { Debug.Log("[CombatMeter] Special not available."); return false; }
             specialCharges--;
             specialLockedOut = true;
-            return true;
-      }
+            break;
 
+         default:
+            return false;
+      }
+      
       abiltiesUsedThisTurn++;
       OnAbilityLimitChanged?.Invoke();
-      return false;
+      return true;
    }
-
+   
    public int HealCharges => healCharges;
    public int DamageCharges => damageCharges;
    public int ShieldCharges => shieldCharges;
@@ -134,6 +138,6 @@ public class CombatMeter : MonoBehaviour
    public int HealCurrent => healCurrent;
    public int DamageCurrent => damageCurrent;
    public int ShieldCurrent => shieldCurrent;
-   public int SpecialCurrent => specialMax;
+   public int SpecialCurrent => specialCurrent;
 
 }
