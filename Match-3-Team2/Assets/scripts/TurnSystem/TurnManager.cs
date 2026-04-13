@@ -42,7 +42,6 @@ public class TurnManager : MonoBehaviour
         playerTurn = true;
         currentSwaps = 0;
         swapTiles.SetInputState(true);
-
         UpdateSwapUI();
     }
 
@@ -50,7 +49,7 @@ public class TurnManager : MonoBehaviour
     {
         playerTurn = false;
         swapTiles.SetInputState(false);
-
+        CombatMeter.Instance.ResetAbiltyUses();
         StartCoroutine(EnemyTurnCoroutine());
     }
 

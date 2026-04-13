@@ -5,6 +5,7 @@ public class CombatMeter : MonoBehaviour
    public static CombatMeter Instance { get; private set; }
   
    public System.Action<TileType> OnChargeGained;
+   public System.Action OnAbilityLimitChanged;
 
    [Header("Meter Max Value")] 
    public int healMax = 100;
@@ -17,7 +18,10 @@ public class CombatMeter : MonoBehaviour
    public int damageMaxCharges = 5;
    public int shieldMaxCharges = 5;
    public int SpecialMaxCharges = 1;
-      
+   
+   [Header("Turn Limit")]
+   public int maxAbilitiesPerTurn = 3; 
+   
    private int healCurrent;
    private int damageCurrent;
    private int shieldCurrent;
@@ -28,12 +32,22 @@ public class CombatMeter : MonoBehaviour
    private int shieldCharges;
    private int specialCharges;
    
+   private int abiltiesUsedThisTurn;
    private bool specialLockedOut = false;
 
    private void Awake()
    {
       Instance = this;
       Debug.Log("[CombatMeter] Aangemaakt en klaar voor gebruik");
+   }
+
+   public bool CanUseAbility() => abiltiesUsedThisTurn < maxAbilitiesPerTurn;
+   public int AbilitiesRemaining => maxAbilitiesPerTurn - abiltiesUsedThisTurn;
+
+   public void ResetAbiltyUses()
+   {
+      abiltiesUsedThisTurn = 0;
+      OnAbilityLimitChanged?.Invoke();
    }
    
    public void Add(TileType type, int amount)
@@ -59,24 +73,29 @@ public class CombatMeter : MonoBehaviour
       // Don't fill the meter if already at max charges
       if (charges >= maxCharges)
       {
-         Debug.Log($"[CombatMeter] {type} at max charges ({maxCharges}), meter won't fill.");
+         Debug.Log("[CombatMeter] {type} at max charges ({maxCharges}), meter won't fill.");
          return;
       }
  
       current += amount;
-      Debug.Log($"[CombatMeter] {type} meter: {current}/{max} (+{amount})");
+      Debug.Log("[CombatMeter] {type} meter: {current}/{max} (+{amount})");
  
       if (current >= max)
       {
          current = 0;
          charges++;
-         Debug.Log($"[CombatMeter] {type} charge gained! Total: {charges}/{maxCharges}");
+         Debug.Log("[CombatMeter] {type} charge gained! Total: {charges}/{maxCharges}");
          OnChargeGained?.Invoke(type);
       }
    }
    
    public bool UseCharge(TileType type)
    {
+      if (!CanUseAbility())
+      {
+         Debug.Log("[CombatMeter] Ability limit reached this turn.");
+         return false;
+      }
       switch (type)
       {
          case TileType.Heal:
@@ -100,6 +119,9 @@ public class CombatMeter : MonoBehaviour
             specialLockedOut = true;
             return true;
       }
+
+      abiltiesUsedThisTurn++;
+      OnAbilityLimitChanged?.Invoke();
       return false;
    }
 
