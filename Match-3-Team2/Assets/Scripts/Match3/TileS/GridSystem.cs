@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +8,18 @@ public class GridSystem : MonoBehaviour
     public int height;
     public float cellSize;
 
-    [SerializeField] private Sprite[] backgroundSprites;
+    [SerializeField] private GameObject backgroundSprite;
     
     private Vector3 originPosition = Vector3.zero;
 
     [SerializeField] private float gridOffset;
+
+    private void Awake()
+    {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 120;
+    }
+
     private void Start()
     {
         CreateGrid();
@@ -23,26 +31,8 @@ public class GridSystem : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                Vector2 spawnPosition = GetWorldPosition(x, y);
-                GameObject backgroundTile = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                backgroundTile.transform.parent = transform;
-                backgroundTile.transform.position = spawnPosition;
-                backgroundTile.transform.localScale = Vector3.one * cellSize;
-                backgroundTile.GetComponent<Renderer>().material.color = Color.black;
-                DestroyImmediate(backgroundTile.GetComponent<MeshCollider>());
-                    
-                    
-                /*for (int i = 0; i < backgroundSprites.Length; i++)
-                {
-                    var texture = Random.Range(0, backgroundSprites.Length);
-                    GameObject backgroundTile = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                    backgroundTile.transform.parent = transform;
-                    backgroundTile.transform.position = spawnPosition;
-                    backgroundTile.transform.localScale = Vector3.one * cellSize;
-                    backgroundTile.GetComponent<MeshRenderer>().material = new Material(Shader.Find("Sprites/Default"));
-                    backgroundTile.GetComponent<MeshRenderer>().material.mainTexture = backgroundSprites[texture].texture;
-                }*/
-
+                Vector2 worldPos = GetWorldPosition(x, y);
+                Instantiate(backgroundSprite, worldPos, Quaternion.identity, transform);
             }
         }
     }

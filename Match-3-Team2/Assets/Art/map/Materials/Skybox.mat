@@ -123,13 +123,13 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _StarDensety: 841
-    - _StarPower: 44.4
+    - _StarDensety: 864.11
+    - _StarPower: 4682.8
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _blinking_speed: 0.0002
-    - _height: 1.92
+    - _blinking_speed: 0.29
+    - _height: 14.61
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
