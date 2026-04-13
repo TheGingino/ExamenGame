@@ -5,6 +5,7 @@ public class Bomb : UsableItem
 {
     private TileGravity _tileGravity;
     private GridSystem _gridSystem;
+    private MatchTiles _matchTiles;
     private Camera _mainCamera;
     private bool _isDragging;
     private Vector3 _dragOffset;
@@ -13,6 +14,7 @@ public class Bomb : UsableItem
     {
         _tileGravity = FindObjectOfType<TileGravity>();
         _gridSystem = FindObjectOfType<GridSystem>();
+        _matchTiles = FindObjectOfType<MatchTiles>();
         _mainCamera = Camera.main;
     }
 
@@ -78,6 +80,7 @@ public class Bomb : UsableItem
             }
         }
         yield return _tileGravity.ApplyGravityContinuously();
+        _matchTiles.CheckForMatches();
     }
 
     private void OnCollisionEnter(Collision other)
