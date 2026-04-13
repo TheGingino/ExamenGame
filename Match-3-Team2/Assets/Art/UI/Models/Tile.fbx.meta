@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 23baf13c8bbcbbc4e8a73c032b4e47f4
+guid: 9f02af2f4f8b13a40ac534dbcb42fa76
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,23 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Glass
-    second: {fileID: 2100000, guid: 9bd98f505698c0c42b213664e251f270, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Lights
-    second: {fileID: 2100000, guid: 513df48101e7376489270a1efa7a303b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Tanks
-    second: {fileID: 2100000, guid: 60cecc3997544c34788ca3bcc314100a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Walls-Cables
-    second: {fileID: 2100000, guid: 2033e7c02c538f442aaceaf078e10db2, type: 2}
+      name: Tile
+    second: {fileID: 2100000, guid: 60fdfdb43a0cbd948a02b86baa61fa1d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
