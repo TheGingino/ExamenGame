@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Special Attacks
-  m_Shader: {fileID: -6465566751694194690, guid: 5bddb10ebf987884fb81958419a5d32b,
+  m_Shader: {fileID: -6465566751694194690, guid: 04767dfb770610245851e192d0742ffa,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -62,7 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7900ebc1ce7fa1e43955b543c65535ee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -81,8 +81,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture:
+        m_Texture: {fileID: 2800000, guid: ba3134469ab7a3b4ea9d208a8cc142a1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _hologramTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: ba3134469ab7a3b4ea9d208a8cc142a1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -112,15 +116,16 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Edge: 0
+    - _Edge: 2.92
     - _EnvironmentReflections: 1
-    - _Fresnel_Strength: 1
+    - _Fresnel_Power: 0.05
+    - _Fresnel_Strength: -4.74
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _Noise_Scale: 0
-    - _Noise_Speed: 0.5
+    - _Noise_Scale: -1.1
+    - _Noise_Speed: 8.73
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -129,16 +134,19 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 1.1
+    - _Speed_Slower: -6.86
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _TextureNoiseScale: 20
+    - _TextureNoiseScale: 38.35
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _tiling: 0.49
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.093725204, g: 0, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Fresnel_Color: {r: 0, g: 0.04194462, b: 0.5660378, a: 0}
+    - _Fresnel_Color: {r: 0, g: 0.009214574, b: 0.13207549, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
