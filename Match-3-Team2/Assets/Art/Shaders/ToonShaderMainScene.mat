@@ -115,7 +115,7 @@ Material:
     - _Max: -1
     - _Metallic: 0
     - _Min: 0.144
-    - _Noise: 250.6
+    - _Noise: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0

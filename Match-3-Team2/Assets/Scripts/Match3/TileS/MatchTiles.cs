@@ -77,6 +77,7 @@ public class MatchTiles : MonoBehaviour
     private IEnumerator ResolveMatches(List<Vector2Int>matches)
     {
         _tileGravity.SetPaused(true);
+        GetComponent<SwapTiles>().SetInputState(false); 
         
         int totalHeal = 0;
         int totalDamage = 0; // <- attack but the value is the damage
@@ -123,6 +124,7 @@ public class MatchTiles : MonoBehaviour
             yield return _spawnTiles.FillColumn(kvp.Key, kvp.Value);
 
         _tileGravity.SetPaused(false);
+        GetComponent<SwapTiles>().SetInputState(true); 
 
         yield return _tileGravity.WaitForAnimations();
         yield return new WaitForSeconds(0.1f);

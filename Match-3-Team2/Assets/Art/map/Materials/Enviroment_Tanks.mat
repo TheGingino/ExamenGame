@@ -8,9 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Enviroment_Tanks
-  m_Shader: {fileID: -6465566751694194690, guid: 3fdfaa2ffbbb3394fbdb28b9b49f1d5c,
+  m_Shader: {fileID: -6465566751694194690, guid: d175aaf732c3f504693c9376fa150668,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: 4c3f6feb2618652439c620f818a6e6f3, type: 2}
+  m_Parent: {fileID: 2100000, guid: ccbc3a3748b2e37418e948be4edd8943, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -32,13 +32,23 @@ Material:
         m_Texture: {fileID: 2800000, guid: bf5d380d08e006645bd351993d4e4688, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_50da22d77cd04fb09e5878e6ef2f65d3_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ba3134469ab7a3b4ea9d208a8cc142a1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Edge: 2.2
+    - _Fresnel_Strength: 0.82
     - _Max: -0.286
     - _Min: 0
-    - _Noise: 42.5
-    - _Shades: 0.17
-    m_Colors: []
+    - _Noise: 328.3
+    - _Noise_Scale: 80.32
+    - _Noise_Speed: 0.5
+    - _Shades: 0.0775
+    - _TextureNoiseScale: 78.52
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &599329651879461359
 MonoBehaviour:

@@ -34,9 +34,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Max: -0.026
-    - _Min: 0.006
-    - _Noise: 34.3
+    - _Max: -0.104
+    - _Min: 0
+    - _Noise: 0
     - _Shades: 0.17
     m_Colors: []
   m_BuildTextureStacks: []
