@@ -7,7 +7,7 @@ public class EndScreenUI : MonoBehaviour
 {
     private GameEndManager _gameEndManager;
 
-    [SerializeField] private TextMeshProUGUI _buttonText;
+    [SerializeField] private TextMeshProUGUI[] _buttonText;
 
     private void Start()
     {
@@ -26,13 +26,12 @@ public class EndScreenUI : MonoBehaviour
         switch (_gameEndManager.GetGameState())
         {
             case GameState.WIN:
+                _buttonText[1].text = "Continue";
                 HandleWinAction();
-                _buttonText.text = "Continue";
                 break;
 
             case GameState.LOSE:
                 HandleLoseAction();
-                _buttonText.text = "Retry";
                 break;
         }
     }

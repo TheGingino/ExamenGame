@@ -9,6 +9,8 @@ public class GameEndManager : MonoBehaviour
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private TextMeshProUGUI _resultText;
 
+    [SerializeField] private TextMeshProUGUI[] _buttonText;
+
     [Header("Events")]
     [SerializeField] private UnityEvent _onWin;
     [SerializeField] private UnityEvent _onLose;
@@ -53,13 +55,15 @@ public class GameEndManager : MonoBehaviour
         switch (_currentState)
         {
             case GameState.WIN:
-                _resultText.text = "A";
+                _buttonText[0].text = "A";
                 _onWin?.Invoke();
+                _buttonText[1].text = "Continue";
                 break;
 
             case GameState.LOSE:
-                _resultText.text = "B";
+                _buttonText[0].text = "B";
                 _onLose?.Invoke();
+                _buttonText[1].text = "Retry";
                 break;
         }
     }
