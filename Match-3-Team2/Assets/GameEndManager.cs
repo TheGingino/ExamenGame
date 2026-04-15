@@ -1,32 +1,81 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
+
 
 public class GameEndManager : MonoBehaviour
 {
-    [SerializeField] private GameObject endScreen;
-    [SerializeField] private TextMeshProUGUI resultText;
+    [Header("UI")]
+    [SerializeField] private GameObject _endScreen;
+    [SerializeField] private TextMeshProUGUI _resultText;
 
-    private bool gameEnded = false;
+    [Header("Events")]
+    [SerializeField] private UnityEvent _onWin;
+    [SerializeField] private UnityEvent _onLose;
 
-    public void Win()
+    public enum GameState
     {
-        if (gameEnded) return;
-        gameEnded = true;
-
-        endScreen.SetActive(true);
-        resultText.text = "A";
-
-        Debug.Log("PLAYER WON");
+        PLAYING,
+        WIN,
+        LOSE
     }
 
-    public void Lose()
+
+    private GameState _currentState = GameState.PLAYING;
+
+    public bool IsGameActive()
     {
-        if (gameEnded) return;
-        gameEnded = true;
+        return _currentState == GameState.PLAYING;
+    }
 
-        endScreen.SetActive(true);
-        resultText.text = "B";
+    public void TriggerWin()
+    {
+        if (!IsGameActive()) return;
 
-        Debug.Log("PLAYER LOST");
+        _currentState = GameState.WIN;
+        HandleEndState();
+    }
+
+    public void TriggerLose()
+    {
+        if (!IsGameActive()) return;
+
+        _currentState = GameState.LOSE;
+        HandleEndState();
+    }
+
+    private void HandleEndState()
+    {
+        DisableGameplay();
+
+        _endScreen.SetActive(true);
+
+        switch (_currentState)
+        {
+            case GameState.WIN:
+                _resultText.text = "A";
+                _onWin?.Invoke();
+                break;
+
+            case GameState.LOSE:
+                _resultText.text = "B";
+                _onLose?.Invoke();
+                break;
+        }
+    }
+
+    private void DisableGameplay()
+    {
+        Time.timeScale = 0f;
+
+        SwapTiles swapTiles = FindObjectOfType<SwapTiles>();
+        if (swapTiles != null)
+        {
+            swapTiles.SetInputState(false);
+        }
+    }
+    public GameState GetGameState()
+    {
+        return _currentState;
     }
 }

@@ -22,6 +22,7 @@ public class SwapTiles : MonoBehaviour
     private GridSystem _gridSystem;
     private TileGravity _tileGravity;
     private TurnManager _turnManager;
+    private GameEndManager _gameEndManager;
 
     private void Start()
     {
@@ -29,10 +30,14 @@ public class SwapTiles : MonoBehaviour
         _gridSystem = GetComponent<GridSystem>();
         _tileGravity = GetComponent<TileGravity>();
         _turnManager = FindObjectOfType<TurnManager>();
+        _gameEndManager = FindObjectOfType<GameEndManager>();
     }
 
     private void Update()
     {
+        if (_gameEndManager != null && !_gameEndManager.IsGameActive())
+            return;
+
         if (_isSwapping || _inputDisabled) return;
 
         // Touch has priority
@@ -44,7 +49,7 @@ public class SwapTiles : MonoBehaviour
 
         HandleMouse();
     }
-    
+
     private void HandleTouch(Touch t)
     {
         switch (t.phase)
@@ -140,17 +145,20 @@ public class SwapTiles : MonoBehaviour
 
         _firstClickTile = null;
     }
-    
+
     private IEnumerator Swap(GameObject tileA, GameObject tileB)
     {
+        if (_gameEndManager != null && !_gameEndManager.IsGameActive())
+            yield break;
+
         _isSwapping = true;
         _matchTiles.SetSwappingState(true);
 
-        Vector3    posA     = tileA.transform.position;
-        Vector3    posB     = tileB.transform.position;
+        Vector3 posA = tileA.transform.position;
+        Vector3 posB = tileB.transform.position;
         Vector2Int gridPosA = _gridSystem.GetGridPosition(posA);
         Vector2Int gridPosB = _gridSystem.GetGridPosition(posB);
-        
+
         yield return AnimateSwap(tileA, tileB, posA, posB, 0.2f);
 
         if (tileA == null || tileB == null)
@@ -183,9 +191,11 @@ public class SwapTiles : MonoBehaviour
         FinishSwap();
         _matchTiles.TriggerMatchCheck();
 
-        if (validSwap && _turnManager != null)
-
+        if (validSwap && _turnManager != null &&
+            _gameEndManager != null && _gameEndManager.IsGameActive())
+        {
             _turnManager.RegisterSwap();
+        }
     }
 
     private IEnumerator AnimateSwap(GameObject a, GameObject b,
