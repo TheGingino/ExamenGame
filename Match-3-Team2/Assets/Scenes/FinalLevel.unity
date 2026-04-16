@@ -1304,9 +1304,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7055913918286243081, guid: 1557167c6b1dbff42a5219d2ab34ff61,
         type: 3}
+      propertyPath: quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055913918286243081, guid: 1557167c6b1dbff42a5219d2ab34ff61,
+        type: 3}
       propertyPath: originalPosition
       value: 
       objectReference: {fileID: 722644030}
+    - target: {fileID: 7055913918286243081, guid: 1557167c6b1dbff42a5219d2ab34ff61,
+        type: 3}
+      propertyPath: onTileFallComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055913918286243081, guid: 1557167c6b1dbff42a5219d2ab34ff61,
+        type: 3}
+      propertyPath: onTileFallComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 649815130}
+    - target: {fileID: 7055913918286243081, guid: 1557167c6b1dbff42a5219d2ab34ff61,
+        type: 3}
+      propertyPath: onTileFallComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7906506599819508068, guid: 1557167c6b1dbff42a5219d2ab34ff61,
         type: 3}
       propertyPath: m_LocalScale.x
