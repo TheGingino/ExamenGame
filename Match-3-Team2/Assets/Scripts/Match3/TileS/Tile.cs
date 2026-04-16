@@ -45,15 +45,4 @@ public class Tile : MonoBehaviour
     }
     
     public void DestroyTile() => Destroy(gameObject);
-
-    public void Highlight()
-    {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = Color.yellow; // Example highlight color
-        }
-    }
-
-
 }

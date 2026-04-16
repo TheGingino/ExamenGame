@@ -87,6 +87,7 @@ public class Bomb : UsableItem
                 //Delay to not have tiles spawn above the grid
                 yield return new WaitForSeconds(0.05f); 
                 yield return _tileGravity.ApplyGravityContinuously();
+                _matchTiles.CheckForMatches();
             }
 
             if(matchTiles != null) 

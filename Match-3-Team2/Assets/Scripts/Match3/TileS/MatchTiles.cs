@@ -198,6 +198,7 @@ public class MatchTiles : MonoBehaviour
         }
         
         _tileGravity.SetPaused(false);
+        
         yield return _tileGravity.WaitForAnimations();
         yield return new WaitForSeconds(0.2f);
         
