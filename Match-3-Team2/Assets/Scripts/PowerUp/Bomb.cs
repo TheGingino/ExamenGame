@@ -10,6 +10,10 @@ public class Bomb : UsableItem
     private bool _isDragging;
     private Vector3 _dragOffset;
     
+    private Vector3 offset;
+    
+    [SerializeField] private GameObject originalPosition;
+    
     private void Start()
     {
         _tileGravity = FindObjectOfType<TileGravity>();
@@ -57,31 +61,43 @@ public class Bomb : UsableItem
     }
 
     private IEnumerator RefillAfterExplosion()
+{
+    // Wait for gravity to fully settle before doing anything else
+    yield return _tileGravity.ApplyGravityContinuously();
+    yield return new WaitForSeconds(0.1f); // Extra buffer to ensure stability
+
+    SpawnTiles spawnTiles = FindObjectOfType<SpawnTiles>();
+    MatchTiles matchTiles = FindObjectOfType<MatchTiles>();
+
+    if (spawnTiles != null)
     {
-        yield return _tileGravity.ApplyGravityContinuously();
-
-        SpawnTiles spawnTiles = FindObjectOfType<SpawnTiles>();
-        MatchTiles matchTiles = FindObjectOfType<MatchTiles>();
-
-        if (spawnTiles != null)
+        for (int x = 0; x < _gridSystem.width; x++)
         {
-            for (int x = 0; x < _gridSystem.width; x++)
+            int emptyCount = 0;
+            for (int y = 0; y < _gridSystem.height; y++)
             {
-                int emptyCount = 0;
-                for (int y = 0; y < _gridSystem.height; y++)
-                {
-                    if (_tileGravity.GetTileAt(x, y) == null)
-                        emptyCount++;
-                }
-                if (emptyCount > 0)
-                    yield return spawnTiles.FillColumn(x, emptyCount);
-                
-                if(matchTiles != null) matchTiles.CheckForMatches();
+                if (_tileGravity.GetTileAt(x, y) == null)
+                    emptyCount++;
             }
+            
+            if (emptyCount > 0)
+            {
+                yield return new WaitForSeconds(0.05f); 
+                yield return spawnTiles.FillColumn(x, emptyCount);
+                //Delay to not have tiles spawn above the grid
+                yield return new WaitForSeconds(0.05f); 
+                yield return _tileGravity.ApplyGravityContinuously();
+            }
+
+            if(matchTiles != null) 
+                matchTiles.CheckForMatches();
         }
-        yield return _tileGravity.ApplyGravityContinuously();
-        _matchTiles.CheckForMatches();
     }
+
+    yield return _tileGravity.ApplyGravityContinuously();
+    yield return new WaitForSeconds(0.1f);
+    _matchTiles.CheckForMatches();
+}
 
     private void OnCollisionEnter(Collision other)
     {
@@ -93,10 +109,6 @@ public class Bomb : UsableItem
             Explode(gridPos);
         }
     }
-
-    private Vector3 offset;
-    
-    [SerializeField] private GameObject originalPosition;
     
     private void OnMouseDown()
     {
