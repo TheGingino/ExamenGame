@@ -14,6 +14,8 @@ public class EnemyAttack : MonoBehaviour
     
     void DoDamage()
     {
+        int attackIndex = Random.Range(1, 4); 
+        animator.SetTrigger("Attack_" + attackIndex);
         int roll = Random.Range(0, 100);
 
         int damage;
@@ -23,8 +25,6 @@ public class EnemyAttack : MonoBehaviour
         else if (roll < 90) damage = 3; // 15%
         else damage = 4;                // 10%
         Debug.Log( "damage" + damage);  
-        int attackIndex = Random.Range(1, 4); // 1, 2, or 3
-        animator.SetTrigger("Attack_" + attackIndex);
         playerHealth.TakeDamage(damage);
     }
 }
