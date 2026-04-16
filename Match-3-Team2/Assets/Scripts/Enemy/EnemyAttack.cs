@@ -4,7 +4,7 @@ public class EnemyAttack : MonoBehaviour
 {
     private PlayerHealth playerHealth;
     private bool _enemyTurn;
-   [SerializeField] private Animator animator;
+   [SerializeField] Animator animator;
 
 
     private void Awake()
