@@ -2063,6 +2063,11 @@ PrefabInstance:
       objectReference: {fileID: 1588441052}
     - target: {fileID: 8034727297767727534, guid: c577cb9622c563549aa12ae0939fed9d,
         type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 514817014}
+    - target: {fileID: 8034727297767727534, guid: c577cb9622c563549aa12ae0939fed9d,
+        type: 3}
       propertyPath: _healthBar
       value: 
       objectReference: {fileID: 514817014}
@@ -2934,7 +2939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &717698133322838520
 GameObject:
   m_ObjectHideFlags: 0
@@ -6796,7 +6801,7 @@ RectTransform:
   m_Father: {fileID: 1386308164812889554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7275,9 +7280,10 @@ MonoBehaviour:
   - {fileID: 6613675423840466736}
   - {fileID: 2872393569023671977}
   - {fileID: 8172418340082924997}
-  nextButton: {fileID: 0}
-  prevButton: {fileID: 0}
-  mainPage: {fileID: 0}
+  - {fileID: 2423006324101175}
+  nextButton: {fileID: 4455763465066946966}
+  prevButton: {fileID: 1521379428685632000}
+  mainPage: {fileID: 3601266114019770}
   nextButtonText: {fileID: 0}
 --- !u!114 &6884735303475078037
 MonoBehaviour:
@@ -7730,7 +7736,7 @@ RectTransform:
   m_Father: {fileID: 6464112496484807793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

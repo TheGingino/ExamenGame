@@ -15,7 +15,6 @@ public class TutorialManager : MonoBehaviour
     private void Awake()
     {
         ShowPage(0);
-        
     }
 
     public void NextPage()
