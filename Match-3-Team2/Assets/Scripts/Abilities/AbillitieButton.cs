@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class AbillitieButton : MonoBehaviour
 {
-    
+    private TurnManager _turnManager;
     [SerializeField] private Button button;
     [SerializeField] private TileType abilityType;
 
@@ -12,6 +12,7 @@ public class AbillitieButton : MonoBehaviour
     private void Awake()
     {
         button.interactable = false;
+        _turnManager = FindObjectOfType<TurnManager>();
     }
 
     private void OnEnable()
@@ -20,6 +21,8 @@ public class AbillitieButton : MonoBehaviour
         {
             CombatMeter.Instance.OnChargeGained += HandleMeterFull;
         }
+        _turnManager.OnPlayerTurnStart.AddListener(UpdateButtonState);
+        _turnManager.OnEnemyTurnStart.AddListener(UpdateButtonState);
     }
     
     void Start()
@@ -48,6 +51,11 @@ public class AbillitieButton : MonoBehaviour
 
     public void OnClick()
     {
+        if (!_turnManager.playerTurn)
+        {
+            Debug.Log("Not player turn");
+            return;
+        }
         Debug.Log($"[AbilityButton-{abilityType}] CLICKED");
 
         if (!CombatMeter.Instance.UseCharge(abilityType))
@@ -76,7 +84,7 @@ public class AbillitieButton : MonoBehaviour
             case TileType.Special: charges = CombatMeter.Instance.SpecialCharges; break;
         }
 
-        button.interactable = charges > 0;
+        button.interactable = charges > 0 && _turnManager.playerTurn;
     }
 
     void ExecuteAbility()
