@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bomb : UsableItem
 {
@@ -9,6 +10,8 @@ public class Bomb : UsableItem
     private Camera _mainCamera;
     private bool _isDragging;
     private Vector3 _dragOffset;
+
+    [SerializeField] private GameObject originalPosition;
     
     private void Start()
     {
@@ -23,16 +26,14 @@ public class Bomb : UsableItem
         base.Use();
         Debug.Log(Quantity);
 
-        // Get bomb's grid position
         Vector2Int bombPos = _gridSystem.GetGridPosition(transform.position);
-    
-        // Check if bomb is on the grid
-        if (bombPos.x < 0 || bombPos.x >= _gridSystem.width || 
+
+        if (bombPos.x < 0 || bombPos.x >= _gridSystem.width ||
             bombPos.y < 0 || bombPos.y >= _gridSystem.height)
         {
-            return; // Bomb is not on grid, don't explode
+            return;
         }
-    
+
         Explode(bombPos);
     }
 
@@ -59,6 +60,7 @@ public class Bomb : UsableItem
     private IEnumerator RefillAfterExplosion()
     {
         yield return _tileGravity.ApplyGravityContinuously();
+        yield return new WaitForSeconds(0.1f);
 
         SpawnTiles spawnTiles = FindObjectOfType<SpawnTiles>();
         MatchTiles matchTiles = FindObjectOfType<MatchTiles>();
@@ -73,19 +75,26 @@ public class Bomb : UsableItem
                     if (_tileGravity.GetTileAt(x, y) == null)
                         emptyCount++;
                 }
+
                 if (emptyCount > 0)
+                {
+                    yield return new WaitForSeconds(0.05f);
                     yield return spawnTiles.FillColumn(x, emptyCount);
-                
-                if(matchTiles != null) matchTiles.CheckForMatches();
+                    yield return new WaitForSeconds(0.05f);
+                    yield return _tileGravity.ApplyGravityContinuously();
+                }
             }
         }
+
         yield return _tileGravity.ApplyGravityContinuously();
-        _matchTiles.CheckForMatches();
+
+        if (matchTiles != null)
+            matchTiles.CheckForMatches();
     }
+
 
     private void OnCollisionEnter(Collision other)
     {
-        // Only explode on collision if bomb is on grid and hasn't been used yet
         if (other.gameObject.CompareTag("Tile") && Quantity > 0)
         {
             Vector3 hitPoint = other.contacts[0].point;
@@ -94,24 +103,20 @@ public class Bomb : UsableItem
         }
     }
 
-    private Vector3 offset;
-    
-    [SerializeField] private GameObject originalPosition;
-    
     private void OnMouseDown()
     {
         if (Quantity <= 0) return;
-    
+
         _isDragging = true;
-        offset = transform.position - GetMousePosition();
+        _dragOffset = transform.position - GetMousePosition();
     }
 
     private void OnMouseDrag()
     {
         if (Quantity <= 0) return;
-    
+
         _isDragging = true;
-        transform.position = GetMousePosition() + offset;
+        transform.position = GetMousePosition() + _dragOffset;
     }
 
     private void OnMouseUp()
@@ -129,7 +134,7 @@ public class Bomb : UsableItem
 
         StartCoroutine(ReturnToOriginalPosition());
     }
-    
+
     private IEnumerator ReturnToOriginalPosition()
     {
         yield return new WaitForSeconds(0.2f);
@@ -139,7 +144,7 @@ public class Bomb : UsableItem
     private Vector3 GetMousePosition()
     {
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 10f; // Set this to the distance from the camera to the object
-        return Camera.main.ScreenToWorldPoint(mousePos);
+        mousePos.z = 10f;
+        return _mainCamera.ScreenToWorldPoint(mousePos);
     }
 }
