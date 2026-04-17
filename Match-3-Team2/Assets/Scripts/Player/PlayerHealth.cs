@@ -4,7 +4,6 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int _maxHealth;
     [SerializeField] private int _healAmount;
-    private int currentHealth;
 
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private PlayerShield _playerShield;
@@ -45,8 +44,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal() 
     {
-            currentHealth = Mathf.Min(currentHealth + _healAmount, _maxHealth);
-            _healthBar.SetHealth(currentHealth);
+            _currentHealth = Mathf.Min(_currentHealth + _healAmount, _maxHealth);
+            _healthBar.SetHealth(_currentHealth);
             Debug.Log("[PlayerHealth] Healed {_healAmount}. HP: {currentHealth}");
     }
 
