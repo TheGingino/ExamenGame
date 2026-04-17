@@ -14,12 +14,6 @@ public class GridSystem : MonoBehaviour
 
     [SerializeField] private float gridOffset;
 
-    private void Awake()
-    {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 120;
-    }
-
     private void Start()
     {
         CreateGrid();

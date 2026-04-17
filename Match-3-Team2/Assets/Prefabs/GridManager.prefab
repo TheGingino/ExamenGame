@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swapDistanceThreshold: 1.25
+  dragThreshold: 12
 --- !u!114 &9000879156267471772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,3 +109,6 @@ MonoBehaviour:
   width: 5
   height: 5
   cellSize: 1
+  backgroundSprite: {fileID: 1223321713616030574, guid: 6d3cb8ee433aa3e4e817b42933572115,
+    type: 3}
+  gridOffset: -2
