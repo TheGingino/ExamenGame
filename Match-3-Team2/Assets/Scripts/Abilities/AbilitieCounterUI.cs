@@ -55,5 +55,8 @@ public class AbilitieCounterUI : MonoBehaviour
         {
             _dots[i].gameObject.SetActive(i >= used); // turns off when ability is used
         }
+        // forceerd canvas opnieuw te bouwen
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(dotContainer as RectTransform);
     }
 }
