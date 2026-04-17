@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private PlayerShield _playerShield;
+    [SerializeField] private AudioSource healSFX;
 
 
     private GameEndManager _gameEndManager;
@@ -46,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
     {
             currentHealth = Mathf.Min(currentHealth + _healAmount, _maxHealth);
             _healthBar.SetHealth(currentHealth);
+            healSFX.Play();
             Debug.Log("[PlayerHealth] Healed {_healAmount}. HP: {currentHealth}");
     }
     
