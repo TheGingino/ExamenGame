@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
@@ -53,7 +54,7 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(EnemyTurnCoroutine());
     }
 
-    private System.Collections.IEnumerator EnemyTurnCoroutine()
+    private IEnumerator EnemyTurnCoroutine()
     {
         yield return new WaitForSeconds(0.5f);
 
