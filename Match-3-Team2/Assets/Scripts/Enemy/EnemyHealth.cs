@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] int _maxHealth;
+    [SerializeField] int maxHealth;
     [SerializeField] Animator animator;
     private int _currentHealth;
     
-    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private HealthBar healthBar;
 
     private GameEndManager _gameEndManager;
    
     private void Start()
     {
-        _currentHealth = _maxHealth;
+        _currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
         _gameEndManager = FindObjectOfType<GameEndManager>();
     }
 
@@ -24,6 +25,7 @@ public class EnemyHealth : MonoBehaviour
         _currentHealth = Mathf.Max(_currentHealth, 0);
 
         Debug.Log(_currentHealth);
+        healthBar.SetHealth(_currentHealth);
 
         CheckState();
     }

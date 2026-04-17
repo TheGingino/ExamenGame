@@ -6,9 +6,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject[] pages;
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject prevButton;
-    [SerializeField] private GameObject _mainPage;
+    [SerializeField] private GameObject mainPage;
 
-    private int currentPage = 0;
+    private int _currentPage = 0;
 
     [SerializeField] private Text nextButtonText;
 
@@ -20,10 +20,10 @@ public class TutorialManager : MonoBehaviour
 
     public void NextPage()
     {
-        if (currentPage < pages.Length - 1)
+        if (_currentPage < pages.Length - 1)
         {
-            currentPage++;
-            ShowPage(currentPage);
+            _currentPage++;
+            ShowPage(_currentPage);
         }
         else
         {
@@ -33,10 +33,10 @@ public class TutorialManager : MonoBehaviour
 
     public void PrevPage()
     {
-        if (currentPage > 0)
+        if (_currentPage > 0)
         {
-            currentPage--;
-            ShowPage(currentPage);
+            _currentPage--;
+            ShowPage(_currentPage);
         }
     }
 
@@ -47,7 +47,7 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowPage(int index)
     {
-        _mainPage.SetActive(true);
+        mainPage.SetActive(true);
 
         for (int i = 0; i < pages.Length; i++)
         {
