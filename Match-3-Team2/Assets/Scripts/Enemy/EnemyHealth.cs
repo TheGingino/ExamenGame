@@ -18,9 +18,8 @@ public class EnemyHealth : MonoBehaviour
        _healthBar.SetMaxHealth(maxHealth);
        _gameEndManager = FindObjectOfType<GameEndManager>();
     }
-    
-        public void TakeDamage(int damage)
-        {
+    public void TakeDamage(int damage) 
+    {
 
             if (currentHealth <= 0)
                 return;
@@ -30,26 +29,32 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log(currentHealth);
             _healthBar.SetHealth(currentHealth);
             CheckState();
-        }
+    }
 
-        public void CheckState()
+    public void CheckState()
+    {
+        if (currentHealth <= 0) 
         {
-            if (currentHealth <= 0)
-            {
                 animator.SetTrigger("Boss_Death");
                 StartCoroutine(AudioEffect());
                 Debug.Log("Won");
 
                 if (_gameEndManager != null)
                 {
-                    _gameEndManager.Win();
+                    StartCoroutine(WinAfterAnim());
                 }
-            }
         }
+    }
 
-        IEnumerator AudioEffect()
-        {
+    IEnumerator AudioEffect()
+    {
             yield return new WaitForSeconds(0.2f);
             deathSFX.Play();
-        }
+    }
+    
+    IEnumerator WinAfterAnim()
+    {
+            yield return new WaitForSeconds(3f);
+            _gameEndManager.Win();
+    }
 }

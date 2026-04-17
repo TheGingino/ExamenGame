@@ -5,6 +5,8 @@ public class GameEndManager : MonoBehaviour
 {
     [SerializeField] private GameObject endScreen;
     [SerializeField] private TextMeshProUGUI resultText;
+    [SerializeField] private AudioSource winSFX;
+    [SerializeField] private AudioSource looseSFX;
 
     private bool gameEnded = false;
 
@@ -14,6 +16,7 @@ public class GameEndManager : MonoBehaviour
         gameEnded = true;
 
         endScreen.SetActive(true);
+        winSFX.Play();
         resultText.text = "A";
 
         Debug.Log("PLAYER WON");
@@ -24,6 +27,7 @@ public class GameEndManager : MonoBehaviour
         if (gameEnded) return;
         gameEnded = true;
 
+        looseSFX.Play();
         endScreen.SetActive(true);
         resultText.text = "B";
 

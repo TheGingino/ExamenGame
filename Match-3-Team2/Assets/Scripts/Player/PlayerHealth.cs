@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -60,8 +61,14 @@ public class PlayerHealth : MonoBehaviour
 
             if (_gameEndManager != null)
             {
-                _gameEndManager.Lose();
+                StartCoroutine(WaitForLos());
             }
         }
+    }
+
+    IEnumerator WaitForLos()
+    {
+        yield return new WaitForSeconds(2f);
+        _gameEndManager.Lose();
     }
 }
