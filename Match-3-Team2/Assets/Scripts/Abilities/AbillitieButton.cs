@@ -89,7 +89,7 @@ public class AbillitieButton : MonoBehaviour
         }
 
         button.interactable = charges > 0 && _turnManager.playerTurn;
-        button.interactable = charges > 0 && CombatMeter.Instance.CanUseAbility();
+        button.interactable = charges > 0 && CombatMeter.Instance.CanUseAbility()  && _turnManager.playerTurn;
     }
 
     void ExecuteAbility()
