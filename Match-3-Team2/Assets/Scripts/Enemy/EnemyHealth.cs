@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] int maxHealth;
+    [SerializeField] int _maxHealth;
     [SerializeField] Animator animator;
-    private int currentHealth;
+    private int _currentHealth;
     
     [SerializeField] private HealthBar _healthBar;
 
@@ -30,7 +30,7 @@ public class EnemyHealth : MonoBehaviour
 
         public void CheckState()
         {
-            if (currentHealth <= 0)
+            if (_currentHealth <= 0)
             {
                 animator.SetTrigger("Boss_Death");
                 Debug.Log("Won");
