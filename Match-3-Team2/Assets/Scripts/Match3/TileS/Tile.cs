@@ -25,7 +25,7 @@ public class Tile : MonoBehaviour
     {
         if (tileData == null)
         {
-            Debug.LogWarning($"Tile '{name}' has no TileSO assigned.");
+            //Debug.LogWarning($"Tile '{name}' has no TileSO assigned.");
             return;
         }
         SetBackground();
@@ -34,26 +34,15 @@ public class Tile : MonoBehaviour
     {
         if (defaultBackgroundSprite == null || backgroundSprites.Length == 0)
         {
-            Debug.LogWarning($"Tile '{name}' missing defaultBackgroundSprite or backgroundSprites array is empty.");
+            //Debug.LogWarning($"Tile '{name}' missing defaultBackgroundSprite or backgroundSprites array is empty.");
             return;
         }
 
         int randomIndex = Random.Range(0, backgroundSprites.Length);
         defaultBackgroundSprite.sprite = backgroundSprites[randomIndex];
         defaultBackgroundSprite.transform.localScale = Vector3.one;
-        Debug.Log($"Tile '{name}' assigned background sprite: {defaultBackgroundSprite.sprite.name}");
+        //Debug.Log($"Tile '{name}' assigned background sprite: {defaultBackgroundSprite.sprite.name}");
     }
     
     public void DestroyTile() => Destroy(gameObject);
-
-    public void Highlight()
-    {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = Color.yellow; // Example highlight color
-        }
-    }
-
-
 }

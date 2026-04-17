@@ -20,6 +20,7 @@ public class AbillitieButton : MonoBehaviour
         if (CombatMeter.Instance != null)
         {
             CombatMeter.Instance.OnChargeGained += HandleMeterFull;
+            CombatMeter.Instance.OnAbilityLimitChanged += UpdateButtonState;
         }
         _turnManager.OnPlayerTurnStart.AddListener(UpdateButtonState);
         _turnManager.OnEnemyTurnStart.AddListener(UpdateButtonState);
@@ -30,21 +31,24 @@ public class AbillitieButton : MonoBehaviour
         if (CombatMeter.Instance != null)
         {
             CombatMeter.Instance.OnChargeGained += HandleMeterFull;
+            CombatMeter.Instance.OnAbilityLimitChanged += UpdateButtonState;
         }
+        UpdateButtonState();
     }
 
     private void OnDisable()
     {
         CombatMeter.Instance.OnChargeGained -= HandleMeterFull;
+        CombatMeter.Instance.OnAbilityLimitChanged -= UpdateButtonState;
     }
 
     void HandleMeterFull(TileType type)
     {
-        Debug.Log($"[AbilityButton-{abilityType}] EVENT RECEIVED: {type}");
+        Debug.Log("[AbilityButton-{abilityType}] EVENT RECEIVED: {type}");
 
         if (type != abilityType) return;
 
-        Debug.Log($"[AbilityButton-{abilityType}] Charge gained");
+        Debug.Log("[AbilityButton-{abilityType}] Charge gained");
 
         UpdateButtonState();
     }
@@ -60,11 +64,11 @@ public class AbillitieButton : MonoBehaviour
 
         if (!CombatMeter.Instance.UseCharge(abilityType))
         {
-            Debug.Log($"[AbilityButton-{abilityType}] No charges available");
+            Debug.Log("[AbilityButton-{abilityType}] No charges available");
             return;
         }
 
-        Debug.Log($"[AbilityButton-{abilityType}] USED");
+        Debug.Log("[AbilityButton-{abilityType}] USED");
 
         ExecuteAbility();
 
@@ -85,6 +89,7 @@ public class AbillitieButton : MonoBehaviour
         }
 
         button.interactable = charges > 0 && _turnManager.playerTurn;
+        button.interactable = charges > 0 && CombatMeter.Instance.CanUseAbility();
     }
 
     void ExecuteAbility()
