@@ -34,7 +34,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Max: -0.104
+    - _Max: -0.07
     - _Min: 0
     - _Noise: 0
     - _Shades: 0.17
