@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
@@ -24,6 +25,11 @@ public class GameEndManager : MonoBehaviour
         LOSE
     }
 
+    private void Start()
+    {
+        Time.timeScale = 1f;
+         _endScreen.SetActive(false);
+    }
 
     private GameState _currentState = GameState.PLAYING;
 
