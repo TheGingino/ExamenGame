@@ -15,14 +15,11 @@ public class AbilitieCounterUI : MonoBehaviour
     {
         if (CombatMeter.Instance != null)
             CombatMeter.Instance.OnAbilityLimitChanged += UpdateDots;
-        Debug.Log("Subscribed to OnAbilityLimitChanged event");
     }
 
     private void OnDisable()
     {
-        if (CombatMeter.Instance != null)
-            CombatMeter.Instance.OnAbilityLimitChanged -= UpdateDots;
-        Debug.Log("Unsubscribed from OnAbilityLimitChanged event");
+        CombatMeter.Instance.OnAbilityLimitChanged -= UpdateDots;
     }
 
     private void Start()
@@ -50,17 +47,16 @@ public class AbilitieCounterUI : MonoBehaviour
 
     private void UpdateDots()
     {
-        Debug.Log("Check");
-        if (_dots == null || CombatMeter.Instance == null) return;
+        if (_dots == null) return;
 
         int used = CombatMeter.Instance.maxAbilitiesPerTurn - CombatMeter.Instance.AbilitiesRemaining;
-        Debug.Log("Combat Used");
 
         for (int i = 0; i < _dots.Length; i++)
         {
-            _dots[i].enabled = i >= used ; // turns off when ability is used
-            Debug.Log($"Updating dot {i}: {(i >= used ? "Active" : "Inactive")}");
+            _dots[i].gameObject.SetActive(i >= used); // turns off when ability is used
         }
-
+        // forceerd canvas opnieuw te bouwen
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(dotContainer as RectTransform);
     }
 }

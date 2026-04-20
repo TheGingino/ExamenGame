@@ -3,7 +3,6 @@ using UnityEngine;
 public class CombatMeter : MonoBehaviour
 {
    public static CombatMeter Instance { get; private set; }
-   [SerializeField] private CombatMeter instance;
   
    public System.Action<TileType> OnChargeGained;
    public System.Action OnAbilityLimitChanged;

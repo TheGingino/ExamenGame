@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
@@ -15,9 +14,6 @@ public class TurnManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI swapCounterText;
-    
-    public UnityEvent OnPlayerTurnStart;
-    public UnityEvent OnEnemyTurnStart;
 
     private SwapTiles swapTiles;
 
@@ -46,9 +42,6 @@ public class TurnManager : MonoBehaviour
         playerTurn = true;
         currentSwaps = 0;
         swapTiles.SetInputState(true);
-
-        OnPlayerTurnStart?.Invoke();
-
         UpdateSwapUI();
     }
 
@@ -56,18 +49,17 @@ public class TurnManager : MonoBehaviour
     {
         playerTurn = false;
         swapTiles.SetInputState(false);
-
-        OnEnemyTurnStart?.Invoke();
-
+        CombatMeter.Instance.ResetAbiltyUses();
         StartCoroutine(EnemyTurnCoroutine());
     }
+
     private System.Collections.IEnumerator EnemyTurnCoroutine()
     {
         yield return new WaitForSeconds(0.5f);
 
         OnEnemyTurn?.Invoke();
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1f);
 
         StartPlayerTurn(); // This resets swaps + UI
     }

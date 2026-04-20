@@ -68,13 +68,13 @@ public class MatchTiles : MonoBehaviour
     public void CheckForMatches()
     {
         List<Vector2Int> matches = GetMatchingTiles();
-        //Debug.Log($"CheckForMatches found {matches.Count} matching tiles");
+        Debug.Log($"CheckForMatches found {matches.Count} matching tiles");
     
         if (matches.Count >= 3)
             StartCoroutine(ResolveMatches(matches));
         else if (!HasValidMoves())
         {
-            //Debug.Log("Deadlock detected! Clearing and respawning grid.");
+            Debug.Log("Deadlock detected! Clearing and respawning grid.");
             StartCoroutine(ResolveGrid());
         }
     }
@@ -102,7 +102,7 @@ public class MatchTiles : MonoBehaviour
                 case TileType.Special: totalSpecial += tile._tileData.specialAttackAmount; break;
             }
         }
-       //Debug.Log($"[MatchTiles] Totalen — Heal: {totalHeal}, Damage: {totalDamage}, Shield: {totalShield}, Special: {totalSpecial}");
+        Debug.Log($"[MatchTiles] Totalen — Heal: {totalHeal}, Damage: {totalDamage}, Shield: {totalShield}, Special: {totalSpecial}");
 
         if (totalHeal > 0) CombatMeter.Instance.Add(TileType.Heal, totalHeal);
         if (totalDamage > 0) CombatMeter.Instance.Add(TileType.Damage, totalDamage);

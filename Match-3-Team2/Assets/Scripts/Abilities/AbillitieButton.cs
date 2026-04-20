@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class AbillitieButton : MonoBehaviour
 {
-    private TurnManager _turnManager;
+    
     [SerializeField] private Button button;
     [SerializeField] private TileType abilityType;
 
@@ -12,7 +12,6 @@ public class AbillitieButton : MonoBehaviour
     private void Awake()
     {
         button.interactable = false;
-        _turnManager = FindObjectOfType<TurnManager>();
     }
 
     private void OnEnable()
@@ -22,8 +21,6 @@ public class AbillitieButton : MonoBehaviour
             CombatMeter.Instance.OnChargeGained += HandleMeterFull;
             CombatMeter.Instance.OnAbilityLimitChanged += UpdateButtonState;
         }
-        _turnManager.OnPlayerTurnStart.AddListener(UpdateButtonState);
-        _turnManager.OnEnemyTurnStart.AddListener(UpdateButtonState);
     }
     
     void Start()
@@ -55,13 +52,9 @@ public class AbillitieButton : MonoBehaviour
 
     public void OnClick()
     {
-        if (!_turnManager.playerTurn)
-        {
-            Debug.Log("Not player turn");
-            return;
-        }
-        Debug.Log($"[AbilityButton-{abilityType}] CLICKED");
-
+        Debug.Log("[AbilityButton-{abilityType}] CLICKED");
+        if (!CombatMeter.Instance.CanUseAbility()) return;
+       
         if (!CombatMeter.Instance.UseCharge(abilityType))
         {
             Debug.Log("[AbilityButton-{abilityType}] No charges available");
@@ -88,8 +81,7 @@ public class AbillitieButton : MonoBehaviour
             case TileType.Special: charges = CombatMeter.Instance.SpecialCharges; break;
         }
 
-        button.interactable = charges > 0 && _turnManager.playerTurn;
-        button.interactable = charges > 0 && CombatMeter.Instance.CanUseAbility()  && _turnManager.playerTurn;
+        button.interactable = charges > 0 && CombatMeter.Instance.CanUseAbility();
     }
 
     void ExecuteAbility()
