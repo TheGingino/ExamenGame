@@ -11,6 +11,7 @@ Library: C:\Unity\ExamenGame\Match-3-Team2\Temp\BurstOutput\tempburstlibs\armeab
 --float-mode=Fast
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Unity\ExamenGame\Match-3-Team2\Temp\Burst
+--debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Unity\ExamenGame\Match-3-Team2\Library\Burst
 --output=C:\Unity\ExamenGame\Match-3-Team2\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
@@ -28,6 +29,7 @@ Library: C:\Unity\ExamenGame\Match-3-Team2\Temp\BurstOutput\tempburstlibs\armeab
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Unity\ExamenGame\Match-3-Team2\Temp\Burst
+--debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Unity\ExamenGame\Match-3-Team2\Library\Burst
 --output=C:\Unity\ExamenGame\Match-3-Team2\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
