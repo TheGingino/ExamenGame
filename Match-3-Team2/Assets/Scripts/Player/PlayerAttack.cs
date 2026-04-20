@@ -5,6 +5,8 @@ public class PlayerAttack : MonoBehaviour
    [SerializeField] int _attackDamage;
    [SerializeField] int _specialAttackDamage;
    [SerializeField] Animator animator;
+   [SerializeField] AudioSource hitSFX;
+   [SerializeField] AudioSource specialHitSFX;
    private EnemyHealth enemyHealth;
    private bool playerTurn;
 
@@ -16,14 +18,23 @@ public class PlayerAttack : MonoBehaviour
    public void DoDamage()
    {
       enemyHealth.TakeDamage(_attackDamage);
-      animator.SetTrigger("Hit_Small");
+      if (enemyHealth._currentHealth > 0)
+      {
+         animator.SetTrigger("Hit_Small");
+         hitSFX.Play();
+      }
+      
       Debug.Log("[PlayerAttack] Damage used! " + _attackDamage);
    }
 
    public void SpecialAttack()
    {
          enemyHealth.TakeDamage(_specialAttackDamage);
-         animator.SetTrigger("Hit_Big");
+         if (enemyHealth._currentHealth > 0)
+         {
+            animator.SetTrigger("Hit_Big");
+            specialHitSFX.Play();
+         }
          Debug.Log("[PlayerAttack] Special used! -{_specialAttackDamage}");
    }
    

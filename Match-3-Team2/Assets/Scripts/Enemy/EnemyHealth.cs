@@ -1,13 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] int maxHealth;
     [SerializeField] Animator animator;
-    private int _currentHealth;
-    
+    [SerializeField] private AudioSource deathSFX;
     [SerializeField] private HealthBar healthBar;
-
+    
+    public int _currentHealth;
     private GameEndManager _gameEndManager;
    
     private void Start()
@@ -35,12 +36,25 @@ public class EnemyHealth : MonoBehaviour
             if (_currentHealth <= 0)
             {
                 animator.SetTrigger("Boss_Death");
+                StartCoroutine(AudioEffect());
                 Debug.Log("Won");
 
                 if (_gameEndManager != null)
                 {
-                   _gameEndManager.TriggerWin();
+                    StartCoroutine(WinAfterAnim());
                 }
             }
+        }
+        
+        IEnumerator AudioEffect()
+        {
+            yield return new WaitForSeconds(0.2f);
+            deathSFX.Play();
+        }
+        
+        IEnumerator WinAfterAnim()
+        {
+            yield return new WaitForSeconds(3f);
+            _gameEndManager.TriggerWin();
         }
 }
