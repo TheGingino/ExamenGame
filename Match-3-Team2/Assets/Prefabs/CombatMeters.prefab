@@ -48,7 +48,8 @@ MonoBehaviour:
   damageMax: 100
   shieldMax: 100
   specialMax: 100
-  healMaxCharges: 5
-  damageMaxCharges: 5
-  shieldMaxCharges: 5
+  healMaxCharges: 3
+  damageMaxCharges: 3
+  shieldMaxCharges: 3
   SpecialMaxCharges: 1
+  maxAbilitiesPerTurn: 3

@@ -426,6 +426,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7626640432489283594, guid: 2c9bc81552caad54688f515a461495c7,
+        type: 3}
+      propertyPath: specialMax
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626640432489283594, guid: 2c9bc81552caad54688f515a461495c7,
+        type: 3}
+      propertyPath: healMaxCharges
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626640432489283594, guid: 2c9bc81552caad54688f515a461495c7,
+        type: 3}
+      propertyPath: damageMaxCharges
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626640432489283594, guid: 2c9bc81552caad54688f515a461495c7,
+        type: 3}
+      propertyPath: shieldMaxCharges
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9081329542266014177, guid: 2c9bc81552caad54688f515a461495c7,
         type: 3}
       propertyPath: m_Name
