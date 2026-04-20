@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
    public void DoDamage()
    {
       enemyHealth.TakeDamage(_attackDamage);
-      if (enemyHealth.currentHealth > 0)
+      if (enemyHealth._currentHealth > 0)
       {
          animator.SetTrigger("Hit_Small");
          hitSFX.Play();
@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
    public void SpecialAttack()
    {
          enemyHealth.TakeDamage(_specialAttackDamage);
-         if (enemyHealth.currentHealth > 0)
+         if (enemyHealth._currentHealth > 0)
          {
             animator.SetTrigger("Hit_Big");
             specialHitSFX.Play();
