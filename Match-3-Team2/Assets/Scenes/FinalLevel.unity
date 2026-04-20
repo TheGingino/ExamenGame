@@ -577,12 +577,12 @@ PrefabInstance:
     - target: {fileID: 956897762238046069, guid: 10f1963144adcb2418e40233e4161630,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -390
+      value: -375
       objectReference: {fileID: 0}
     - target: {fileID: 956897762238046069, guid: 10f1963144adcb2418e40233e4161630,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 575
+      value: 557
       objectReference: {fileID: 0}
     - target: {fileID: 956897762238046069, guid: 10f1963144adcb2418e40233e4161630,
         type: 3}
@@ -3745,6 +3745,8 @@ MonoBehaviour:
   dotPrefab: {fileID: 2806292201550563409, guid: e38c2aa125721594b81a337b64a27d76,
     type: 3}
   dotContainer: {fileID: 1120752934}
+  dotActiveSprite: {fileID: 21300000, guid: 6ab62504f4c4c7d4cb306f987b19ce86, type: 3}
+  dotInactiveSprite: {fileID: 21300000, guid: ac9181971473ef543abfb5c7beb91ca5, type: 3}
 --- !u!1 &2039364197
 GameObject:
   m_ObjectHideFlags: 0
