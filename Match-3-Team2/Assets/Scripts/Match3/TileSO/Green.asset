@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0112f8d5bd8bbc14a8bbaabe8ae577ca, type: 3}
   m_Name: Green
   m_EditorClassIdentifier: 
-  HealAmount: 20
+  HealAmount: 5
   DamageAmount: 0
   ShieldAmount: 0
   specialAttackAmount: 0
