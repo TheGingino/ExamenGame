@@ -1,44 +1,45 @@
 using UnityEngine;
+
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] int maxHealth;
     [SerializeField] Animator animator;
-    private int currentHealth;
+    private int _currentHealth;
     
-    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private HealthBar healthBar;
 
     private GameEndManager _gameEndManager;
-
+   
     private void Start()
     {
-       currentHealth = maxHealth;
-       _healthBar.SetMaxHealth(maxHealth);
-       _gameEndManager = FindObjectOfType<GameEndManager>();
+        _currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        _gameEndManager = FindObjectOfType<GameEndManager>();
     }
-    
-        public void TakeDamage(int damage)
-        {
 
-            if (currentHealth <= 0)
-                return;
-        
-            currentHealth -= damage;
-            currentHealth = Mathf.Max(currentHealth, 0);
-            Debug.Log(currentHealth);
-            _healthBar.SetHealth(currentHealth);
-            CheckState();
-        }
+    public void TakeDamage(int damage)
+    {
+        if (_currentHealth <= 0) return;
+
+        _currentHealth -= damage;
+        _currentHealth = Mathf.Max(_currentHealth, 0);
+
+        Debug.Log(_currentHealth);
+        healthBar.SetHealth(_currentHealth);
+
+        CheckState();
+    }
 
         public void CheckState()
         {
-            if (currentHealth <= 0)
+            if (_currentHealth <= 0)
             {
                 animator.SetTrigger("Boss_Death");
                 Debug.Log("Won");
 
                 if (_gameEndManager != null)
                 {
-                    _gameEndManager.Win();
+                   _gameEndManager.TriggerWin();
                 }
             }
         }
