@@ -7,14 +7,14 @@ waarbij we ervoor gekozen hebben om een Space Themed Dungeon ish Crawler .te mak
 # Geproduceerde Game Onderdelen
 
 Gino Schaap:
-  * [Grid System]()
-  * [TileSO]()
-  * [Tiles]()
-  * [Swap Tiles]()
-  * [MatchTiles]()
-  * [Tile Dropping]()
-  * [Bomb]()
-  * [Save System]()
+  * [Grid System](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/GridSystem.cs)
+  * [Tiles](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/Tile.cs)
+  * [Swap Tiles](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/SpawnTiles.cs)
+  * [MatchTiles](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/MatchTiles.cs)
+  * [Tile Gravity](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/TileGravity.cs)
+  * [Bomb](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/PowerUp/Bomb.cs)
+  * [Save System](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/SaveSystem/SaveSystem.cs)
+  * [Framerate Display](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/FrameCheck.cs)
   * [Level Creator]()
 
 
@@ -23,7 +23,7 @@ Julie Jaasma:
   * [Options Menu]()
      
 Nikki van Wijngaarden:
- * [DeadLock]()
+ * [TileSO]()
 
 Kiana (Jasper) Hiemstra:
   * [Level Selection Screen]()
@@ -44,12 +44,60 @@ Min van der Veen:
 ## 1. Grid System
 
 Het spel speelt zich af op een rechthoekig grid. Het grid heeft een vaste breedte, hoogte en celgrootte die samen de speelruimte bepalen. Elke cel op het grid kan een Tile bevatten.
+```mermaid
+---
+config:
+  layout: elk
+---
+flowchart TD
+    A([Start]) --> B[CreateGrid\nSpawn Quad per cell]
+    B --> C[GetWorldPosition\nx,y → Vector2]
+    B --> D[GetTile\nOverlapBox → Tile]
+    B --> E[GetGridPosition\nworldPos → Vector2Int]
+    D --> F[LayerMask Tile\nPhysics-based lookup]
+```
 
 ---
 
 ## 2. Tile Types
 
-Elke Tile heeft een type dat bepaalt hoe hij eruit ziet en hoe hij zich gedraagt. Het type wordt meegegeven als data aan de Tile zodat het spel altijd weet wat voor soort Tile er op een plek staat.
+Elke Tile heeft een type dat bepaalt hoe hij eruit ziet en hoe hij zich gedraagt. Het type wordt meegegeven als data aan de Tile zodat het spel altijd weet wat voor soort Tile er op een plek staat. Je hebt 5 soorten Tiles: Attack Tile, Shield Tile, Heal Tile, Special Tile en een Filler Tile. ze bouwen allemaal een bar op behalve de filler. Die is er puur om de grid te vullen met extra tiles.
+
+```mermaid
+---
+config:
+  layout: elk
+---
+classDiagram
+    class Tile {
+        -TileSO tileData
+        -bool canBeSwapped
+        +TileSO _tileData
+        +SetType(TileSO) void
+        +DestroyTile() void
+        +Highlight() void
+    }
+    class TileSO {
+        +int HealAmount
+        +int DamageAmount
+        +int ShieldAmount
+        +int specialAttackAmount
+        +Sprite tileSprite
+        +TileType tileType
+        -OnEnable() void
+    }
+    class TileType {
+        <<enumeration>>
+        Normal
+        Heal
+        Shield
+        Damage
+        Special
+    }
+    Tile --> TileSO : has
+    TileSO --> TileType : uses
+```
+
 
 ---
 
@@ -57,11 +105,69 @@ Elke Tile heeft een type dat bepaalt hoe hij eruit ziet en hoe hij zich gedraagt
 
 Tiles spawnen op lege plekken in het grid met een black hole-effect zodat het visueel aantrekkelijk oogt. Bij de start van een level wordt het volledige grid gevuld. Wanneer Tiles verdwijnen na een match, worden de vrijgekomen plekken direct weer opgevuld. Er spawnt nooit een Tile die direct een match vormt.
 
+```mermaid
+---
+config:
+  layout: elk
+---
+flowchart TD
+    A([Awake]) --> B[Wire GridSystem\nTileGravity · Transform]
+    C([Start]) --> D[SpawnInitialTiles\nfor every x,y]
+    D --> E[SpawnDirect x,y\nGetNonMatchingTile → Instantiate → Register]
+    E --> F[GetNonMatchingTile\nLoop until WouldMatch = false]
+    G([FillColumn col, count\ncalled by MatchTiles or Bomb]) --> H[Spawn above grid top\nstacked positions]
+    H --> I[EnqueueTile → TileGravity]
+```
+
 ---
 
 ## 4. Tile Swapping
 
 De speler verplaatst Tiles door ze te verwisselen met een aangrenzende Tile. Als de wissel geen match oplevert, schuift de Tile automatisch terug naar zijn originele positie. Alleen Tiles die grenzen aan de geselecteerde Tile kunnen gewisseld worden.
+
+```mermaid
+---
+config:
+  layout: elk
+---
+flowchart TD
+    A([Update called every frame]) --> B[HandleClickSwap]
+    A --> C[HandleDrag]
+
+    B --> B1{isSwapping or\ninputDisabled or\nisDragging?}
+    B1 -->|yes| B2([Skip])
+    B1 -->|no| B3{MouseButtonDown?}
+    B3 -->|no| B2
+    B3 -->|yes| B4[Raycast → get clicked tile]
+    B4 --> B5{firstTile == null?}
+    B5 -->|yes| B6[Set firstTile]
+    B5 -->|no| B7{secondTile == null\nand different tile?}
+    B7 -->|no| B2
+    B7 -->|yes| B8{AreAdjacent?}
+    B8 -->|no| B9[ResetSelection]
+    B8 -->|yes| B10[StartCoroutine Swap]
+
+    C --> C1{isSwapping or\ninputDisabled?}
+    C1 -->|yes| C2([Skip])
+    C1 -->|no| C3{Touch input?}
+    C3 -->|yes| C4[Handle TouchPhase\nBegan / Moved / Ended]
+    C3 -->|no| C5[Handle Mouse\nDown / Hold / Up]
+    C4 --> C6[TryBeginDrag or\nTryCompleteDrag]
+    C5 --> C6
+
+    C6 --> C7{AreAdjacent?}
+    C7 -->|no| C8([Wait])
+    C7 -->|yes| B10
+
+    B10 --> D[Animate swap visually\nLerp positions]
+    D --> E[Update _TileGrid]
+    E --> F{HasMatches?}
+    F -->|no| G[Reverse animation\nRestore grid]
+    G --> H[ResetSelection]
+    F -->|yes| I[TriggerMatchCheck\nRegisterSwap]
+    I --> H
+    H --> A
+```
 
 ---
 
@@ -74,6 +180,25 @@ Zodra een swap is uitgevoerd, controleert het spel automatisch of er een match a
 ## 6. Deadlock System
 
 Als er geen geldige zetten meer mogelijk zijn op het board, shufflet het board automatisch. De speler kan dan niet meer zetten totdat de shuffle klaar is. De shuffle zorgt er altijd voor dat er daarna geldige zetten beschikbaar zijn. Een Tile Limiter houdt bij of er nog zetten mogelijk zijn.
+
+```mermaid
+---
+config:
+  layout: elk
+---
+flowchart TD
+    A([CheckForMatches]) --> B[GetMatchingTiles\nScan horizontal + vertical triplets]
+    B --> C{matches.Count >= 3?}
+    C -->|no| Z([Done])
+    C -->|yes| D[ResolveMatches coroutine\nPause gravity]
+    D --> E[Tally per TileType\nHeal / Damage / Shield / Special]
+    E --> F[CombatMeter.Instance.Add]
+    F --> G[Destroy matched tiles]
+    G --> H[ApplyGravityContinuously]
+    H --> I[FillColumn per cleared column]
+    I --> J[Resume gravity]
+    J --> A
+```
 
 ---
 
