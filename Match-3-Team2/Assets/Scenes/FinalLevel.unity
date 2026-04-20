@@ -2088,12 +2088,12 @@ PrefabInstance:
         type: 3}
       propertyPath: _buttonText.Array.data[0]
       value: 
-      objectReference: {fileID: 2624231315756271326}
+      objectReference: {fileID: 4760809029081557303}
     - target: {fileID: 1781278704150904355, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
       propertyPath: _buttonText.Array.data[1]
       value: 
-      objectReference: {fileID: 4780983219441710336}
+      objectReference: {fileID: 2624231315756271326}
     - target: {fileID: 1781278704150904355, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
       propertyPath: _buttonText.Array.data[2]
@@ -8675,7 +8675,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d596a564582a4449a07909312c7ba5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonText: []
+  _buttonText:
+  - {fileID: 4760809029081557303}
+  - {fileID: 2624231315756271326}
+  - {fileID: 4546221656956970443}
 --- !u!1 &6613675423840466736
 GameObject:
   m_ObjectHideFlags: 0
