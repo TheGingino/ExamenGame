@@ -6,6 +6,7 @@ public class EnemyAttack : MonoBehaviour
     private PlayerHealth playerHealth;
     private bool _enemyTurn;
    [SerializeField] Animator animator;
+   [SerializeField] AudioSource attackSFX;
 
 
     private void Awake()
@@ -34,6 +35,7 @@ public class EnemyAttack : MonoBehaviour
     {
         int attackIndex = Random.Range(1, 4); 
         animator.SetTrigger("Attack_" + attackIndex);
+        attackSFX.Play();
         yield return new WaitForSeconds(1f);
         RollDamage();
     }

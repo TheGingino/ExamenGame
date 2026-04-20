@@ -12,6 +12,7 @@ public class Bomb : UsableItem
     private Vector3 _dragOffset;
 
     [SerializeField] private GameObject originalPosition;
+    [SerializeField] private AudioSource bombSFX;
     
     private void Start()
     {
@@ -39,6 +40,7 @@ public class Bomb : UsableItem
 
     private void Explode(Vector2Int center)
     {
+        bombSFX.Play();
         for (int x = center.x - 1; x <= center.x + 1; x++)
         {
             for (int y = center.y - 1; y <= center.y + 1; y++)

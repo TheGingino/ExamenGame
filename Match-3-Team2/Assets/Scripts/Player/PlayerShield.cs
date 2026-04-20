@@ -5,6 +5,7 @@ public class PlayerShield : MonoBehaviour
 {
    public int shieldAmmount { get; private set; }
    [SerializeField] private int _shieldToAdd;
+   [SerializeField] private AudioSource shieldSFX;
 
    private void Start()
    {
@@ -13,6 +14,7 @@ public class PlayerShield : MonoBehaviour
    public void GainShield()
   {
         shieldAmmount += _shieldToAdd;
+        shieldSFX.Play();
         Debug.Log("[PlayerShield] Shield: {shieldAmmount}");
   }
   

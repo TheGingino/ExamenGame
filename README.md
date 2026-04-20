@@ -13,6 +13,9 @@ Gino Schaap:
   * [Swap Tiles]()
   * [MatchTiles]()
   * [Tile Dropping]()
+  * [Bomb]()
+  * [Save System]()
+  * [Level Creator]()
 
 
 Julie Jaasma:
