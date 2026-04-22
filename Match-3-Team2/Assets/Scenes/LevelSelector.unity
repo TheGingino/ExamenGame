@@ -1248,6 +1248,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081674876}
   m_CullTransparentMesh: 1
+--- !u!1 &1223182853 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f9cb2e57c464454696651bf06ad3c49,
+    type: 3}
+  m_PrefabInstance: {fileID: 1319678351}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1223182854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223182853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2f5a5c5840e4648b4ec5ed98a8f98e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swipeSpeed: 5
 --- !u!1 &1255285675
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,7 +1437,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0f9cb2e57c464454696651bf06ad3c49,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.67909
+      value: -1.82
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f9cb2e57c464454696651bf06ad3c49,
         type: 3}
@@ -1455,6 +1474,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0f9cb2e57c464454696651bf06ad3c49,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0f9cb2e57c464454696651bf06ad3c49,
         type: 3}
       propertyPath: m_Name
@@ -1463,7 +1487,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f9cb2e57c464454696651bf06ad3c49,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1223182854}
   m_SourcePrefab: {fileID: 100100000, guid: 0f9cb2e57c464454696651bf06ad3c49, type: 3}
 --- !u!1 &1407322361
 GameObject:
