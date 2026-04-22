@@ -3524,6 +3524,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3714722703390735296, guid: ab52d72ac28349a47bb76c62b14cd63e,
         type: 3}
+      propertyPath: gridOffsetX
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714722703390735296, guid: ab52d72ac28349a47bb76c62b14cd63e,
+        type: 3}
       propertyPath: backgroundSprites.Array.size
       value: 1
       objectReference: {fileID: 0}
