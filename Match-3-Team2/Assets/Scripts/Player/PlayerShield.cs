@@ -12,17 +12,19 @@ public class PlayerShield : MonoBehaviour
       shieldAmmount= 0;
    }
    public void GainShield()
-  {
-        shieldAmmount += _shieldToAdd;
-        shieldSFX.Play();
-        Debug.Log("[PlayerShield] Shield: {shieldAmmount}");
-  }
-  
-  public int TakeDamage(int damage)
-  {
-     int absorbed = Mathf.Min(shieldAmmount, damage);
-     shieldAmmount -= absorbed;
+   {
+      shieldAmmount += _shieldToAdd;
+      shieldSFX.Play();
+      Debug.Log($"[PlayerShield] Shield gained. Current shield: {shieldAmmount}");
+   }
 
-     return damage - absorbed; // leftover damage
-  }
+   public int TakeDamage(int damage)
+   {
+      int absorbed = Mathf.Min(shieldAmmount, damage);
+      shieldAmmount -= absorbed;
+
+      Debug.Log($"[PlayerShield] Took damage. Absorbed: {absorbed}, Remaining shield: {shieldAmmount}");
+
+      return damage - absorbed;
+   }
 }
