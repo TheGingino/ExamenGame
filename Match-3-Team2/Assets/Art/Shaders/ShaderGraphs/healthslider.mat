@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6623678668838389088
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HealthBar
+  m_Name: healthslider
   m_Shader: {fileID: -6465566751694194690, guid: 242ec80202e7dcd44823490ec9f93445,
     type: 3}
   m_Parent: {fileID: 0}
@@ -50,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c3c621f50e807fd488013316bdcc6623, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -69,13 +82,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-<<<<<<< Updated upstream
-    - _SampleTexture2D_8f302bc471b14fd19ff042363b0e12eb_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: c3c621f50e807fd488013316bdcc6623, type: 3}
-=======
     - _SampleTexture2D_2f4d92f690f5462590e81212670db731_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: aa9c9dc218e03984cb5c6df711966d8b, type: 3}
->>>>>>> Stashed changes
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -111,34 +119,16 @@ Material:
     - _DitherSize: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-<<<<<<< Updated upstream
-    - _Edge: 1.2
-=======
->>>>>>> Stashed changes
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-<<<<<<< Updated upstream
-    - _Max: -0.34
     - _Metallic: 0
-    - _Min: 0.108
-    - _Noise: 80.2
-=======
-    - _Metallic: 0
->>>>>>> Stashed changes
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-<<<<<<< Updated upstream
-    - _Rotate_Z: 0
-    - _Rotate_x: 0
-    - _Rotate_y: 0
-    - _Shades: 1204.74
-=======
->>>>>>> Stashed changes
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -151,26 +141,9 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-<<<<<<< Updated upstream
-    - _Color: {r: 0.24153554, g: 0.7882353, b: 0, a: 1}
-=======
-    - _Base_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Color: {r: 0.5754717, g: 0, b: 0, a: 1}
->>>>>>> Stashed changes
+    - _Base_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emmision_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Emmision_Color: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1738421331953440709
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7

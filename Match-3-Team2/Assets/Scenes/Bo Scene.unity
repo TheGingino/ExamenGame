@@ -135,6 +135,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile_BigScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 8397874676637658814, guid: 3fc4a08f2bb8ae64a92427c33cdd58f1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9161649842772770525, guid: 3fc4a08f2bb8ae64a92427c33cdd58f1,
         type: 3}
       propertyPath: m_LocalPosition.x
