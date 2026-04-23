@@ -1,41 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelUISwipe : MonoBehaviour
 {
-    //Its a 3D mesh element with some buttons that need to swipe up and down to see the next level buttons
-    // its done for mobile devices to save screen space and make it more interactive
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private float dragSensitivity = 0.5f;
+    [SerializeField] private float minCameraY = 0f;
+    [SerializeField] private float maxCameraY = 10f;
+    [SerializeField] private float smoothDamping = 0.1f;
+    
+    private Vector3 dragStartPosition;
+    private Vector3 cameraStartPosition;
+    private float cameraVelocity;
+    private bool isDragging;
 
-    public float swipeSpeed = 5f; // Speed of the swipe
-    private Vector3 initialPosition; // Initial position of the UI element
-    private Vector3 targetPosition; // Target position for the swipe
-    private bool isSwiping; // Flag to indicate if the UI element is currently swiping
-    
-    
-    void Start()
+    private void Start()
     {
-        // Store the initial position of the UI element
-        initialPosition = transform.position;
-        targetPosition = initialPosition; // Start with the target position as the initial position
-        isSwiping = true; 
+        if (mainCamera == null)
+            mainCamera = Camera.main;
     }
 
-    void Update()
+    private void Update()
     {
-        //it drags with the mouse/finger
-        //also moves with the mouse direction, so if you swipe up it moves up and if you swipe down it moves down
-        if (isSwiping)
-        {
-            if (Input.GetMouseButton(0)) // Check for mouse button down (or touch input)
-            {
-                Vector3 mousePosition = Input.mousePosition;
-                mousePosition.z = 10f; // Set a fixed distance from the camera
-                targetPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            }
+        HandleInput();
+    }
 
-            // Smoothly move the UI element towards the target position
-            transform.position = Vector3.Lerp(transform.position, targetPosition, swipeSpeed * Time.deltaTime);
+    private void HandleInput()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            isDragging = true;
+            dragStartPosition = Input.mousePosition;
+            cameraStartPosition = mainCamera.transform.position;
+        }
+        
+        if (Input.GetMouseButton(0) && isDragging)
+        {
+            float dragDelta = Input.mousePosition.y - dragStartPosition.y;
+            float worldDragDelta = dragDelta * dragSensitivity * 0.01f;
+            
+            Vector3 newCameraPos = cameraStartPosition - Vector3.up * worldDragDelta;
+            newCameraPos.y = Mathf.Clamp(newCameraPos.y, minCameraY, maxCameraY);
+            
+            mainCamera.transform.position = newCameraPos;
+        }
+        
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
         }
     }
 }
