@@ -8,6 +8,8 @@ public class AbilitieCounterUI : MonoBehaviour
 {
     [SerializeField] private GameObject dotPrefab;
     [SerializeField] private Transform dotContainer;
+    [SerializeField] private Sprite dotActiveSprite;
+    [SerializeField] private Sprite dotInactiveSprite;
 
     private Image[] _dots;
 
@@ -49,18 +51,14 @@ public class AbilitieCounterUI : MonoBehaviour
     }
 
     private void UpdateDots()
-    {
-        Debug.Log("Check");
+    { 
         if (_dots == null || CombatMeter.Instance == null) return;
 
         int used = CombatMeter.Instance.maxAbilitiesPerTurn - CombatMeter.Instance.AbilitiesRemaining;
-        Debug.Log("Combat Used");
-
+        
         for (int i = 0; i < _dots.Length; i++)
         {
-            _dots[i].enabled = i >= used ; // turns off when ability is used
-            Debug.Log($"Updating dot {i}: {(i >= used ? "Active" : "Inactive")}");
+            _dots[i].sprite = (i >= _dots.Length - used) ? dotInactiveSprite : dotActiveSprite;
         }
-
     }
 }
