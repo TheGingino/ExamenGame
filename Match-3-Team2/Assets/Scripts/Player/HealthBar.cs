@@ -8,6 +8,12 @@ public class HealthBar : MonoBehaviour
 
     private float targetValue;
 
+    [SerializeField] private Image healthBarImage;
+
+    [Header("Sprites")]
+    [SerializeField] private Sprite normalSprite;
+    [SerializeField] private Sprite shieldSprite;
+
     public void SetMaxHealth(int health)
     {
         slider.maxValue = health;
@@ -28,5 +34,13 @@ public class HealthBar : MonoBehaviour
         {
             slider.value = targetValue;
         }
+    }
+    public void ShowShieldVisual()
+    {
+        healthBarImage.sprite = shieldSprite;
+    }
+    public void HideShieldVisual()
+    {
+        healthBarImage.sprite = normalSprite;
     }
 }
