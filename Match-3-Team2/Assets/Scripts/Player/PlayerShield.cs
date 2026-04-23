@@ -23,18 +23,22 @@ public class PlayerShield : MonoBehaviour
         Debug.Log($"[PlayerShield] Shield: {shieldAmmount}");
 
         playerHealth.ShowShieldVisual();
-
-        turnManager.OnEnemyTurnStart.RemoveListener(RemoveShieldVisual);
-        turnManager.OnEnemyTurnStart.AddListener(RemoveShieldVisual);
     }
 
     public int TakeDamage(int damage)
-  {
-     int absorbed = Mathf.Min(shieldAmmount, damage);
-     shieldAmmount -= absorbed;
+    {
+        int absorbed = Mathf.Min(shieldAmmount, damage);
+        shieldAmmount -= absorbed;
 
-     return damage - absorbed; // leftover damage
-  }
+        Debug.Log($"[PlayerShield] Shield after damage: {shieldAmmount}");
+
+        if (shieldAmmount <= 0)
+        {
+            playerHealth.HideShieldVisual();
+        }
+
+        return damage - absorbed;
+    }
 
     void RemoveShieldVisual()
     {
