@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Red
   m_EditorClassIdentifier: 
   HealAmount: 0
-  DamageAmount: 30
+  DamageAmount: 15
   ShieldAmount: 0
   specialAttackAmount: 0
   tileSprite: {fileID: 21300000, guid: a9dcf7b374d88cf45be6f425bfb85845, type: 3}
