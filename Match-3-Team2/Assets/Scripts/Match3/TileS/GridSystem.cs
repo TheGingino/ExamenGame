@@ -13,23 +13,25 @@ public class GridSystem : MonoBehaviour
     private Vector3 originPosition = Vector3.zero;
 
     [SerializeField] private float gridOffset;
+    [SerializeField] private float gridOffsetX;
 
     private void Start()
     {
-        CreateGrid();
+        SetBackground();
     }
     
-    private void CreateGrid()
+    private void SetBackground()
     {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                Vector2 worldPos = GetWorldPosition(x, y);
-                Instantiate(backgroundSprite, worldPos, Quaternion.identity, transform);
-            }
-        }
+        Vector2 gridCenter = new Vector2(
+            -width * cellSize / 2 + cellSize / 2 + gridOffsetX, // Apply offset
+            -height * cellSize / 2 + cellSize / 2);
+
+        GameObject background = Instantiate(backgroundSprite, new Vector3(gridCenter.x, gridCenter.y, 1f), Quaternion.identity, transform);
+
+        // Scale the sprite to cover the entire grid
+        background.transform.localScale = new Vector3(width * cellSize / 10, height * cellSize / 10, 1f);
     }
+
 
     public Vector2 GetWorldPosition(int x, int y)
     {

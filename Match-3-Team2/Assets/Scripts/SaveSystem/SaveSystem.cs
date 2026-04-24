@@ -1,30 +1,30 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SaveSystem : MonoBehaviour
 {
     [SerializeField] private int levelProgress;
     [SerializeField] private string saveKey = "LevelProgress";
-    [SerializeField] private Button[] levelButtons;
-    
+    [SerializeField] private CubeButton[] cubeLevelButtons;
+
     private void Start()
     {
-        if (PlayerPrefs.HasKey("LevelProgress"))
+        if (PlayerPrefs.HasKey(saveKey))
         {
             levelProgress = PlayerPrefs.GetInt(saveKey, 0);
             Debug.Log($"Loaded level progress: {levelProgress}");
             UpdateLevelButtons();
         }
-        
+
         Application.targetFrameRate = 60;
     }
 
     private void UpdateLevelButtons()
     {
-        for (int i = 0; i < levelButtons.Length; i++)
+        for (int i = 0; i < cubeLevelButtons.Length; i++)
         {
-            levelButtons[i].interactable = i <= levelProgress;
+            bool isUnlocked = i <= levelProgress;
+            cubeLevelButtons[i].SetInteractable(isUnlocked);
         }
     }
 
@@ -41,5 +41,10 @@ public class SaveSystem : MonoBehaviour
         PlayerPrefs.SetInt(saveKey, levelProgress);
         UpdateLevelButtons();
     }
-
+    
+    public void TestCompleteFirstLevel()
+    {
+        UpdateLevelProgress();
+        Debug.Log($"Level progress updated to: {levelProgress}");
+    }
 }

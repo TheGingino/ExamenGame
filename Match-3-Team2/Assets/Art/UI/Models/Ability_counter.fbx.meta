@@ -3,7 +3,17 @@ guid: a6714b6579e675d4ab4a7693c42ca4d1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Counter
+    second: {fileID: 2100000, guid: 446f00d63d4be1f4a9e271d8c7ef5232, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tile
+    second: {fileID: 2100000, guid: 14c9f1686b5bea24cad7962305bdc288, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
