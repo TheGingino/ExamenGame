@@ -28,7 +28,9 @@ Nikki van Wijngaarden:
 Kiana (Jasper) Hiemstra:
   * [Level Selection Screen]()
   * [Turn Based System]()
-
+  * [Win Lose Condition]()
+  * [Tutorial]()
+    
 Bo Bakker:
 *
  
