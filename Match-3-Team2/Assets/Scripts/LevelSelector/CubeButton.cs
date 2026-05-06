@@ -8,13 +8,13 @@ public class CubeButton : MonoBehaviour
     [SerializeField] private Material lockedMaterial;
     [SerializeField] private Material unlockedMaterial;
     
-    private bool _isInteractable = true;
+    private bool _isInteractable;
     private Renderer _renderer;
 
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
-        
+        _isInteractable = true; // Default to interactable, will be set by SaveSystem
         if (_levelSelector == null)
         {
             Debug.LogError($"CubeButton '{name}' has no LevelSelector assigned.");
@@ -42,6 +42,11 @@ public class CubeButton : MonoBehaviour
 
     public void SetInteractable(bool interactable)
     {
+        if (_renderer == null)
+        {
+            _renderer = GetComponent<Renderer>();
+        }
+    
         _isInteractable = interactable;
         _renderer.material = interactable ? unlockedMaterial : lockedMaterial;
     }
