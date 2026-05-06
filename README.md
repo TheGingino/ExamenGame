@@ -14,6 +14,7 @@ Gino Schaap:
   * [Tile Gravity](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/TileGravity.cs)
   * [Bomb](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/PowerUp/Bomb.cs)
   * [Save System](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/SaveSystem/SaveSystem.cs)
+  * [Level Selection Scroll]()
   * [Framerate Display](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/FrameCheck.cs)
   * [Level Creator]()
 
@@ -23,7 +24,14 @@ Julie Jaasma:
   * [Options Menu]()
      
 Nikki van Wijngaarden:
- * [TileSO]()
+ * [TileSO](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/TileSO.cs)
+ * [AbilitieCounterUI](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Abilities/AbilitieCounterUI.cs)
+ * [SwapTiles](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/SpawnTiles.cs)
+ * [CombatMeter](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/CombatMeter.cs)
+ * [PlayerAttack](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Player/PlayerAttack.cs)
+ * [PlayerHealth](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Player/PlayerHealth.cs)
+ * [PlayerShield](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Player/PlayerShield.cs)
+
 
 Kiana (Jasper) Hiemstra:
   * [Level Selection Screen]()
