@@ -43,6 +43,12 @@ public class CubeButton : MonoBehaviour
     public void SetInteractable(bool interactable)
     {
         _isInteractable = interactable;
+    
+        if (_renderer == null)
+        {
+            _renderer = GetComponent<Renderer>();
+        }
+    
         _renderer.material = interactable ? unlockedMaterial : lockedMaterial;
     }
 }
