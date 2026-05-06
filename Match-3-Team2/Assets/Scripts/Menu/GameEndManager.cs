@@ -63,13 +63,13 @@ public class GameEndManager : MonoBehaviour
         switch (_currentState)
         {
             case GameState.WIN:
-                _buttonText[0].text = "A";
+                _buttonText[0].text = "You Win!";
                 _onWin?.Invoke();
                 _buttonText[1].text = "Continue";
                 break;
 
             case GameState.LOSE:
-                _buttonText[0].text = "B";
+                _buttonText[0].text = "You Lost";
                 _onLose?.Invoke();
                 _buttonText[1].text = "Retry";
                 break;
