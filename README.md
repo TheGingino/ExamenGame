@@ -20,8 +20,17 @@ Gino Schaap:
 
 
 Julie Jaasma:
-  * [Start Screen]()
-  * [Options Menu]()
+  * [Start Screen](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Menu/StartScreen.cs)
+  * [Options Menu](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Menu/MenuSlider.cs)
+  * [Enemy Behaviour](https://github.com/TheGingino/ExamenGame/tree/Develop/Match-3-Team2/Assets/Scripts/Enemy)
+  * [Enemy Health](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Enemy/EnemyHealth.cs)
+  * [Enemy Attack](http://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Enemy/EnemyAttack.cs)
+  * [Player Behaviour](https://github.com/TheGingino/ExamenGame/tree/Develop/Match-3-Team2/Assets/Scripts/Player)
+  * [Player Health](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Player/PlayerHealth.cs)
+  * [Player Attack](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Player/PlayerAttack.cs)
+  * [Player Shield](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Player/PlayerShield.cs)
+  * [HealthBar](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Player/HealthBar.cs)
+  * [Charge Visuals](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/UI/Charges.cs)
      
 Nikki van Wijngaarden:
  * [TileSO](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Match3/TileS/TileSO.cs)
