@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
@@ -8,6 +9,8 @@ public class GameEndManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private TextMeshProUGUI _resultText;
+    [SerializeField] private AudioSource winSFX;
+    [SerializeField] private AudioSource looseSFX;
 
     [SerializeField] private TextMeshProUGUI[] _buttonText;
 
@@ -22,6 +25,11 @@ public class GameEndManager : MonoBehaviour
         LOSE
     }
 
+    private void Start()
+    {
+        Time.timeScale = 1f;
+         _endScreen.SetActive(false);
+    }
 
     private GameState _currentState = GameState.PLAYING;
 
@@ -33,7 +41,7 @@ public class GameEndManager : MonoBehaviour
     public void TriggerWin()
     {
         if (!IsGameActive()) return;
-
+        winSFX.Play();
         _currentState = GameState.WIN;
         HandleEndState();
     }
@@ -41,7 +49,7 @@ public class GameEndManager : MonoBehaviour
     public void TriggerLose()
     {
         if (!IsGameActive()) return;
-
+        looseSFX.Play();
         _currentState = GameState.LOSE;
         HandleEndState();
     }

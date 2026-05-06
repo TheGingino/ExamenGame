@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MatchTiles : MonoBehaviour
 {
+    [SerializeField] AudioSource matchSFX;
+    
     private GridSystem _gridSystem;
     private TileGravity _tileGravity;
     private SpawnTiles _spawnTiles;
@@ -82,6 +84,7 @@ public class MatchTiles : MonoBehaviour
     private IEnumerator ResolveMatches(List<Vector2Int> matches)
     {
         _tileGravity.SetPaused(true);
+        matchSFX.Play();
         GetComponent<SwapTiles>().SetInputState(false); // Block input
 
         int totalHeal = 0;
@@ -127,6 +130,7 @@ public class MatchTiles : MonoBehaviour
             yield return _spawnTiles.FillColumn(kvp.Key, kvp.Value);
 
         _tileGravity.SetPaused(false);
+        
         GetComponent<SwapTiles>().SetInputState(true); // Re-enable input
 
         yield return _tileGravity.WaitForAnimations();

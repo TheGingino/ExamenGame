@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private PlayerShield _playerShield;
+    [SerializeField] private AudioSource healSFX;
 
     private int _currentHealth;
 
@@ -46,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
     {
             _currentHealth = Mathf.Min(_currentHealth + _healAmount, _maxHealth);
             _healthBar.SetHealth(_currentHealth);
+            healSFX.Play();
             Debug.Log("[PlayerHealth] Healed {_healAmount}. HP: {currentHealth}");
     }
 
@@ -57,8 +60,14 @@ public class PlayerHealth : MonoBehaviour
 
             if (_gameEndManager != null)
             {
-                _gameEndManager.TriggerLose();
+                StartCoroutine(WaitForLos());
             }
         }
+    }
+    
+    IEnumerator WaitForLos()
+    {
+        yield return new WaitForSeconds(2f);
+        _gameEndManager.TriggerLose();
     }
 }
