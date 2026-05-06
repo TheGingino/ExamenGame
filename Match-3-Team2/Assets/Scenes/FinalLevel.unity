@@ -877,9 +877,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 514817015}
   smoothSpeed: 5
-  healthBarImage: {fileID: 1323311456}
-  normalSprite: {fileID: 21300000, guid: 8666b04704a91f040897cd293953ec19, type: 3}
-  shieldSprite: {fileID: 21300000, guid: 5d537bc8e833cbe4ca20d5aad8709389, type: 3}
+  healthBarImage: {fileID: 0}
+  normalSprite: {fileID: 0}
+  shieldSprite: {fileID: 0}
 --- !u!114 &514817015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3515,18 +3515,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1982402488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1747882151 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1209466371}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33b19e12d2f0f0047a22fbddfa12204e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1807597376
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,7 +4400,7 @@ MonoBehaviour:
   _healAmount: 5
   _healthBar: {fileID: 8103683296215834931}
   _playerShield: {fileID: 5313114330046211272}
-  healSFX: {fileID: 1005186491}
+  healSFX: {fileID: 0}
 --- !u!224 &131532309892076488
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6283,9 +6271,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackDamage: 3
   _specialAttackDamage: 7
-  animator: {fileID: 1588441052}
-  hitSFX: {fileID: 781665171}
-  specialHitSFX: {fileID: 1477850321}
+  animator: {fileID: 0}
+  hitSFX: {fileID: 0}
+  specialHitSFX: {fileID: 0}
 --- !u!224 &2995628387105745647
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6692,9 +6680,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 5
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8da3467c8b105e94abfffd0c9bb489b1, type: 2}
-  m_sharedMaterial: {fileID: -8863591967396661990, guid: 8da3467c8b105e94abfffd0c9bb489b1,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8516,9 +8503,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shieldToAdd: 5
-  shieldSFX: {fileID: 111364268}
-  playerHealth: {fileID: 8103683296215834931}
-  turnManager: {fileID: 1747882151}
+  shieldSFX: {fileID: 0}
+  playerHealth: {fileID: 0}
+  turnManager: {fileID: 0}
 --- !u!1001 &5361443178744926530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10432,9 +10419,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 2772577884753319674}
   smoothSpeed: 5
-  healthBarImage: {fileID: 4646206501483351459}
-  normalSprite: {fileID: 21300000, guid: 8666b04704a91f040897cd293953ec19, type: 3}
-  shieldSprite: {fileID: 21300000, guid: 5d537bc8e833cbe4ca20d5aad8709389, type: 3}
+  healthBarImage: {fileID: 0}
+  normalSprite: {fileID: 0}
+  shieldSprite: {fileID: 0}
 --- !u!222 &8115777949293809465
 CanvasRenderer:
   m_ObjectHideFlags: 0
