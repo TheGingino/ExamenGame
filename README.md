@@ -59,7 +59,11 @@ Robin van Wandelen:
  * 
 
 Min van der Veen:
- * 
+ * Beginscherm
+ * Level select scherm
+ * Wapen
+ * UI knoppen
+ * Level 2 Environment
    
 ## 1. Grid System
 
