@@ -278,3 +278,21 @@ Wordt getoond wanneer de speler het level wint. Er staat een tekst die aangeeft 
 ### Tutorial Screen *(optioneel)*
 Een apart scherm dat uitlegt hoe het spel werkt. De speler krijgt stap voor stap uitleg over de belangrijkste mechanics zoals Tile Swapping, matches maken en hoe de sliders werken. Er zijn geen chains of complexe mechanics actief tijdens de tutorial.
 - **Terug** → [Start Screen](#start-screen)
+
+---
+
+## Beginscherm 
+Elke game heeft wel een beginscherm. Het is het eerste dat je ziet als je een game start. Het moet de sfeer vertellen van de game en waar het over gaat. Ik heb 6 concepten gemaakt voor het beginscherm. Na ee poll om te stemmen kwam er een uitslag. Na verschillende concepten van het ruimteschip en nog een poll verder is er een winner. 
+
+## Level select scherm
+Nadat je het beginscherm heb gehad en je wilt verder ga je naar een scherm waar je de levels kan zien. Het level select scherm laat je alle levels zien die bestaan/je kan spelen. Ik heb hier ook concepten voor gemaakt en een poll gecreeerd waar een winner op was besloten
+
+## Wapen
+In een eerdere versie van het concept was dat de zpeler een wapen heeft waarmee je je mee kan verdedigen. Als je attack balkje vol is door de match 3 de spelen dan kon je aanvallen met het wapen.
+
+## UI knoppen
+Voor het startscherm 
+
+## Environment level 2
+
+
