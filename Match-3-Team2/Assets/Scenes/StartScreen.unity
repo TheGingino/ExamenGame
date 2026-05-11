@@ -2226,6 +2226,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Home Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 5880408700008855477, guid: 3f89aa85c0bf2ad469e7851b332e7a72,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 369938c6336e7ce4b9926352728130a1, type: 2}
     - target: {fileID: 8449412084917092691, guid: 3f89aa85c0bf2ad469e7851b332e7a72,
         type: 3}
       propertyPath: m_LocalPosition.x
