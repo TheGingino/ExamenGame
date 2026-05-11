@@ -126,6 +126,8 @@ public class TileGravity : MonoBehaviour
     private bool ApplyGravityOnce()
     {
         _isApplying = true;
+        SetPaused(true);
+
         bool anyMoved = false;
 
         // Make sure destroyed objects are removed from the grid references
@@ -185,6 +187,7 @@ public class TileGravity : MonoBehaviour
         _pendingTiles.AddRange(stillPending);
 
         _isApplying = false;
+        SetPaused(false);
         return anyMoved;
     }
     
