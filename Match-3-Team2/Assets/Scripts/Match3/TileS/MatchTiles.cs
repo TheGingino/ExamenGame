@@ -9,6 +9,7 @@ public class MatchTiles : MonoBehaviour
     private GridSystem _gridSystem;
     private TileGravity _tileGravity;
     private SpawnTiles _spawnTiles;
+    private TurnManager _turnManager;
     private bool _isSwapping;
     
     private void Start()
@@ -16,6 +17,7 @@ public class MatchTiles : MonoBehaviour
         _gridSystem = GetComponent<GridSystem>();
         _tileGravity = GetComponent<TileGravity>();
         _spawnTiles = GetComponent<SpawnTiles>();
+        _turnManager = FindObjectOfType<TurnManager>();
     }
     
     public void TriggerMatchCheck() => CheckForMatches();
@@ -130,9 +132,12 @@ public class MatchTiles : MonoBehaviour
             yield return _spawnTiles.FillColumn(kvp.Key, kvp.Value);
 
         _tileGravity.SetPaused(false);
-        
-        GetComponent<SwapTiles>().SetInputState(true); // Re-enable input
 
+        if (_turnManager.playerTurn)
+        {
+            GetComponent<SwapTiles>().SetInputState(true); // Re-enable input
+        }
+        
         yield return _tileGravity.WaitForAnimations();
         yield return new WaitForSeconds(0.1f);
 
