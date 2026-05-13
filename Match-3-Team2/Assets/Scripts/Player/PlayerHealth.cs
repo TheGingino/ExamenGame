@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private int _currentHealth;
 
     private GameEndManager _gameEndManager;
+    private ImageFader _imageFader;
     private bool _hasLost = false;
 
     private void Start()
@@ -20,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
         _currentHealth = _maxHealth;
         _healthBar.SetMaxHealth(_maxHealth);
         _gameEndManager = FindObjectOfType<GameEndManager>();
+        _imageFader = FindObjectOfType<ImageFader>();
     }
 
     public void TakeDamage(int damage)
@@ -34,10 +36,9 @@ public class PlayerHealth : MonoBehaviour
 
             damage = remainingDamage;
         }
-
         _currentHealth = Mathf.Max(_currentHealth - damage, 0);
         _healthBar.SetHealth(_currentHealth);
-
+        _imageFader.ShowDamage();
         Debug.Log(_currentHealth + " current health");
 
         CheckState();

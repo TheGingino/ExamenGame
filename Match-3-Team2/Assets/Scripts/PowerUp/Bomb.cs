@@ -12,6 +12,7 @@ public class Bomb : UsableItem
     private Vector3 _dragOffset;
 
     [SerializeField] private GameObject originalPosition;
+    [SerializeField] private GameObject envCover;
     [SerializeField] private AudioSource bombSFX;
     
     private void Start()
@@ -20,6 +21,8 @@ public class Bomb : UsableItem
         _gridSystem = FindObjectOfType<GridSystem>();
         _matchTiles = FindObjectOfType<MatchTiles>();
         _mainCamera = Camera.main;
+        
+        envCover.SetActive(false);
     }
 
     public override void Use()
@@ -118,13 +121,15 @@ public class Bomb : UsableItem
         if (Quantity <= 0) return;
 
         _isDragging = true;
+        envCover.SetActive(true);
         transform.position = GetMousePosition() + _dragOffset;
+        
     }
 
     private void OnMouseUp()
     {
         _isDragging = false;
-
+        envCover.SetActive(false);
         if (Quantity <= 0) return;
 
         Vector2Int bombPos = _gridSystem.GetGridPosition(transform.position);
