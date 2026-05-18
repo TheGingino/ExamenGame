@@ -48,10 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: 31eaa32c826376d4892beac8b75d7d48, type: 2}
-  defaultBackgroundSprite: {fileID: 7116993720140904546}
-  backgroundSprites:
-  - {fileID: 21300000, guid: 7900ebc1ce7fa1e43955b543c65535ee, type: 3}
-  - {fileID: 21300000, guid: 0eaa9fd1cdbe8ed418f7656a9e58d40d, type: 3}
+  destroyAnimation: {fileID: 8926484042661614526, guid: 8ae475334d931e9478e153bd74c952f7,
+    type: 3}
 --- !u!65 &-3364850385531995563
 BoxCollider:
   m_ObjectHideFlags: 0
