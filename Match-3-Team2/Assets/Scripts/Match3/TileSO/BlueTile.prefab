@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileData: {fileID: 11400000, guid: 6e211ed88a82d7845a60bf7f7da6abe7, type: 2}
+  destroyAnimation: {fileID: 8926484042661614526, guid: 8e0a65b4ff6f7234492ffdf1658ba8ac,
+    type: 3}
 --- !u!65 &-5024578204090199671
 BoxCollider:
   m_ObjectHideFlags: 0

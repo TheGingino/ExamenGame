@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3622274899500504538}
   - component: {fileID: 5378588378914125696}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MatchSFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 33820d8468906ae44a127eafb8a616e6, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e06e99e186ed834e98df60f3c884d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchSFX: {fileID: 0}
+  matchSFX: {fileID: 5378588378914125696}
 --- !u!114 &8516827932932132283
 MonoBehaviour:
   m_ObjectHideFlags: 0
