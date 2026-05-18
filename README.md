@@ -63,6 +63,7 @@ Min van der Veen:
  * Level select scherm
  * Wapen
  * UI knoppen
+ * Pause screen
  * Level 2 Environment
    
 ## 1. Grid System
@@ -299,6 +300,12 @@ In een eerdere versie van het concept was dat de speler een wapen heeft waarmee 
 ## UI knoppen
 Voor het startscherm en level select scherm moeten er knoppen komen om op te klikken om verder te gaan in het spel. 
 <img width="600" height="170" alt="image" src="https://github.com/user-attachments/assets/8095c17a-51ce-4f52-94b7-4cb7f1715f6d" />
+
+
+## Pause screen
+Als je het spel op pause zet dan krijg je een menu met opties. Dit is de UI.
+
+<img width="454" height="554" alt="image" src="https://github.com/user-attachments/assets/f8afb320-b677-45fc-9641-46c5e5671e2c" />
 
 
 ## Environment level 2
