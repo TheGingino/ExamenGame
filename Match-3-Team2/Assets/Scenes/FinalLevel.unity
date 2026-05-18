@@ -2869,12 +2869,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1119352386}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1299666890 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3969513531792526527, guid: 1557167c6b1dbff42a5219d2ab34ff61,
-    type: 3}
-  m_PrefabInstance: {fileID: 1100427086}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1323311454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3441,6 +3435,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!82 &1525436487 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5378588378914125696, guid: ab52d72ac28349a47bb76c62b14cd63e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1982402487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1574427289
 GameObject:
   m_ObjectHideFlags: 0
@@ -3584,6 +3584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1589956310}
+  - component: {fileID: 1589956311}
   m_Layer: 0
   m_Name: AbilitieScreens
   m_TagString: Untagged
@@ -3610,6 +3611,102 @@ Transform:
   - {fileID: 4721422850663108921}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1589956311
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589956309}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 99e26465864e2d34d8b3556d38df9cb4, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1661362192 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3423109870028109803, guid: 25c75b7c0481a534094248639907da75,
@@ -4255,6 +4352,11 @@ PrefabInstance:
       propertyPath: gridOffsetX
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5378588378914125696, guid: ab52d72ac28349a47bb76c62b14cd63e,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6771077731886554903, guid: ab52d72ac28349a47bb76c62b14cd63e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4350,7 +4452,7 @@ PrefabInstance:
         type: 3}
       propertyPath: matchSFX
       value: 
-      objectReference: {fileID: 1299666890}
+      objectReference: {fileID: 1525436487}
     - target: {fileID: 9130385552423639323, guid: ab52d72ac28349a47bb76c62b14cd63e,
         type: 3}
       propertyPath: m_Name
@@ -5697,6 +5799,11 @@ PrefabInstance:
       objectReference: {fileID: 316040957}
     - target: {fileID: 6107881902521512761, guid: f9a2a799e019a144ba039e01a2f6f48c,
         type: 3}
+      propertyPath: _chargeSFX
+      value: 
+      objectReference: {fileID: 1589956311}
+    - target: {fileID: 6107881902521512761, guid: f9a2a799e019a144ba039e01a2f6f48c,
+        type: 3}
       propertyPath: fullPauseTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -5965,6 +6072,11 @@ PrefabInstance:
       propertyPath: _animator
       value: 
       objectReference: {fileID: 704586110}
+    - target: {fileID: 2306775218535438017, guid: 90e0402c6f318f74abe50d5f6fab5ad1,
+        type: 3}
+      propertyPath: _chargeSFX
+      value: 
+      objectReference: {fileID: 1589956311}
     - target: {fileID: 2306775218535438017, guid: 90e0402c6f318f74abe50d5f6fab5ad1,
         type: 3}
       propertyPath: fullPauseTime
@@ -7885,6 +7997,11 @@ PrefabInstance:
       objectReference: {fileID: 10606521}
     - target: {fileID: 443275847137508962, guid: 5f442dabc6fab4545a4c220e0daad149,
         type: 3}
+      propertyPath: _chargeSFX
+      value: 
+      objectReference: {fileID: 1589956311}
+    - target: {fileID: 443275847137508962, guid: 5f442dabc6fab4545a4c220e0daad149,
+        type: 3}
       propertyPath: fullPauseTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -8942,6 +9059,11 @@ PrefabInstance:
       propertyPath: _animator
       value: 
       objectReference: {fileID: 1428036703}
+    - target: {fileID: 6126323030862925036, guid: 6bf3588463cad214c8efe76f67b52f73,
+        type: 3}
+      propertyPath: _chargeSFX
+      value: 
+      objectReference: {fileID: 1589956311}
     - target: {fileID: 6126323030862925036, guid: 6bf3588463cad214c8efe76f67b52f73,
         type: 3}
       propertyPath: fullPauseTime

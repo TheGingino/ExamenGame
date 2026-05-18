@@ -10,6 +10,7 @@ public class CombatMeterBar : MonoBehaviour
     [SerializeField] private float fullPauseTime = 1f;
 
     [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource _chargeSFX;
 
     private float currentFill;
     private bool isFullRoutineRunning;
@@ -64,6 +65,7 @@ public class CombatMeterBar : MonoBehaviour
         ApplyScale();
         
         _animator.SetTrigger("Surge");
+        _chargeSFX.Play();
         yield return new WaitForSeconds(fullPauseTime);
 
         currentFill = 0f;
