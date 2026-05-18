@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
 using Random = UnityEngine.Random;
@@ -29,19 +30,22 @@ public class Tile : MonoBehaviour
         }
     }
     
-    public void PlayAnimationAndDestroy()
+    public IEnumerator PlayAnimationAndDestroy()
     {
         if (destroyAnimation != null)
         {
             // Instantiate the visual effect at the tile's position
             GameObject vfxInstance = new GameObject("DestroyEffect");
-            vfxInstance.transform.SetParent(transform.parent);
+            vfxInstance.transform.parent = transform.parent; // Keep it in the same hierarchy
             vfxInstance.transform.localScale = Vector3.one * 0.5f;
             vfxInstance.transform.position = transform.position;
 
             VisualEffect vfx = vfxInstance.AddComponent<VisualEffect>();
             vfx.visualEffectAsset = destroyAnimation;
             vfx.Play();
+            Debug.Log($"Playing destroy animation ");
+            yield return new WaitForSeconds(0.5f);
+            Destroy(vfxInstance);
         }
     }
     

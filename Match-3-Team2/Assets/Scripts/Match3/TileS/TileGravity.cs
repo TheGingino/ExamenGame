@@ -86,7 +86,7 @@ public class TileGravity : MonoBehaviour
         {
             t.DestroyTile();
             _tileGrid[x, y] = null;
-            t.PlayAnimationAndDestroy();
+            StartCoroutine(t.PlayAnimationAndDestroy());
         }
     }
 
