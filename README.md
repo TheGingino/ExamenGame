@@ -284,22 +284,26 @@ Een apart scherm dat uitlegt hoe het spel werkt. De speler krijgt stap voor stap
 
 ## Beginscherm 
 Elke game heeft wel een beginscherm. Het is het eerste dat je ziet als je een game start. Het moet de sfeer vertellen van de game en waar het over gaat. Ik heb 6 concepten gemaakt voor het beginscherm. Na ee poll om te stemmen kwam er een uitslag. Na verschillende concepten van het ruimteschip en nog een poll verder is er een winner. 
+
 <img width="250" height="500" alt="image" src="https://github.com/user-attachments/assets/32756ccb-b29d-4d53-8699-53c6ab46655b" /> 
 
 
 ## Level select scherm
 Nadat je het beginscherm heb gehad en je wilt verder ga je naar een scherm waar je de levels kan zien. Het level select scherm laat je alle levels zien die bestaan/je kan spelen. Ik heb hier ook concepten voor gemaakt en een poll gecreeerd waar een winner op was besloten. Ook als game hadden we besloten dat je begint helemaal onderaan in het ruimteschip en jemoet door het ruimteschip gaan waar je in verschillende kamers komt met levels waar je dingen moet verslaan. 
+
 <img width="600" height="210" alt="image" src="https://github.com/user-attachments/assets/067ec3f2-707d-44ee-8d5e-984cc4480bd5" />
 
 
 ## Wapen
 In een eerdere versie van het concept was dat de speler een wapen heeft waarmee je je mee kan verdedigen. Als je attack balkje vol is door de match 3 de spelen dan kon je aanvallen met het wapen.
+
 <img width="210" height="370" alt="image" src="https://github.com/user-attachments/assets/22158f73-45f3-4579-882a-a28349632f01" />
 
 
 ## UI knoppen
 Voor het startscherm en level select scherm moeten er knoppen komen om op te klikken om verder te gaan in het spel. 
-<img width="600" height="170" alt="image" src="https://github.com/user-attachments/assets/8095c17a-51ce-4f52-94b7-4cb7f1715f6d" />
+<
+ img width="600" height="170" alt="image" src="https://github.com/user-attachments/assets/8095c17a-51ce-4f52-94b7-4cb7f1715f6d" />
 
 
 ## Pause screen
