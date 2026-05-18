@@ -302,8 +302,7 @@ In een eerdere versie van het concept was dat de speler een wapen heeft waarmee 
 
 ## UI knoppen
 Voor het startscherm en level select scherm moeten er knoppen komen om op te klikken om verder te gaan in het spel. 
-<
- img width="600" height="170" alt="image" src="https://github.com/user-attachments/assets/8095c17a-51ce-4f52-94b7-4cb7f1715f6d" />
+<img width="600" height="170" alt="image" src="https://github.com/user-attachments/assets/8095c17a-51ce-4f52-94b7-4cb7f1715f6d" />
 
 
 ## Pause screen
