@@ -63,14 +63,7 @@ public class CombatMeter : MonoBehaviour
    }
 
    private void AddToMeter(ref int current, int max, ref int charges, int maxCharges, int amount, TileType type)
-   {
-      // Special: permanently blocked after being used
-      if (type == TileType.Special && specialLockedOut)
-      {
-         Debug.Log($"[CombatMeter] Special is permanently locked out.");
-         return;
-      }
- 
+   { 
       // Don't fill the meter if already at max charges
       if (charges >= maxCharges)
       {
@@ -118,7 +111,6 @@ public class CombatMeter : MonoBehaviour
          case TileType.Special:
             if (specialLockedOut || specialCharges <= 0) { Debug.Log("[CombatMeter] Special not available."); return false; }
             specialCharges--;
-            specialLockedOut = true;
             break;
 
          default:
