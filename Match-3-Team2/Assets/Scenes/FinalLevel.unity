@@ -5962,6 +5962,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2306775218535438017, guid: 90e0402c6f318f74abe50d5f6fab5ad1,
         type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 704586110}
+    - target: {fileID: 2306775218535438017, guid: 90e0402c6f318f74abe50d5f6fab5ad1,
+        type: 3}
       propertyPath: fullPauseTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -7875,6 +7880,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 443275847137508962, guid: 5f442dabc6fab4545a4c220e0daad149,
         type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 10606521}
+    - target: {fileID: 443275847137508962, guid: 5f442dabc6fab4545a4c220e0daad149,
+        type: 3}
       propertyPath: fullPauseTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -8927,6 +8937,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 827f9ffb616879d44bdc3c30de4a4d16,
         type: 3}
+    - target: {fileID: 6126323030862925036, guid: 6bf3588463cad214c8efe76f67b52f73,
+        type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 1428036703}
     - target: {fileID: 6126323030862925036, guid: 6bf3588463cad214c8efe76f67b52f73,
         type: 3}
       propertyPath: fullPauseTime
