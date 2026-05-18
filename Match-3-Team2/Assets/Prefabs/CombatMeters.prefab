@@ -44,11 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7c0c25897d17c48b819779365b42c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   healMax: 100
   damageMax: 100
   shieldMax: 100
-  specialMax: 100
-  healMaxCharges: 5
-  damageMaxCharges: 5
-  shieldMaxCharges: 5
+  specialMax: 200
+  healMaxCharges: 3
+  damageMaxCharges: 3
+  shieldMaxCharges: 3
   SpecialMaxCharges: 1
+  maxAbilitiesPerTurn: 3
