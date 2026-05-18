@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TileGravity : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class TileGravity : MonoBehaviour
     // Tiles waiting above the grid to fall in
     private readonly List<PendingTile> _pendingTiles = new();
     private Coroutine _immediateCoroutine; // handle for immediate gravity coroutine
-
+    
     private struct PendingTile
     {
         public Tile tile;
@@ -85,6 +86,7 @@ public class TileGravity : MonoBehaviour
         {
             t.DestroyTile();
             _tileGrid[x, y] = null;
+            t.PlayAnimationAndDestroy();
         }
     }
 
@@ -126,6 +128,8 @@ public class TileGravity : MonoBehaviour
     private bool ApplyGravityOnce()
     {
         _isApplying = true;
+        SetPaused(true);
+
         bool anyMoved = false;
 
         // Make sure destroyed objects are removed from the grid references
@@ -185,6 +189,7 @@ public class TileGravity : MonoBehaviour
         _pendingTiles.AddRange(stillPending);
 
         _isApplying = false;
+        SetPaused(false);
         return anyMoved;
     }
     
