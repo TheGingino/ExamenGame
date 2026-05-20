@@ -3544,6 +3544,11 @@ PrefabInstance:
       objectReference: {fileID: 514817014}
     - target: {fileID: 8034727297767727534, guid: c577cb9622c563549aa12ae0939fed9d,
         type: 3}
+      propertyPath: maxHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034727297767727534, guid: c577cb9622c563549aa12ae0939fed9d,
+        type: 3}
       propertyPath: _healthBar
       value: 
       objectReference: {fileID: 514817014}
@@ -7588,6 +7593,11 @@ PrefabInstance:
       objectReference: {fileID: 1588441052}
     - target: {fileID: 1258916907258961627, guid: 8fb7035714748dc44ae8db709c225a33,
         type: 3}
+      propertyPath: _attackDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258916907258961627, guid: 8fb7035714748dc44ae8db709c225a33,
+        type: 3}
       propertyPath: specialHitSFX
       value: 
       objectReference: {fileID: 1477850321}
@@ -7596,6 +7606,11 @@ PrefabInstance:
       propertyPath: _slahsAnimator
       value: 
       objectReference: {fileID: 1413059150}
+    - target: {fileID: 1258916907258961627, guid: 8fb7035714748dc44ae8db709c225a33,
+        type: 3}
+      propertyPath: _specialAttackDamage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3705954453777462169, guid: 8fb7035714748dc44ae8db709c225a33,
         type: 3}
       propertyPath: m_Name
