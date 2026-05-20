@@ -15,6 +15,6 @@ MonoBehaviour:
   HealAmount: 0
   DamageAmount: 0
   ShieldAmount: 0
-  specialAttackAmount: 5
+  specialAttackAmount: 8
   tileSprite: {fileID: 21300000, guid: 6f65709a719f12941bea3ed550d68024, type: 3}
   tileType: 4
