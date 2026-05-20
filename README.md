@@ -224,6 +224,19 @@ flowchart TD
     I --> J[Resume gravity]
     J --> A
 ```
+---
+## Tile Gravity
+Zodra er tiles gebroken worden spawnen er niet alleen nieuwe tiles in, ze vallen ook van boven naar beneden en de tiles die boven de gebroken tiles stonden vallen dan op de plek van de verwijderde tiles. Het spawnt van column naar column.
+
+<img src="https://github.com/TheGingino/ExamenGame/blob/Develop/WikiResources/Gino/TIleGravity.png" width="75%">
+---
+
+## Bomb Powerup
+De bomb doet een ding en dat is een 3x3 range van tiles op de grid kapot maken. Hij kan ook minder verwijderen als je hem ver boven zet. Je hebt een use per level tenzij je er meerdere zou kunnen unlocken. 
+
+![Bomb][https://github.com/TheGingino/ExamenGame/blob/Develop/WikiResources/Gino/Bomb.gif]
+
+<img src="https://github.com/TheGingino/ExamenGame/blob/Develop/WikiResources/Gino/BombLogic.png" width="75%">
 
 ---
 
@@ -276,9 +289,21 @@ Wordt getoond wanneer de speler het level wint. Er staat een tekst die aangeeft 
 
 ---
 
-### Tutorial Screen *(optioneel)*
+### Tutorial Screen
 Een apart scherm dat uitlegt hoe het spel werkt. De speler krijgt stap voor stap uitleg over de belangrijkste mechanics zoals Tile Swapping, matches maken en hoe de sliders werken. Er zijn geen chains of complexe mechanics actief tijdens de tutorial.
 - **Terug** → [Start Screen](#start-screen)
+
+---
+
+### Save System
+De game heeft een save system voor het geval er meerdere levels komen. Zodra je een level verslaat unlock je de volgende level en dan wordt de knop van de level klikbaar en er is ook een knop om het te resetten zodat je opnieuw kan spelen.
+
+---
+
+### Level Creator
+Het doel was om meerdere levels te maken en daarvoor is een LevelCreator voor gemaakt dat een Tool Window is waarbij je met knoppen kan klikken welke prefabs je er in wilt hebben. Je kan ook de naam kiezen van de level en als je op Create klikt wordt de scene gemaakt in een folder genaamd Levels en dat is ook zichtbaar op de Tool Window.
+
+<img src="https://github.com/TheGingino/ExamenGame/blob/Develop/WikiResources/Gino/LevelCreator.png" width="80%">
 
 ---
 
