@@ -6,6 +6,7 @@ public class PlayerAttack : MonoBehaviour
    [SerializeField] int _specialAttackDamage;
    [SerializeField] Animator _hitAnimator;
    [SerializeField] Animator _slahsAnimator;
+   [SerializeField] Animator _specialAttackAnimator;
    [SerializeField] AudioSource hitSFX;
    [SerializeField] AudioSource specialHitSFX;
    private EnemyHealth enemyHealth;
@@ -35,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
          if (enemyHealth._currentHealth > 0)
          {
             _hitAnimator.SetTrigger("Hit_Big");
-            _slahsAnimator.SetTrigger("Slash");
+            _specialAttackAnimator.SetTrigger("special attack");
             specialHitSFX.Play();
          }
          Debug.Log("[PlayerAttack] Special used! -{_specialAttackDamage}");
