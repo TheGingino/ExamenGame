@@ -34,7 +34,6 @@ public class CombatMeter : MonoBehaviour
    private int specialCharges;
    
    private int abiltiesUsedThisTurn;
-   private bool specialLockedOut = false;
 
    private void Awake()
    {
@@ -109,7 +108,7 @@ public class CombatMeter : MonoBehaviour
             break;
 
          case TileType.Special:
-            if (specialLockedOut || specialCharges <= 0) { Debug.Log("[CombatMeter] Special not available."); return false; }
+            if (specialCharges <= 0) { Debug.Log("[CombatMeter] Special not available."); return false; }
             specialCharges--;
             break;
 
@@ -126,8 +125,7 @@ public class CombatMeter : MonoBehaviour
    public int DamageCharges => damageCharges;
    public int ShieldCharges => shieldCharges;
    public int SpecialCharges => specialCharges;
-   private bool SpecialLockedOut => specialLockedOut;
-   
+
    public int HealCurrent => healCurrent;
    public int DamageCurrent => damageCurrent;
    public int ShieldCurrent => shieldCurrent;

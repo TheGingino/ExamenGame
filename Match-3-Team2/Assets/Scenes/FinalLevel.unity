@@ -484,7 +484,7 @@ PrefabInstance:
     - target: {fileID: 7626640432489283594, guid: 2c9bc81552caad54688f515a461495c7,
         type: 3}
       propertyPath: SpecialMaxCharges
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9081329542266014177, guid: 2c9bc81552caad54688f515a461495c7,
         type: 3}
