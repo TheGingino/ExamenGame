@@ -9,34 +9,67 @@ public class CombatMeterBar : MonoBehaviour
     [SerializeField] private float lerpSpeed = 8f;
     [SerializeField] private float fullPauseTime = 1f;
 
+    [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource _chargeSFX;
+
     private float currentFill;
     private bool isFullRoutineRunning;
 
+    private void Start()
+    {
+        if (CombatMeter.Instance != null)
+        {
+            CombatMeter.Instance.OnChargeGained += HandleChargeGained;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (CombatMeter.Instance != null)
+        {
+            CombatMeter.Instance.OnChargeGained -= HandleChargeGained;
+        }
+    }
+
     private void Update()
     {
-        if (isFullRoutineRunning) return;
+        if (isFullRoutineRunning)
+            return;
+
         float targetFill = GetFillPercentage();
-        currentFill = Mathf.Lerp(currentFill, targetFill, Time.deltaTime * lerpSpeed);
+
+        currentFill = Mathf.Lerp(
+            currentFill,
+            targetFill,
+            Time.deltaTime * lerpSpeed
+        );
+
+        currentFill = Mathf.Clamp01(currentFill);
 
         ApplyScale();
-        if (targetFill >= 1f && !isFullRoutineRunning)
-        {
-            StartCoroutine(HandleFull());
-        }
+    }
+
+    private void HandleChargeGained(TileType gainedType)
+    {
+        if (gainedType != type)
+            return;
+
+        StartCoroutine(HandleFull());
     }
 
     private IEnumerator HandleFull()
     {
         isFullRoutineRunning = true;
 
-        // Snap to full just to be sure
         currentFill = 1f;
         ApplyScale();
-
+        
+        _animator.SetTrigger("Surge");
+        _chargeSFX.Play();
         yield return new WaitForSeconds(fullPauseTime);
 
-        // Reset visually
         currentFill = 0f;
+
         ApplyScale();
 
         isFullRoutineRunning = false;
@@ -44,7 +77,12 @@ public class CombatMeterBar : MonoBehaviour
 
     private void ApplyScale()
     {
-        bar.localScale = new Vector3(1f, currentFill, 1f);
+        bar.localScale = new Vector3(
+            1f,
+            currentFill,
+            1f
+        );
+
         bar.gameObject.SetActive(currentFill > 0.01f);
     }
 
@@ -53,16 +91,20 @@ public class CombatMeterBar : MonoBehaviour
         switch (type)
         {
             case TileType.Heal:
-                return (float)CombatMeter.Instance.HealCurrent / CombatMeter.Instance.healMax;
+                return (float)CombatMeter.Instance.HealCurrent /
+                       CombatMeter.Instance.healMax;
 
             case TileType.Damage:
-                return (float)CombatMeter.Instance.DamageCurrent / CombatMeter.Instance.damageMax;
+                return (float)CombatMeter.Instance.DamageCurrent /
+                       CombatMeter.Instance.damageMax;
 
             case TileType.Shield:
-                return (float)CombatMeter.Instance.ShieldCurrent / CombatMeter.Instance.shieldMax;
+                return (float)CombatMeter.Instance.ShieldCurrent /
+                       CombatMeter.Instance.shieldMax;
 
             case TileType.Special:
-                return (float)CombatMeter.Instance.SpecialCurrent / CombatMeter.Instance.specialMax;
+                return (float)CombatMeter.Instance.SpecialCurrent /
+                       CombatMeter.Instance.specialMax;
 
             default:
                 return 0f;
