@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
 {
     private static MusicPlayer instance;
     private AudioSource audioSource;
 
-    [Header("Optional UI")]
     [SerializeField] private Slider volumeSlider;
 
     public float Volume { get; private set; } = 1f;
@@ -31,13 +31,19 @@ public class MusicPlayer : MonoBehaviour
 
         Volume = PlayerPrefs.GetFloat("MusicVolume");
         ApplyVolume();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Start()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        volumeSlider = FindFirstObjectByType<Slider>();
+
         if (volumeSlider != null)
         {
             volumeSlider.value = Volume;
+
+            volumeSlider.onValueChanged.RemoveListener(SetVolume);
             volumeSlider.onValueChanged.AddListener(SetVolume);
         }
     }
@@ -46,6 +52,7 @@ public class MusicPlayer : MonoBehaviour
     {
         Volume = volume;
         ApplyVolume();
+
         PlayerPrefs.SetFloat("MusicVolume", volume);
     }
 
@@ -53,5 +60,10 @@ public class MusicPlayer : MonoBehaviour
     {
         if (audioSource != null)
             audioSource.volume = Volume;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
