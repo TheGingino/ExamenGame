@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Twirl
+  m_Name: Mat_Twirl
   m_Shader: {fileID: -6465566751694194690, guid: 3acf4f2baa661d34583cc90ee2f6d5a7,
     type: 3}
   m_Parent: {fileID: 0}
