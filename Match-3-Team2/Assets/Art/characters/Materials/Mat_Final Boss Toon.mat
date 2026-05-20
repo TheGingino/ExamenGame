@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Boss_Texture
+  m_Name: Mat_Final Boss Toon
   m_Shader: {fileID: -6465566751694194690, guid: fceedddb4108eb74e8153e72ddb7dd5b,
     type: 3}
   m_Parent: {fileID: 2100000, guid: e92b3b2245bae5542842ea475b616a9c, type: 2}

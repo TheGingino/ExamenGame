@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enviroment_Tanks
+  m_Name: Mat_Enviroment Tanks
   m_Shader: {fileID: -6465566751694194690, guid: d175aaf732c3f504693c9376fa150668,
     type: 3}
   m_Parent: {fileID: 2100000, guid: ccbc3a3748b2e37418e948be4edd8943, type: 2}

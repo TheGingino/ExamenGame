@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1258916907258961627}
   - component: {fileID: 9024877143486644495}
   m_Layer: 0
-  m_Name: Player Final Level
+  m_Name: P_Player Final Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
