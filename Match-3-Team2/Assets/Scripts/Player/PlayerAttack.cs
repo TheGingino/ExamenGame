@@ -2,29 +2,31 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-   [SerializeField] int _attackDamage;
-   [SerializeField] int _specialAttackDamage;
-   [SerializeField] Animator _hitAnimator;
-   [SerializeField] Animator _slahsAnimator;
-   [SerializeField] Animator _specialAttackAnimator;
-   [SerializeField] AudioSource hitSFX;
-   [SerializeField] AudioSource specialHitSFX;
-   private EnemyHealth enemyHealth;
-   private bool playerTurn;
+    [SerializeField] private int _attackDamage;
+    [SerializeField] private int _specialAttackDamage;
+    [SerializeField] private Animator _hitAnimator;
+    [SerializeField] private Animator _slashAnimator;
+    [SerializeField] private Animator _specialAttackAnimator;
+    [SerializeField] private AudioSource _hitSFX;
+    [SerializeField] private AudioSource _specialHitSFX;
 
-   private void Awake()
+    private EnemyHealth _enemyHealth;
+    private bool _playerTurn;
+
+    private void Awake()
    {
-      enemyHealth = FindObjectOfType<EnemyHealth>();
+      
+        _enemyHealth = FindObjectOfType<EnemyHealth>();
    }
    
    public void DoDamage()
    {
-      enemyHealth.TakeDamage(_attackDamage);
-      if (enemyHealth._currentHealth > 0)
+      _enemyHealth.TakeDamage(_attackDamage);
+      if (_enemyHealth._currentHealth > 0)
       {
          _hitAnimator.SetTrigger("Hit_Small");
-         _slahsAnimator.SetTrigger("Slash");
-         hitSFX.Play();
+         _slashAnimator.SetTrigger("Slash");
+         _hitSFX.Play();
       }
       
       Debug.Log("[PlayerAttack] Damage used! " + _attackDamage);
@@ -32,12 +34,12 @@ public class PlayerAttack : MonoBehaviour
 
    public void SpecialAttack()
    {
-         enemyHealth.TakeDamage(_specialAttackDamage);
-         if (enemyHealth._currentHealth > 0)
+         _enemyHealth.TakeDamage(_specialAttackDamage);
+         if (_enemyHealth._currentHealth > 0)
          {
             _hitAnimator.SetTrigger("Hit_Big");
             _specialAttackAnimator.SetTrigger("special attack");
-            specialHitSFX.Play();
+            _specialHitSFX.Play();
          }
          Debug.Log("[PlayerAttack] Special used! -{_specialAttackDamage}");
    }

@@ -3,17 +3,17 @@ using System.Collections;
 
 public class CombatMeterBar : MonoBehaviour
 {
-    [SerializeField] private TileType type;
-    [SerializeField] private Transform bar;
+    [SerializeField] private TileType _type;
+    [SerializeField] private Transform _bar;
 
-    [SerializeField] private float lerpSpeed = 8f;
-    [SerializeField] private float fullPauseTime = 1f;
+    [SerializeField] private float _lerpSpeed = 8f;
+    [SerializeField] private float _fullPauseTime = 1f;
 
     [SerializeField] private Animator _animator;
     [SerializeField] private AudioSource _chargeSFX;
 
-    private float currentFill;
-    private bool isFullRoutineRunning;
+    private float _currentFill;
+    private bool _isFullRoutineRunning;
 
     private void Start()
     {
@@ -33,25 +33,25 @@ public class CombatMeterBar : MonoBehaviour
 
     private void Update()
     {
-        if (isFullRoutineRunning)
+        if (_isFullRoutineRunning)
             return;
 
         float targetFill = GetFillPercentage();
 
-        currentFill = Mathf.Lerp(
-            currentFill,
+        _currentFill = Mathf.Lerp(
+            _currentFill,
             targetFill,
-            Time.deltaTime * lerpSpeed
+            Time.deltaTime * _lerpSpeed
         );
 
-        currentFill = Mathf.Clamp01(currentFill);
+        _currentFill = Mathf.Clamp01(_currentFill);
 
         ApplyScale();
     }
 
     private void HandleChargeGained(TileType gainedType)
     {
-        if (gainedType != type)
+        if (gainedType != _type)
             return;
 
         StartCoroutine(HandleFull());
@@ -59,36 +59,36 @@ public class CombatMeterBar : MonoBehaviour
 
     private IEnumerator HandleFull()
     {
-        isFullRoutineRunning = true;
+        _isFullRoutineRunning = true;
 
-        currentFill = 1f;
+        _currentFill = 1f;
         ApplyScale();
-        
+
         _animator.SetTrigger("Surge");
         _chargeSFX.Play();
-        yield return new WaitForSeconds(fullPauseTime);
+        yield return new WaitForSeconds(_fullPauseTime);
 
-        currentFill = 0f;
+        _currentFill = 0f;
 
         ApplyScale();
 
-        isFullRoutineRunning = false;
+        _isFullRoutineRunning = false;
     }
 
     private void ApplyScale()
     {
-        bar.localScale = new Vector3(
+        _bar.localScale = new Vector3(
             1f,
-            currentFill,
+            _currentFill,
             1f
         );
 
-        bar.gameObject.SetActive(currentFill > 0.01f);
+        _bar.gameObject.SetActive(_currentFill > 0.01f);
     }
 
     private float GetFillPercentage()
     {
-        switch (type)
+        switch (_type)
         {
             case TileType.Heal:
                 return (float)CombatMeter.Instance.HealCurrent /

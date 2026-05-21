@@ -5,30 +5,29 @@ using TMPro;
 
 public class TurnManager : MonoBehaviour
 {
-    public int maxSwapsPerTurn = 5;
-    private int currentSwaps;
+    [SerializeField] private int _maxSwapsPerTurn = 5;
 
     public bool playerTurn = true;
+    private int _currentSwaps;
 
     [Header("Enemy Turn Event")]
     public UnityEvent OnEnemyTurn;
 
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI swapCounterText;
-    [SerializeField] private GameObject playerTurnIndicator;
-    [SerializeField] private GameObject enemyTurnIndicator;
-    [SerializeField] private float fadeDuration = 0.5f;
+    [SerializeField] private TextMeshProUGUI _swapCounterText;
+    [SerializeField] private GameObject _playerTurnIndicator;
+    [SerializeField] private GameObject _enemyTurnIndicator;
+    [SerializeField] private float _fadeDuration = 0.5f;
 
-    
     public UnityEvent OnPlayerTurnStart;
     public UnityEvent OnEnemyTurnStart;
 
-    private SwapTiles swapTiles;
-    private Coroutine fadeCoroutine;
+    private SwapTiles _swapTiles;
+    private Coroutine _fadeCoroutine;
 
     private void Start()
     {
-        swapTiles = FindObjectOfType<SwapTiles>();
+        _swapTiles = FindObjectOfType<SwapTiles>();
         StartPlayerTurn();
     }
 
@@ -36,11 +35,11 @@ public class TurnManager : MonoBehaviour
     {
         if (!playerTurn) return;
 
-        currentSwaps++;
+        _currentSwaps++;
 
         UpdateSwapUI();
 
-        if (currentSwaps >= maxSwapsPerTurn)
+        if (_currentSwaps >= _maxSwapsPerTurn)
         {
             EndPlayerTurn();
         }
@@ -49,8 +48,8 @@ public class TurnManager : MonoBehaviour
     private void StartPlayerTurn()
     {
         playerTurn = true;
-        currentSwaps = 0;
-        swapTiles.SetInputState(true);
+        _currentSwaps = 0;
+        _swapTiles.SetInputState(true);
 
         OnPlayerTurnStart?.Invoke();
         ShowTurnImage(true); // Show player turn indicator
@@ -61,7 +60,7 @@ public class TurnManager : MonoBehaviour
     private void EndPlayerTurn()
     {
         playerTurn = false;
-        swapTiles.SetInputState(false);
+        _swapTiles.SetInputState(false);
 
         OnEnemyTurnStart?.Invoke();
         ShowTurnImage(false); // Show enemy turn indicator
@@ -81,27 +80,27 @@ public class TurnManager : MonoBehaviour
 
     private void UpdateSwapUI()
     {
-        if (swapCounterText != null)
+        if (_swapCounterText != null)
         {
-            int remaining = maxSwapsPerTurn - currentSwaps;
-            swapCounterText.text = remaining.ToString();
+            int remaining = _maxSwapsPerTurn - _currentSwaps;
+            _swapCounterText.text = remaining.ToString();
         }
     }
     
     public void ShowTurnImage(bool isPlayer)
     {
-        if (fadeCoroutine != null)
+        if (_fadeCoroutine != null)
         {
-            StopCoroutine(fadeCoroutine);
+            StopCoroutine(_fadeCoroutine);
         }
 
-        fadeCoroutine = StartCoroutine(FadeTurnIndicator(isPlayer));
+        _fadeCoroutine = StartCoroutine(FadeTurnIndicator(isPlayer));
     }
 
     private IEnumerator FadeTurnIndicator(bool isPlayer)
     {
-        GameObject currentIndicator = isPlayer ? enemyTurnIndicator : playerTurnIndicator;
-        GameObject nextIndicator = isPlayer ? playerTurnIndicator : enemyTurnIndicator;
+        GameObject currentIndicator = isPlayer ? _enemyTurnIndicator : _playerTurnIndicator;
+        GameObject nextIndicator = isPlayer ? _playerTurnIndicator : _enemyTurnIndicator;
 
         if (currentIndicator != null && currentIndicator.activeInHierarchy)
         {
@@ -125,10 +124,10 @@ public class TurnManager : MonoBehaviour
         float startAlpha = canvasGroup.alpha;
         float elapsed = 0f;
     
-        while (elapsed < fadeDuration)
+        while (elapsed < _fadeDuration)
         {
             elapsed += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / fadeDuration);
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / _fadeDuration);
             yield return null;
         }
 

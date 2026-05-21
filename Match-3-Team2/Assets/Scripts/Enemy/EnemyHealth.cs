@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] int maxHealth;
-    [SerializeField] Animator animator;
-    [SerializeField] private AudioSource deathSFX;
-    [SerializeField] private HealthBar healthBar;
-    
+    [SerializeField] private int _maxHealth;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource _deathSFX;
+    [SerializeField] private HealthBar _healthBar;
+
     public int _currentHealth;
     private GameEndManager _gameEndManager;
-   
+
     private void Start()
     {
-        _currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        _currentHealth = _maxHealth;
+        _healthBar.SetMaxHealth(_maxHealth);
         _gameEndManager = FindObjectOfType<GameEndManager>();
     }
 
@@ -26,35 +26,35 @@ public class EnemyHealth : MonoBehaviour
         _currentHealth = Mathf.Max(_currentHealth, 0);
 
         Debug.Log(_currentHealth);
-        healthBar.SetHealth(_currentHealth);
+        _healthBar.SetHealth(_currentHealth);
 
         CheckState();
     }
 
-        public void CheckState()
+    public void CheckState()
+    {
+        if (_currentHealth <= 0)
         {
-            if (_currentHealth <= 0)
-            {
-                animator.SetTrigger("Boss_Death");
-                StartCoroutine(AudioEffect());
-                Debug.Log("Won");
+            _animator.SetTrigger("Boss_Death");
+            StartCoroutine(AudioEffect());
+            Debug.Log("Won");
 
-                if (_gameEndManager != null)
-                {
-                    StartCoroutine(WinAfterAnim());
-                }
+            if (_gameEndManager != null)
+            {
+                StartCoroutine(WinAfterAnim());
             }
         }
-        
-        IEnumerator AudioEffect()
-        {
-            yield return new WaitForSeconds(0.2f);
-            deathSFX.Play();
-        }
-        
-        IEnumerator WinAfterAnim()
-        {
-            yield return new WaitForSeconds(3f);
-            _gameEndManager.TriggerWin();
-        }
+    }
+
+    private IEnumerator AudioEffect()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _deathSFX.Play();
+    }
+
+    private IEnumerator WinAfterAnim()
+    {
+        yield return new WaitForSeconds(3f);
+        _gameEndManager.TriggerWin();
+    }
 }

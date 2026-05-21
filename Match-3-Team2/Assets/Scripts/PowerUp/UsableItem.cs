@@ -2,22 +2,22 @@ using UnityEngine;
 
 public abstract class UsableItem : MonoBehaviour
 {
-    [SerializeField] private string itemName;
-    [SerializeField] private Sprite itemIcon;
-    [SerializeField] private int quantity;
+    [SerializeField] private string _itemName;
+    [SerializeField] private Sprite _itemIcon;
+    [SerializeField] private int _quantity;
     
-    public int Quantity => quantity;
+    public int Quantity => _quantity;
     
     public virtual void Use()
     {
-            if (quantity > 0)
+            if (_quantity > 0)
             {
-                quantity--;
-                Debug.Log($"Used {itemName}. Remaining quantity: {quantity}");
+                _quantity--;
+                Debug.Log($"Used {_itemName}. Remaining quantity: {_quantity}");
             }
             else
             {
-                Debug.Log($"{itemName} is out of stock!");
+                Debug.Log($"{_itemName} is out of stock!");
             }
     }
     

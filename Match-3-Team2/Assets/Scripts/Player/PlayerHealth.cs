@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private PlayerShield _playerShield;
-    [SerializeField] private AudioSource healSFX;
+    [SerializeField] private AudioSource _healSFX;
     [SerializeField] private Animator _animator;
 
     private int _currentHealth;
@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (_currentHealth <= 0) return;
 
-        if (_playerShield.shieldAmmount > 0)
+        if (_playerShield.ShieldAmmount > 0)
         {
             int remainingDamage = _playerShield.TakeDamage(damage);
 
@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
     {
             _currentHealth = Mathf.Min(_currentHealth + _healAmount, _maxHealth);
             _healthBar.SetHealth(_currentHealth);
-            healSFX.Play();
+            _healSFX.Play();
             _animator.SetTrigger("heal");
             Debug.Log("[PlayerHealth] Healed {_healAmount}. HP: {currentHealth}");
     }
@@ -63,12 +63,12 @@ public class PlayerHealth : MonoBehaviour
 
             if (_gameEndManager != null)
             {
-                StartCoroutine(WaitForLos());
+                StartCoroutine(WaitForLoss());
             }
         }
     }
     
-    IEnumerator WaitForLos()
+    IEnumerator WaitForLoss()
     {
         yield return new WaitForSeconds(2f);
         _gameEndManager.TriggerLose();

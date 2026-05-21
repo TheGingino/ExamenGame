@@ -3,19 +3,18 @@ using UnityEngine;
 
 public class SwapTiles : MonoBehaviour
 {
-    [SerializeField] private float swapDistanceThreshold = 1.1f;
-    [SerializeField] private float dragThreshold = 12f;
+    [SerializeField] private float _swapDistanceThreshold = 1.1f;
+    [SerializeField] private float _dragThreshold = 12f;
 
     private bool _inputDisabled = false;
     private bool _isSwapping = false;
 
-    // Gedeelde pointer-state
     private GameObject _pointerTile;
     private Vector2 _pointerDownPos;
     private bool _dragStarted;
     private bool _swapQueued;
 
-    // Click-to-swap (two Tabs to swap)
+    // Click-to-swap (two taps to swap)
     private GameObject _firstClickTile;
 
     private MatchTiles _matchTiles;
@@ -40,7 +39,6 @@ public class SwapTiles : MonoBehaviour
 
         if (_isSwapping || _inputDisabled) return;
 
-        // Touch has priority
         if (Input.touchCount > 0)
         {
             HandleTouch(Input.GetTouch(0));
@@ -67,8 +65,8 @@ public class SwapTiles : MonoBehaviour
                 break;
         }
     }
-    
-    //For pc testing (eddtior)
+
+    // For PC testing (editor)
     private void HandleMouse()
     {
         if (Input.GetMouseButtonDown(0))
@@ -78,29 +76,27 @@ public class SwapTiles : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
             OnPointerUp(Input.mousePosition);
     }
-    
+
     private void OnPointerDown(Vector2 screenPos)
     {
-        _pointerTile    = GetTileAtScreenPos(screenPos);
+        _pointerTile = GetTileAtScreenPos(screenPos);
         _pointerDownPos = screenPos;
-        _dragStarted    = false;
-        _swapQueued     = false;
+        _dragStarted = false;
+        _swapQueued = false;
     }
 
     private void OnPointerMove(Vector2 screenPos)
     {
         if (_pointerTile == null || _swapQueued) return;
-        
-        //If you dragg far away with your finger, dragg modus is activated
+
         if (!_dragStarted &&
-            Vector2.Distance(screenPos, _pointerDownPos) >= dragThreshold)
+            Vector2.Distance(screenPos, _pointerDownPos) >= _dragThreshold)
         {
             _dragStarted = true;
         }
 
         if (!_dragStarted) return;
-        
-        //Checks if the pointer touches adjacent tile
+
         GameObject target = GetTileAtScreenPos(screenPos);
         if (target != null && target != _pointerTile && AreAdjacent(_pointerTile, target))
         {
@@ -111,18 +107,15 @@ public class SwapTiles : MonoBehaviour
 
     private void OnPointerUp(Vector2 screenPos)
     {
-       //If pointer was released without dragging, treat it like a tab
         if (_pointerTile != null && !_dragStarted && !_swapQueued)
         {
             HandleTapSwap(_pointerTile);
         }
-        //Rest pointerstate aftehr release, (_firstClickTile is NOT reset here because tap-swap needs it)
         _pointerTile = null;
         _dragStarted = false;
-        _swapQueued  = false;
+        _swapQueued = false;
     }
 
-    //Tap swap
     private void HandleTapSwap(GameObject tapped)
     {
         if (_firstClickTile == null)
@@ -133,7 +126,6 @@ public class SwapTiles : MonoBehaviour
 
         if (tapped == _firstClickTile)
         {
-            // same tille tapped twice = deselect
             _firstClickTile = null;
             return;
         }
@@ -170,22 +162,20 @@ public class SwapTiles : MonoBehaviour
         tileA.transform.position = posB;
         tileB.transform.position = posA;
 
-        // Update grid
-        Tile compA = _tileGravity._TileGrid[gridPosA.x, gridPosA.y];
-        Tile compB = _tileGravity._TileGrid[gridPosB.x, gridPosB.y];
-        _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = compB;
-        _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = compA;
+        Tile compA = _tileGravity.TileGrid[gridPosA.x, gridPosA.y];
+        Tile compB = _tileGravity.TileGrid[gridPosB.x, gridPosB.y];
+        _tileGravity.TileGrid[gridPosA.x, gridPosA.y] = compB;
+        _tileGravity.TileGrid[gridPosB.x, gridPosB.y] = compA;
 
         bool validSwap = _matchTiles.HasMatches();
 
         if (!validSwap)
         {
-            // No match = Rollback
             yield return AnimateSwap(tileA, tileB, posB, posA, 0.2f);
             if (tileA != null) tileA.transform.position = posA;
             if (tileB != null) tileB.transform.position = posB;
-            _tileGravity._TileGrid[gridPosA.x, gridPosA.y] = compA;
-            _tileGravity._TileGrid[gridPosB.x, gridPosB.y] = compB;
+            _tileGravity.TileGrid[gridPosA.x, gridPosA.y] = compA;
+            _tileGravity.TileGrid[gridPosB.x, gridPosB.y] = compB;
         }
 
         FinishSwap();
@@ -218,11 +208,11 @@ public class SwapTiles : MonoBehaviour
         _isSwapping = false;
         _matchTiles.SetSwappingState(false);
         _firstClickTile = null;
-        _pointerTile    = null;
-        _dragStarted    = false;
-        _swapQueued     = false;
+        _pointerTile = null;
+        _dragStarted = false;
+        _swapQueued = false;
     }
-    
+
     private GameObject GetTileAtScreenPos(Vector2 screenPos)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
@@ -234,7 +224,7 @@ public class SwapTiles : MonoBehaviour
     }
 
     private bool AreAdjacent(GameObject a, GameObject b) =>
-        Vector3.Distance(a.transform.position, b.transform.position) < swapDistanceThreshold;
+        Vector3.Distance(a.transform.position, b.transform.position) < _swapDistanceThreshold;
 
     public void SetInputState(bool state) => _inputDisabled = !state;
 }

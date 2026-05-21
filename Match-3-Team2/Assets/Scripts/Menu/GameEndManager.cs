@@ -3,14 +3,13 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 
-
 public class GameEndManager : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private TextMeshProUGUI _resultText;
-    [SerializeField] private AudioSource winSFX;
-    [SerializeField] private AudioSource looseSFX;
+    [SerializeField] private AudioSource _winSFX;
+    [SerializeField] private AudioSource _loseSFX;
 
     [SerializeField] private TextMeshProUGUI[] _buttonText;
 
@@ -25,13 +24,13 @@ public class GameEndManager : MonoBehaviour
         LOSE
     }
 
+    private GameState _currentState = GameState.PLAYING;
+
     private void Start()
     {
         Time.timeScale = 1f;
-         _endScreen.SetActive(false);
+        _endScreen.SetActive(false);
     }
-
-    private GameState _currentState = GameState.PLAYING;
 
     public bool IsGameActive()
     {
@@ -41,7 +40,7 @@ public class GameEndManager : MonoBehaviour
     public void TriggerWin()
     {
         if (!IsGameActive()) return;
-        winSFX.Play();
+        _winSFX.Play();
         _currentState = GameState.WIN;
         HandleEndState();
     }
@@ -49,7 +48,7 @@ public class GameEndManager : MonoBehaviour
     public void TriggerLose()
     {
         if (!IsGameActive()) return;
-        looseSFX.Play();
+        _loseSFX.Play();
         _currentState = GameState.LOSE;
         HandleEndState();
     }
@@ -86,6 +85,7 @@ public class GameEndManager : MonoBehaviour
             swapTiles.SetInputState(false);
         }
     }
+
     public GameState GetGameState()
     {
         return _currentState;

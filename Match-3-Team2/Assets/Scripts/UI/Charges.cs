@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Charges : MonoBehaviour
 {
-    [SerializeField] private GameObject[] chargeIcons;
-    [SerializeField] private TileType type;
+    [SerializeField] private GameObject[] _chargeIcons;
+    [SerializeField] private TileType _type;
 
     private void Update()
     {
@@ -14,15 +14,15 @@ public class Charges : MonoBehaviour
     {
         int charges = GetCharges();
 
-        for (int i = 0; i < chargeIcons.Length; i++)
+        for (int i = 0; i < _chargeIcons.Length; i++)
         {
-            chargeIcons[i].SetActive(i < charges);
+            _chargeIcons[i].SetActive(i < charges);
         }
     }
 
     private int GetCharges()
     {
-        switch (type)
+        switch (_type)
         {
             case TileType.Heal: return CombatMeter.Instance.HealCharges;
             case TileType.Damage: return CombatMeter.Instance.DamageCharges;

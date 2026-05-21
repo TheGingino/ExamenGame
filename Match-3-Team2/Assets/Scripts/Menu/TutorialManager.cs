@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] pages;
-    [SerializeField] private GameObject nextButton;
-    [SerializeField] private GameObject prevButton;
-    [SerializeField] private GameObject mainPage;
+    [SerializeField] private GameObject[] _pages;
+    [SerializeField] private GameObject _nextButton;
+    [SerializeField] private GameObject _prevButton;
+    [SerializeField] private GameObject _mainPage;
+    [SerializeField] private TMP_Text _nextButtonText;
 
     private int _currentPage = 0;
-
-    [SerializeField] private Text nextButtonText;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class TutorialManager : MonoBehaviour
 
     public void NextPage()
     {
-        if (_currentPage < pages.Length - 1)
+        if (_currentPage < _pages.Length - 1)
         {
             _currentPage++;
             ShowPage(_currentPage);
@@ -46,16 +46,16 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowPage(int index)
     {
-        mainPage.SetActive(true);
+        _mainPage.SetActive(true);
 
-        for (int i = 0; i < pages.Length; i++)
+        for (int i = 0; i < _pages.Length; i++)
         {
-            pages[i].SetActive(i == index);
+            _pages[i].SetActive(i == index);
         }
 
-        if (nextButtonText != null)
+        if (_nextButtonText != null)
         {
-            nextButtonText.text = (index == pages.Length - 1) ? "Start" : "Next";
+            _nextButtonText.text = (index == _pages.Length - 1) ? "Start" : "Next";
         }
     }
 

@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
 {
-    [SerializeField] private int levelProgress;
-    [SerializeField] private string saveKey = "LevelProgress";
-    [SerializeField] private CubeButton[] cubeLevelButtons;
+    [SerializeField] private int _levelProgress;
+    [SerializeField] private string _saveKey = "LevelProgress";
+    [SerializeField] private CubeButton[] _cubeLevelButtons;
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey(saveKey))
+        if (PlayerPrefs.HasKey(_saveKey))
         {
-            levelProgress = PlayerPrefs.GetInt(saveKey, 0);
-            Debug.Log($"Loaded level progress: {levelProgress}");
+            _levelProgress = PlayerPrefs.GetInt(_saveKey, 0);
+            Debug.Log($"Loaded level progress: {_levelProgress}");
             UpdateLevelButtons();
         }
 
@@ -21,30 +21,30 @@ public class SaveSystem : MonoBehaviour
 
     private void UpdateLevelButtons()
     {
-        for (int i = 0; i < cubeLevelButtons.Length; i++)
+        for (int i = 0; i < _cubeLevelButtons.Length; i++)
         {
-            bool isUnlocked = i <= levelProgress;
-            cubeLevelButtons[i].SetInteractable(isUnlocked);
+            bool isUnlocked = i <= _levelProgress;
+            _cubeLevelButtons[i].SetInteractable(isUnlocked);
         }
     }
 
     public void UpdateLevelProgress()
     {
-        levelProgress++;
-        PlayerPrefs.SetInt(saveKey, levelProgress);
+        _levelProgress++;
+        PlayerPrefs.SetInt(_saveKey, _levelProgress);
         UpdateLevelButtons();
     }
 
     public void ResetProgress()
     {
-        levelProgress = 0;
-        PlayerPrefs.SetInt(saveKey, levelProgress);
+        _levelProgress = 0;
+        PlayerPrefs.SetInt(_saveKey, _levelProgress);
         UpdateLevelButtons();
     }
     
     public void TestCompleteFirstLevel()
     {
         UpdateLevelProgress();
-        Debug.Log($"Level progress updated to: {levelProgress}");
+        Debug.Log($"Level progress updated to: {_levelProgress}");
     }
 }

@@ -13,19 +13,18 @@ public class LevelSelector : MonoBehaviour
     {
         switch (_buttonID)
         {
-            case "lvl1": 
+            case "lvl1":
                 break;
-            case "lvl2": 
+            case "lvl2":
                 break;
-            case "lvl3": 
+            case "lvl3":
                 break;
             case "lvl4":
-                SceneManager.LoadScene("FinalLevel"); 
+                SceneManager.LoadScene("FinalLevel");
                 break;
             case "menu":
                 SceneManager.LoadScene("StartScreen");
                 break;
         }
     }
-
 }

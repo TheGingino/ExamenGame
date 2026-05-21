@@ -56,6 +56,4 @@ public class EndScreenUI : MonoBehaviour
     {
         SceneManager.LoadScene("StartScreen");
     }
-
-
 }
