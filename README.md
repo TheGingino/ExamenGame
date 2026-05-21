@@ -45,7 +45,7 @@ Nikki van Wijngaarden:
 
 Kiana (Jasper) Hiemstra:
   * [Level Selection Screen (OLD)]()
-  * [Turn Based System]()
+  * [Turn Based System](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/scripts/TurnSystem/TurnManager.cs)
   * [Win Lose Condition](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Menu/GameEndManager.cs)
   * [Tutorial](https://github.com/TheGingino/ExamenGame/blob/Develop/Match-3-Team2/Assets/Scripts/Menu/TutorialManager.cs)
   * [Main Scene]()
