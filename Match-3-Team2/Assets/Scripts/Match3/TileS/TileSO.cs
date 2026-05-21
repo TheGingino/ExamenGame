@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Tile", menuName = "Match3/Tile")]
 public class TileSO : ScriptableObject
 {
-    [Header("Combat Values")] 
+    [Header("Combat Values")]
     public int HealAmount;
     public int DamageAmount;
     public int ShieldAmount;
@@ -28,11 +28,12 @@ public class TileSO : ScriptableObject
         }
     }
 }
+
 public enum TileType
 {
     Normal,
     Heal,
-    Shield, 
+    Shield,
     Damage,
     Special,
 }

@@ -3,44 +3,44 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Slider slider;
-    [SerializeField] private float smoothSpeed = 5f;
+    public Slider _slider;
+    [SerializeField] private float _smoothSpeed = 5f;
 
-    private float targetValue;
+    private float _targetValue;
 
-    [SerializeField] private Image healthBarImage;
+    [SerializeField] private Image _healthBarImage;
 
     [Header("Sprites")]
-    [SerializeField] private Sprite normalSprite;
-    [SerializeField] private Sprite shieldSprite;
+    [SerializeField] private Sprite _normalSprite;
+    [SerializeField] private Sprite _shieldSprite;
 
     public void SetMaxHealth(int health)
     {
-        slider.maxValue = health;
-        slider.value = health;
-        targetValue = health;
+        _slider.maxValue = health;
+        _slider.value = health;
+        _targetValue = health;
     }
 
     public void SetHealth(int health)
     {
-        targetValue = health;
+        _targetValue = health;
     }
 
     private void Update()
     {
-        slider.value = Mathf.Lerp(slider.value, targetValue, Time.deltaTime * smoothSpeed);
+        _slider.value = Mathf.Lerp(_slider.value, _targetValue, Time.deltaTime * _smoothSpeed);
 
-        if (Mathf.Abs(slider.value - targetValue) < 0.1f)
+        if (Mathf.Abs(_slider.value - _targetValue) < 0.1f)
         {
-            slider.value = targetValue;
+            _slider.value = _targetValue;
         }
     }
     public void ShowShieldVisual()
     {
-        healthBarImage.sprite = shieldSprite;
+         _healthBarImage.sprite = _shieldSprite;
     }
     public void HideShieldVisual()
     {
-        healthBarImage.sprite = normalSprite;
+        _healthBarImage.sprite = _shieldSprite;
     }
 }

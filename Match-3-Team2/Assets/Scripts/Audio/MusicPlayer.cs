@@ -4,25 +4,25 @@ using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
 {
-    private static MusicPlayer instance;
-    private AudioSource audioSource;
+    private static MusicPlayer _instance;
+    private AudioSource _audioSource;
 
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private Slider _volumeSlider;
 
     public float Volume { get; private set; } = 1f;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
+        _instance = this;
         DontDestroyOnLoad(gameObject);
 
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
 
         if (!PlayerPrefs.HasKey("MusicVolume"))
         {
@@ -37,14 +37,14 @@ public class MusicPlayer : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        volumeSlider = FindFirstObjectByType<Slider>();
+        _volumeSlider = FindFirstObjectByType<Slider>();
 
-        if (volumeSlider != null)
+        if (_volumeSlider != null)
         {
-            volumeSlider.value = Volume;
+            _volumeSlider.value = Volume;
 
-            volumeSlider.onValueChanged.RemoveListener(SetVolume);
-            volumeSlider.onValueChanged.AddListener(SetVolume);
+            _volumeSlider.onValueChanged.RemoveListener(SetVolume);
+            _volumeSlider.onValueChanged.AddListener(SetVolume);
         }
     }
 
@@ -58,8 +58,8 @@ public class MusicPlayer : MonoBehaviour
 
     private void ApplyVolume()
     {
-        if (audioSource != null)
-            audioSource.volume = Volume;
+        if (_audioSource != null)
+            _audioSource.volume = Volume;
     }
 
     private void OnDestroy()

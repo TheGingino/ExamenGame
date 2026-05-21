@@ -3,51 +3,49 @@ using UnityEngine;
 using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 
-//[RequireComponent(typeof(SpriteRenderer))]
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private TileSO tileData;
-    [SerializeField] private VisualEffectAsset destroyAnimation;
+    [SerializeField] private TileSO _tileData;
+    [SerializeField] private VisualEffectAsset _destroyAnimation;
     private bool _canBeSwapped = true;
-    
-    public TileSO _tileData => tileData;
-    
-     public void SetType(TileSO newTileData)
-     {
-         tileData = newTileData;
-         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-         if (spriteRenderer != null && tileData.tileSprite != null) 
-         {
-             spriteRenderer.sprite = tileData.tileSprite;
-         }
-     }
+
+    public TileSO TileData => _tileData;
+
+    public void SetType(TileSO newTileData)
+    {
+        _tileData = newTileData;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null && _tileData.tileSprite != null)
+        {
+            spriteRenderer.sprite = _tileData.tileSprite;
+        }
+    }
+
     private void Start()
     {
-        if (tileData == null)
+        if (_tileData == null)
         {
-            //Debug.LogWarning($"Tile '{name}' has no TileSO assigned.");
             return;
         }
     }
-    
+
     public IEnumerator PlayAnimationAndDestroy()
     {
-        if (destroyAnimation != null)
+        if (_destroyAnimation != null)
         {
-            // Instantiate the visual effect at the tile's position
             GameObject vfxInstance = new GameObject("DestroyEffect");
-            vfxInstance.transform.parent = transform.parent; // Keep it in the same hierarchy
+            vfxInstance.transform.parent = transform.parent;
             vfxInstance.transform.localScale = Vector3.one * 0.5f;
             vfxInstance.transform.position = transform.position;
 
             VisualEffect vfx = vfxInstance.AddComponent<VisualEffect>();
-            vfx.visualEffectAsset = destroyAnimation;
+            vfx.visualEffectAsset = _destroyAnimation;
             vfx.Play();
-            Debug.Log($"Playing destroy animation ");
+            Debug.Log($"Playing destroy animation");
             yield return new WaitForSeconds(0.5f);
             Destroy(vfxInstance);
         }
     }
-    
+
     public void DestroyTile() => Destroy(gameObject);
 }

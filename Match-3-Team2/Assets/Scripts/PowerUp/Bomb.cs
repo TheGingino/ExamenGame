@@ -11,10 +11,10 @@ public class Bomb : UsableItem
     private bool _isDragging;
     private Vector3 _dragOffset;
 
-    [SerializeField] private GameObject originalPosition;
-    [SerializeField] private GameObject envCover;
-    [SerializeField] private AudioSource bombSFX;
-    
+    [SerializeField] private GameObject _originalPosition;
+    [SerializeField] private GameObject _envCover;
+    [SerializeField] private AudioSource _bombSFX;
+
     private void Start()
     {
         _tileGravity = FindObjectOfType<TileGravity>();
@@ -22,7 +22,7 @@ public class Bomb : UsableItem
         _matchTiles = FindObjectOfType<MatchTiles>();
         _mainCamera = Camera.main;
         
-        envCover.SetActive(false);
+        _envCover.SetActive(false);
     }
 
     public override void Use()
@@ -43,7 +43,7 @@ public class Bomb : UsableItem
 
     private void Explode(Vector2Int center)
     {
-        bombSFX.Play();
+        _bombSFX.Play();
         for (int x = center.x - 1; x <= center.x + 1; x++)
         {
             for (int y = center.y - 1; y <= center.y + 1; y++)
@@ -121,7 +121,7 @@ public class Bomb : UsableItem
         if (Quantity <= 0) return;
 
         _isDragging = true;
-        envCover.SetActive(true);
+        _envCover.SetActive(true);
         transform.position = GetMousePosition() + _dragOffset;
         
     }
@@ -129,7 +129,7 @@ public class Bomb : UsableItem
     private void OnMouseUp()
     {
         _isDragging = false;
-        envCover.SetActive(false);
+        _envCover.SetActive(false);
         if (Quantity <= 0) return;
 
         Vector2Int bombPos = _gridSystem.GetGridPosition(transform.position);
@@ -145,7 +145,7 @@ public class Bomb : UsableItem
     private IEnumerator ReturnToOriginalPosition()
     {
         yield return new WaitForSeconds(0.2f);
-        gameObject.transform.position = originalPosition.transform.position;
+        gameObject.transform.position = _originalPosition.transform.position;
     }
 
     private Vector3 GetMousePosition()

@@ -4,14 +4,14 @@ using UnityEngine.UI;
 public class AbillitieButton : MonoBehaviour
 {
     private TurnManager _turnManager;
-    [SerializeField] private Button button;
-    [SerializeField] private TileType abilityType;
+    [SerializeField] private Button _button;
+    [SerializeField] private TileType _abilityType;
 
-    private bool isReady;
+    private bool _isReady;
 
     private void Awake()
     {
-        button.interactable = false;
+        _button.interactable = false;
         _turnManager = FindObjectOfType<TurnManager>();
     }
 
@@ -25,8 +25,8 @@ public class AbillitieButton : MonoBehaviour
         _turnManager.OnPlayerTurnStart.AddListener(UpdateButtonState);
         _turnManager.OnEnemyTurnStart.AddListener(UpdateButtonState);
     }
-    
-    void Start()
+
+    private void Start()
     {
         if (CombatMeter.Instance != null)
         {
@@ -42,13 +42,13 @@ public class AbillitieButton : MonoBehaviour
         CombatMeter.Instance.OnAbilityLimitChanged -= UpdateButtonState;
     }
 
-    void HandleMeterFull(TileType type)
+    private void HandleMeterFull(TileType type)
     {
-        Debug.Log("[AbilityButton-{abilityType}] EVENT RECEIVED: {type}");
+        Debug.Log("[AbilityButton-{_abilityType}] EVENT RECEIVED: {type}");
 
-        if (type != abilityType) return;
+        if (type != _abilityType) return;
 
-        Debug.Log("[AbilityButton-{abilityType}] Charge gained");
+        Debug.Log("[AbilityButton-{_abilityType}] Charge gained");
 
         UpdateButtonState();
     }
@@ -60,27 +60,27 @@ public class AbillitieButton : MonoBehaviour
             Debug.Log("Not player turn");
             return;
         }
-        Debug.Log($"[AbilityButton-{abilityType}] CLICKED");
+        Debug.Log($"[AbilityButton-{_abilityType}] CLICKED");
 
-        if (!CombatMeter.Instance.UseCharge(abilityType))
+        if (!CombatMeter.Instance.UseCharge(_abilityType))
         {
-            Debug.Log("[AbilityButton-{abilityType}] No charges available");
+            Debug.Log("[AbilityButton-{_abilityType}] No charges available");
             return;
         }
 
-        Debug.Log("[AbilityButton-{abilityType}] USED");
+        Debug.Log("[AbilityButton-{_abilityType}] USED");
 
         ExecuteAbility();
 
         // Update interactable state AFTER using charge
         UpdateButtonState();
     }
-    
-    void UpdateButtonState()
+
+    private void UpdateButtonState()
     {
         int charges = 0;
 
-        switch (abilityType)
+        switch (_abilityType)
         {
             case TileType.Heal: charges = CombatMeter.Instance.HealCharges; break;
             case TileType.Damage: charges = CombatMeter.Instance.DamageCharges; break;
@@ -88,13 +88,13 @@ public class AbillitieButton : MonoBehaviour
             case TileType.Special: charges = CombatMeter.Instance.SpecialCharges; break;
         }
 
-        button.interactable = charges > 0 && _turnManager.playerTurn;
-        button.interactable = charges > 0 && CombatMeter.Instance.CanUseAbility()  && _turnManager.playerTurn;
+        _button.interactable = charges > 0 && _turnManager.playerTurn;
+        _button.interactable = charges > 0 && CombatMeter.Instance.CanUseAbility() && _turnManager.playerTurn;
     }
 
-    void ExecuteAbility()
+    private void ExecuteAbility()
     {
-        switch (abilityType)
+        switch (_abilityType)
         {
             case TileType.Damage:
                 FindObjectOfType<PlayerAttack>().DoDamage();
@@ -113,5 +113,4 @@ public class AbillitieButton : MonoBehaviour
                 break;
         }
     }
-    
 }

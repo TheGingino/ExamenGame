@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class ImageFader : MonoBehaviour
 {
-    [SerializeField] private Image damageRim;
-    [SerializeField] private float fadeDuration = 2f;
+    [SerializeField] private Image _damageRim;
+    [SerializeField] private float _fadeDuration = 2f;
 
-    private Coroutine fadeRoutine;
+    private Coroutine _fadeRoutine;
 
     private void Start()
     {
@@ -16,12 +16,12 @@ public class ImageFader : MonoBehaviour
 
     public void ShowDamage()
     {
-        if (fadeRoutine != null)
+        if (_fadeRoutine != null)
         {
-            StopCoroutine(fadeRoutine);
+            StopCoroutine(_fadeRoutine);
         }
 
-        fadeRoutine = StartCoroutine(FadeRoutine());
+        _fadeRoutine = StartCoroutine(FadeRoutine());
     }
 
     IEnumerator FadeRoutine()
@@ -30,11 +30,11 @@ public class ImageFader : MonoBehaviour
 
         float timer = 0f;
 
-        while (timer < fadeDuration)
+        while (timer < _fadeDuration)
         {
             timer += Time.deltaTime;
 
-            float alpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+            float alpha = Mathf.Lerp(1f, 0f, timer / _fadeDuration);
             SetAlpha(alpha);
 
             yield return null;
@@ -45,8 +45,8 @@ public class ImageFader : MonoBehaviour
 
     void SetAlpha(float alpha)
     {
-        Color color = damageRim.color;
+        Color color = _damageRim.color;
         color.a = alpha;
-        damageRim.color = color;
+        _damageRim.color = color;
     }
 }

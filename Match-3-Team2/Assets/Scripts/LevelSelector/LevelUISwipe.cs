@@ -5,21 +5,21 @@ using UnityEngine.UI;
 
 public class LevelUISwipe : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private float dragSensitivity = 0.5f;
-    [SerializeField] private float minCameraY = 0f;
-    [SerializeField] private float maxCameraY = 10f;
-    [SerializeField] private float smoothDamping = 0.1f;
-    
-    private Vector3 dragStartPosition;
-    private Vector3 cameraStartPosition;
-    private float cameraVelocity;
-    private bool isDragging;
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private float _dragSensitivity = 0.5f;
+    [SerializeField] private float _minCameraY = 0f;
+    [SerializeField] private float _maxCameraY = 10f;
+    [SerializeField] private float _smoothDamping = 0.1f;
+
+    private Vector3 _dragStartPosition;
+    private Vector3 _cameraStartPosition;
+    private float _cameraVelocity;
+    private bool _isDragging;
 
     private void Start()
     {
-        if (mainCamera == null)
-            mainCamera = Camera.main;
+        if (_mainCamera == null)
+            _mainCamera = Camera.main;
     }
 
     private void Update()
@@ -31,25 +31,25 @@ public class LevelUISwipe : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            isDragging = true;
-            dragStartPosition = Input.mousePosition;
-            cameraStartPosition = mainCamera.transform.position;
+            _isDragging = true;
+            _dragStartPosition = Input.mousePosition;
+            _cameraStartPosition = _mainCamera.transform.position;
         }
-        
-        if (Input.GetMouseButton(0) && isDragging)
+
+        if (Input.GetMouseButton(0) && _isDragging)
         {
-            float dragDelta = Input.mousePosition.y - dragStartPosition.y;
-            float worldDragDelta = dragDelta * dragSensitivity * 0.01f;
-            
-            Vector3 newCameraPos = cameraStartPosition - Vector3.up * worldDragDelta;
-            newCameraPos.y = Mathf.Clamp(newCameraPos.y, minCameraY, maxCameraY);
-            
-            mainCamera.transform.position = newCameraPos;
+            float dragDelta = Input.mousePosition.y - _dragStartPosition.y;
+            float worldDragDelta = dragDelta * _dragSensitivity * 0.01f;
+
+            Vector3 newCameraPos = _cameraStartPosition - Vector3.up * worldDragDelta;
+            newCameraPos.y = Mathf.Clamp(newCameraPos.y, _minCameraY, _maxCameraY);
+
+            _mainCamera.transform.position = newCameraPos;
         }
-        
+
         if (Input.GetMouseButtonUp(0))
         {
-            isDragging = false;
+            _isDragging = false;
         }
     }
 }

@@ -6,44 +6,42 @@ using UnityEngine.UI;
 
 public class PauseScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject gridSystem;
-
-    [SerializeField] private GameObject fpsText;
-    
+    [SerializeField] private GameObject _gridSystem;
+    [SerializeField] private GameObject _fpsText;
     [SerializeField] private Toggle _toggle;
-    private bool showingFPS = false;
+
+    private bool _showingFPS = false;
 
     private void Start()
     {
-        fpsText.SetActive(showingFPS);
+        _fpsText.SetActive(_showingFPS);
     }
 
     public void ResumeGame()
     {
-        gridSystem.SetActive(true);
+        _gridSystem.SetActive(true);
     }
 
     public void PauseGame()
     {
-        gridSystem.SetActive(false);
+        _gridSystem.SetActive(false);
     }
-    
-    //Pause Screen Options
+
+    // Pause Screen Options
     public void ToggleFPS(bool toggle)
     {
-        showingFPS = toggle;
+        _showingFPS = toggle;
         if (_toggle.isOn == toggle)
         {
             Debug.Log("The Toggle is true " + _toggle.isOn);
-            showingFPS = true;
-            fpsText.SetActive(showingFPS);
+            _showingFPS = true;
+            _fpsText.SetActive(_showingFPS);
         }
         else if (_toggle.isOn == !toggle)
         {
             Debug.Log("The Toggle is false " + _toggle.isOn);
-            showingFPS = false;
-            fpsText.SetActive(showingFPS);
-            //run code here if false
+            _showingFPS = false;
+            _fpsText.SetActive(_showingFPS);
         }
     }
 }

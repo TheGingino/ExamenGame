@@ -365,8 +365,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buttonID: lvl2
   _levelSelector: {fileID: 162452769}
-  lockedMaterial: {fileID: 2100000, guid: 61e1567f8611a79468645a53b853ba53, type: 2}
-  unlockedMaterial: {fileID: 2100000, guid: fc4bff05b4fefe74f8e4732abfbf2ba7, type: 2}
+  _lockedMaterial: {fileID: 2100000, guid: 61e1567f8611a79468645a53b853ba53, type: 2}
+  _unlockedMaterial: {fileID: 2100000, guid: 9234493503a0af64686d1c38c471768f, type: 2}
 --- !u!1 &190183413
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,11 +396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2f5a5c5840e4648b4ec5ed98a8f98e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 761369750}
-  dragSensitivity: 0.5
-  minCameraY: -1
-  maxCameraY: 10
-  smoothDamping: 0.1
+  _mainCamera: {fileID: 761369750}
+  _dragSensitivity: 0.5
+  _minCameraY: 0
+  _maxCameraY: 10
+  _smoothDamping: 0.1
 --- !u!4 &190183415
 Transform:
   m_ObjectHideFlags: 0
@@ -2086,10 +2086,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bc7646964a0974ab248247d09e21e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonID: lvl1
+  _buttonID: lvl4
   _levelSelector: {fileID: 1631103534}
-  lockedMaterial: {fileID: 2100000, guid: 61e1567f8611a79468645a53b853ba53, type: 2}
-  unlockedMaterial: {fileID: 2100000, guid: b8fdc86e2638968429ff3fa224b4e4c2, type: 2}
+  _lockedMaterial: {fileID: 2100000, guid: 61e1567f8611a79468645a53b853ba53, type: 2}
+  _unlockedMaterial: {fileID: 2100000, guid: 9234493503a0af64686d1c38c471768f, type: 2}
 --- !u!1 &1647499014
 GameObject:
   m_ObjectHideFlags: 0
@@ -2333,8 +2333,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buttonID: lvl1
   _levelSelector: {fileID: 1649060924}
-  lockedMaterial: {fileID: 2100000, guid: 61e1567f8611a79468645a53b853ba53, type: 2}
-  unlockedMaterial: {fileID: 2100000, guid: b8fdc86e2638968429ff3fa224b4e4c2, type: 2}
+  _lockedMaterial: {fileID: 2100000, guid: 61e1567f8611a79468645a53b853ba53, type: 2}
+  _unlockedMaterial: {fileID: 2100000, guid: 9234493503a0af64686d1c38c471768f, type: 2}
 --- !u!1 &1716797820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,8 +2590,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buttonID: lvl3
   _levelSelector: {fileID: 1951026053}
-  lockedMaterial: {fileID: 2100000, guid: 61e1567f8611a79468645a53b853ba53, type: 2}
-  unlockedMaterial: {fileID: 2100000, guid: b8fdc86e2638968429ff3fa224b4e4c2, type: 2}
+  _lockedMaterial: {fileID: 2100000, guid: 61e1567f8611a79468645a53b853ba53, type: 2}
+  _unlockedMaterial: {fileID: 2100000, guid: 9234493503a0af64686d1c38c471768f, type: 2}
 --- !u!1001 &2057485967
 PrefabInstance:
   m_ObjectHideFlags: 0

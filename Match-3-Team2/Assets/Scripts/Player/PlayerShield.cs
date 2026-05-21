@@ -3,38 +3,38 @@ using UnityEngine;
 
 public class PlayerShield : MonoBehaviour
 {
-   public int shieldAmmount { get; private set; }
+   public int ShieldAmmount { get; private set; }
 
-   [SerializeField] private int _shieldToAdd;
-   [SerializeField] private AudioSource shieldSFX;
+    [SerializeField] private int _shieldToAdd;
+    [SerializeField] private AudioSource _shieldSFX;
 
-    [SerializeField] private HealthBar playerHealth;
-    [SerializeField] private TurnManager turnManager;
+    [SerializeField] private HealthBar _playerHealth;
+    [SerializeField] private TurnManager _turnManager;
 
     private void Start()
    {
-      shieldAmmount= 0;
+      ShieldAmmount= 0;
    }
     public void GainShield()
     {
-        shieldAmmount += _shieldToAdd;
-        shieldSFX.Play();
+        ShieldAmmount += _shieldToAdd;
+        _shieldSFX.Play();
 
-        Debug.Log($"[PlayerShield] Shield: {shieldAmmount}");
+        Debug.Log($"[PlayerShield] Shield: {ShieldAmmount}");
 
-        playerHealth.ShowShieldVisual();
+        _playerHealth.ShowShieldVisual();
     }
 
     public int TakeDamage(int damage)
     {
-        int absorbed = Mathf.Min(shieldAmmount, damage);
-        shieldAmmount -= absorbed;
+        int absorbed = Mathf.Min(ShieldAmmount, damage);
+        ShieldAmmount -= absorbed;
 
-        Debug.Log($"[PlayerShield] Shield after damage: {shieldAmmount}");
+        Debug.Log($"[PlayerShield] Shield after damage: {ShieldAmmount}");
 
-        if (shieldAmmount <= 0)
+        if (ShieldAmmount <= 0)
         {
-            playerHealth.HideShieldVisual();
+            _playerHealth.HideShieldVisual();
         }
 
         return damage - absorbed;
@@ -42,7 +42,7 @@ public class PlayerShield : MonoBehaviour
 
     void RemoveShieldVisual()
     {
-        playerHealth.HideShieldVisual();
-        turnManager.OnEnemyTurnStart.RemoveListener(RemoveShieldVisual);
+        _playerHealth.HideShieldVisual();
+        _turnManager.OnEnemyTurnStart.RemoveListener(RemoveShieldVisual);
     }
 }

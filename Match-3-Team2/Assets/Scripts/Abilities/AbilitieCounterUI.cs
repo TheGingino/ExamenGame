@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class AbilitieCounterUI : MonoBehaviour
 {
-    [SerializeField] private GameObject dotPrefab;
-    [SerializeField] private Transform dotContainer;
-    [SerializeField] private Sprite dotActiveSprite;
-    [SerializeField] private Sprite dotInactiveSprite;
+    [SerializeField] private GameObject _dotPrefab;
+    [SerializeField] private Transform _dotContainer;
+    [SerializeField] private Sprite _dotActiveSprite;
+    [SerializeField] private Sprite _dotInactiveSprite;
 
     private Image[] _dots;
 
@@ -35,7 +35,7 @@ public class AbilitieCounterUI : MonoBehaviour
 
     private void SpawnDots()
     {
-        foreach (Transform child in dotContainer)
+        foreach (Transform child in _dotContainer)
         {
             Destroy(child.gameObject);
         }
@@ -44,21 +44,21 @@ public class AbilitieCounterUI : MonoBehaviour
 
         for (int i = 0; i < _dots.Length; i++)
         {
-            GameObject dot = Instantiate(dotPrefab, dotContainer);
+            GameObject dot = Instantiate(_dotPrefab, _dotContainer);
             _dots[i] = dot.GetComponent<Image>();
             Debug.Log("Dot {i} image: {dots[i]}");
         }
     }
 
     private void UpdateDots()
-    { 
+    {
         if (_dots == null || CombatMeter.Instance == null) return;
 
         int used = CombatMeter.Instance.maxAbilitiesPerTurn - CombatMeter.Instance.AbilitiesRemaining;
-        
+
         for (int i = 0; i < _dots.Length; i++)
         {
-            _dots[i].sprite = (i >= _dots.Length - used) ? dotInactiveSprite : dotActiveSprite;
+            _dots[i].sprite = (i >= _dots.Length - used) ? _dotInactiveSprite : _dotActiveSprite;
         }
     }
 }

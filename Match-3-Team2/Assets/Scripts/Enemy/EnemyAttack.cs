@@ -3,23 +3,22 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    private PlayerHealth playerHealth;
+    private PlayerHealth _playerHealth;
     private bool _enemyTurn;
-   [SerializeField] Animator animator;
-   [SerializeField] AudioSource attackSFX;
-
+    [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource _attackSFX;
 
     private void Awake()
     {
-       playerHealth=FindObjectOfType<PlayerHealth>();
+        _playerHealth = FindObjectOfType<PlayerHealth>();
     }
-    
-    void DoDamage()
+
+    private void DoDamage()
     {
         StartCoroutine(AttackRoutine());
     }
 
-    void RollDamage()
+    private void RollDamage()
     {
         int roll = Random.Range(0, 100);
         int damage;
@@ -27,15 +26,15 @@ public class EnemyAttack : MonoBehaviour
         else if (roll < 75) damage = 2; // 25%
         else if (roll < 90) damage = 3; // 15%
         else damage = 4;                // 10%
-        Debug.Log( "damage" + damage);  
-        playerHealth.TakeDamage(damage);
+        Debug.Log("damage" + damage);
+        _playerHealth.TakeDamage(damage);
     }
 
-   public IEnumerator AttackRoutine()
+    public IEnumerator AttackRoutine()
     {
-        int attackIndex = Random.Range(1, 4); 
-        animator.SetTrigger("Attack_" + attackIndex);
-        attackSFX.Play();
+        int attackIndex = Random.Range(1, 4);
+        _animator.SetTrigger("Attack_" + attackIndex);
+        _attackSFX.Play();
         yield return new WaitForSeconds(1f);
         RollDamage();
     }

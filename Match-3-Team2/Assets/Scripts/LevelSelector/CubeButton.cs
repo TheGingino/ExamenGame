@@ -5,16 +5,16 @@ public class CubeButton : MonoBehaviour
 {
     [SerializeField] private string _buttonID;
     [SerializeField] private LevelSelector _levelSelector;
-    [SerializeField] private Material lockedMaterial;
-    [SerializeField] private Material unlockedMaterial;
-    
+    [SerializeField] private Material _lockedMaterial;
+    [SerializeField] private Material _unlockedMaterial;
+
     private bool _isInteractable;
     private Renderer _renderer;
 
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
-        _isInteractable = true; // Default to interactable, will be set by SaveSystem
+        _isInteractable = true;
         if (_levelSelector == null)
         {
             Debug.LogError($"CubeButton '{name}' has no LevelSelector assigned.");
@@ -26,8 +26,7 @@ public class CubeButton : MonoBehaviour
         if (_isInteractable && _levelSelector != null)
         {
             _levelSelector.LevelSelect();
-        
-            // Testing: increment level progress on first button
+
             if (_buttonID == "lvl1")
             {
                 SaveSystem saveSystem = FindObjectOfType<SaveSystem>();
@@ -46,14 +45,9 @@ public class CubeButton : MonoBehaviour
         {
             _renderer = GetComponent<Renderer>();
         }
-    
+
         _isInteractable = interactable;
-    
-        if (_renderer == null)
-        {
-            _renderer = GetComponent<Renderer>();
-        }
-    
-        _renderer.material = interactable ? unlockedMaterial : lockedMaterial;
+
+        _renderer.material = interactable ? _unlockedMaterial : _lockedMaterial;
     }
 }

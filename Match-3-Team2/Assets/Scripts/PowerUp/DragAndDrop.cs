@@ -6,31 +6,30 @@ using UnityEngine.Events;
 
 public class DragAndDrop : MonoBehaviour
 {
-    private bool isDragging;
-    private Vector3 offset;
-    
-    [SerializeField] private GameObject originalPosition;
-    
-    [SerializeField] private UnityEvent onDropAction;
+    private bool _isDragging;
+    private Vector3 _offset;
+
+    [SerializeField] private GameObject _originalPosition;
+    [SerializeField] private UnityEvent _onDropAction;
     private void OnMouseDown()
     {
-        isDragging = false;
-        gameObject.transform.position = originalPosition.transform.position;
+        _isDragging = false;
+        gameObject.transform.position = _originalPosition.transform.position;
     }
     
     private void OnMouseDrag()
     {
-        isDragging = true;
-        if (isDragging)
+        _isDragging = true;
+        if (_isDragging)
         {
-            transform.position = GetMousePosition() + offset;
+            transform.position = GetMousePosition() + _offset;
         }
     }
     
     private void OnMouseUp()
     {
-        isDragging = false;
-        onDropAction?.Invoke();
+        _isDragging = false;
+        _onDropAction?.Invoke();
     }
 
     private Vector3 GetMousePosition()

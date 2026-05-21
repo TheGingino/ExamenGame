@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpawnTiles : MonoBehaviour
 {
-    [SerializeField] private Tile[] tilePrefabs;
+    [SerializeField] private Tile[] _tilePrefabs;
     [SerializeField] public float spawnDelay = 0.1f;
 
     private GridSystem _gridSystem;
@@ -12,8 +12,8 @@ public class SpawnTiles : MonoBehaviour
 
     private void Awake()
     {
-        _gridSystem   = GetComponent<GridSystem>();
-        _tileGravity  = GetComponent<TileGravity>();
+        _gridSystem = GetComponent<GridSystem>();
+        _tileGravity = GetComponent<TileGravity>();
         _gridTransform = transform;
     }
 
@@ -36,11 +36,10 @@ public class SpawnTiles : MonoBehaviour
         Vector2 pos = _gridSystem.GetWorldPosition(x, y);
         GameObject obj = Instantiate(prefab.gameObject, pos, Quaternion.identity, _gridTransform);
         obj.name = $"Tile-({x},{y})";
-    
+
         Tile tile = obj.GetComponent<Tile>();
         _tileGravity.RegisterTile(x, y, tile);
-    
-        // Verify registration worked
+
         Debug.Assert(_tileGravity.GetTileAt(x, y) != null, $"RegisterTile failed at ({x},{y})");
     }
 
@@ -49,7 +48,6 @@ public class SpawnTiles : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            // Stack spawn positions above the grid top
             Vector2 spawnPos = _gridSystem.GetWorldPosition(col, _gridSystem.height - 1);
             spawnPos.y += _gridSystem.cellSize * (i + 1);
 
@@ -69,7 +67,7 @@ public class SpawnTiles : MonoBehaviour
         int attempts = 0;
         do
         {
-            selected = tilePrefabs[Random.Range(0, tilePrefabs.Length)];
+            selected = _tilePrefabs[Random.Range(0, _tilePrefabs.Length)];
             attempts++;
         } while (attempts < 100 && WouldMatch(x, y, selected));
         return selected;
@@ -77,11 +75,11 @@ public class SpawnTiles : MonoBehaviour
 
     private bool WouldMatch(int x, int y, Tile tile)
     {
-        var d = tile._tileData;
-        if (x >= 2 && _tileGravity.GetTileAt(x-1,y)?._tileData == d && _tileGravity.GetTileAt(x-2,y)?._tileData == d) return true;
-        if (x <= _gridSystem.width-3 && _tileGravity.GetTileAt(x+1,y)?._tileData == d && _tileGravity.GetTileAt(x+2,y)?._tileData == d) return true;
-        if (y >= 2 && _tileGravity.GetTileAt(x,y-1)?._tileData == d && _tileGravity.GetTileAt(x,y-2)?._tileData == d) return true;
-        if (y <= _gridSystem.height-3 && _tileGravity.GetTileAt(x,y+1)?._tileData == d && _tileGravity.GetTileAt(x,y+2)?._tileData == d) return true;
+        var d = tile.TileData;
+        if (x >= 2 && _tileGravity.GetTileAt(x - 1, y)?.TileData == d && _tileGravity.GetTileAt(x - 2, y)?.TileData == d) return true;
+        if (x <= _gridSystem.width - 3 && _tileGravity.GetTileAt(x + 1, y)?.TileData == d && _tileGravity.GetTileAt(x + 2, y)?.TileData == d) return true;
+        if (y >= 2 && _tileGravity.GetTileAt(x, y - 1)?.TileData == d && _tileGravity.GetTileAt(x, y - 2)?.TileData == d) return true;
+        if (y <= _gridSystem.height - 3 && _tileGravity.GetTileAt(x, y + 1)?.TileData == d && _tileGravity.GetTileAt(x, y + 2)?.TileData == d) return true;
         return false;
     }
 }
