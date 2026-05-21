@@ -37,7 +37,7 @@ public class Bomb : UsableItem
         {
             return;
         }
-
+        
         Explode(bombPos);
     }
 
@@ -95,6 +95,8 @@ public class Bomb : UsableItem
 
         if (matchTiles != null)
             matchTiles.CheckForMatches();
+        
+        DestroyBombObject();
     }
 
 
@@ -153,5 +155,13 @@ public class Bomb : UsableItem
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 10f;
         return _mainCamera.ScreenToWorldPoint(mousePos);
+    }
+    
+    private void DestroyBombObject()
+    {
+        if (Quantity <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
