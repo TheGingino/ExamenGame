@@ -200,6 +200,8 @@ flowchart TD
 
 Zodra een swap is uitgevoerd, controleert het spel automatisch of er een match aanwezig is. Een match is een aaneengesloten reeks van drie of meer Tiles van hetzelfde type. De posities van gematchte Tiles worden opgeslagen, waarna die Tiles worden verwijderd en nieuwe Tiles spawnen op de vrijgekomen plekken.
 
+<img src="https://github.com/TheGingino/ExamenGame/blob/Develop/WikiResources/Gino/match3.gif" width="70%">
+
 ---
 
 ## 6. Deadlock System
