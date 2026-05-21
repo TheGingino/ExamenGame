@@ -6408,11 +6408,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5417699399527945555}
+      objectReference: {fileID: 7157763136562670414}
     - target: {fileID: 563345186729323867, guid: 2d843c0aed247074ea81cb90083dc175,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPrimaryButtonPressed
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 1705120614333690364, guid: 2d843c0aed247074ea81cb90083dc175,
         type: 3}

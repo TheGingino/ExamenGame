@@ -398,7 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 761369750}
   _dragSensitivity: 0.5
-  _minCameraY: 0
+  _minCameraY: -1
   _maxCameraY: 10
   _smoothDamping: 0.1
 --- !u!4 &190183415
@@ -644,12 +644,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f38da5f5999a44592616f812f5fdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelProgress: 3
+  _levelProgress: 1
   _saveKey: LevelProgress
   _cubeLevelButtons:
   - {fileID: 1649060925}
-  - {fileID: 1951026054}
   - {fileID: 162452770}
+  - {fileID: 1951026054}
   - {fileID: 1631103535}
 --- !u!114 &437787066
 MonoBehaviour:
