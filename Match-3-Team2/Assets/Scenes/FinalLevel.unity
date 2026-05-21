@@ -1370,12 +1370,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4306943391510702158}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &649815130 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9130385552423639323, guid: ab52d72ac28349a47bb76c62b14cd63e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1982402487}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &659694724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,12 +2320,27 @@ PrefabInstance:
       objectReference: {fileID: 3476212860856059984}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
+      propertyPath: _swapCounterText
+      value: 
+      objectReference: {fileID: 3476212860856059984}
+    - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
+        type: 3}
       propertyPath: enemyTurnIndicator
       value: 
       objectReference: {fileID: 865123963}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
+      propertyPath: _enemyTurnIndicator
+      value: 
+      objectReference: {fileID: 865123963}
+    - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
+        type: 3}
       propertyPath: playerTurnIndicator
+      value: 
+      objectReference: {fileID: 885667733}
+    - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
+        type: 3}
+      propertyPath: _playerTurnIndicator
       value: 
       objectReference: {fileID: 885667733}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
@@ -2342,7 +2351,7 @@ PrefabInstance:
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
       propertyPath: OnEnemyTurnStart.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
@@ -2381,6 +2390,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
+      propertyPath: OnEnemyTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
+        type: 3}
       propertyPath: OnEnemyTurn.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DoDamage
       objectReference: {fileID: 0}
@@ -2401,6 +2415,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
+      propertyPath: OnEnemyTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1982402489}
+    - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
+        type: 3}
       propertyPath: OnPlayerTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1465797078}
@@ -2413,6 +2432,11 @@ PrefabInstance:
         type: 3}
       propertyPath: OnEnemyTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
+        type: 3}
+      propertyPath: OnEnemyTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetInputState
       objectReference: {fileID: 0}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
@@ -2446,6 +2470,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
+      propertyPath: OnEnemyTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SwapTiles, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
+        type: 3}
       propertyPath: OnPlayerTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CombatMeter, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -2462,6 +2491,11 @@ PrefabInstance:
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
         type: 3}
       propertyPath: OnEnemyTurn.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
+        type: 3}
+      propertyPath: OnEnemyTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2477773019225387475, guid: 6de2d8474d423554f8492318654b953f,
@@ -4304,18 +4338,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2438874592517439930, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438874592517439930, guid: 5d484daa845fc434fa2e9db155a20aaf,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7157763136562670413}
+      objectReference: {fileID: 1766018761}
+    - target: {fileID: 2438874592517439930, guid: 5d484daa845fc434fa2e9db155a20aaf,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1982402489}
     - target: {fileID: 2438874592517439930, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResumeGame
+      value: BackToMain
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438874592517439930, guid: 5d484daa845fc434fa2e9db155a20aaf,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetInputState
       objectReference: {fileID: 0}
     - target: {fileID: 2438874592517439930, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PauseScreen, Assembly-CSharp
+      value: MenuSlider, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438874592517439930, guid: 5d484daa845fc434fa2e9db155a20aaf,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SwapTiles, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438874592517439930, guid: 5d484daa845fc434fa2e9db155a20aaf,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2801682675983955021, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
@@ -4340,7 +4399,7 @@ PrefabInstance:
     - target: {fileID: 2824974442838517768, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5916523541355976863, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
@@ -4445,7 +4504,7 @@ PrefabInstance:
     - target: {fileID: 6867030603624957467, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8214082215738495560, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
@@ -4460,7 +4519,7 @@ PrefabInstance:
     - target: {fileID: 9055743731954380950, guid: 5d484daa845fc434fa2e9db155a20aaf,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4660,6 +4719,18 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 1982402487}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1982402489 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5497677025615384025, guid: ab52d72ac28349a47bb76c62b14cd63e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1982402487}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f2cb66b4c8f37b419f931f215c111c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1994311299 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5916523541355976863, guid: 5d484daa845fc434fa2e9db155a20aaf,
@@ -4954,10 +5025,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7157763136562670413}
-        m_TargetAssemblyTypeName: PauseScreen, Assembly-CSharp
-        m_MethodName: PauseGame
-        m_Mode: 1
+      - m_Target: {fileID: 1982402489}
+        m_TargetAssemblyTypeName: SwapTiles, Assembly-CSharp
+        m_MethodName: SetInputState
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9028,7 +9099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af25c2d23e90e54b9d155e8d338dd20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridSystem: {fileID: 649815130}
   _fpsText: {fileID: 5029693909016025859}
   _toggle: {fileID: 0}
 --- !u!114 &7157763136562670414

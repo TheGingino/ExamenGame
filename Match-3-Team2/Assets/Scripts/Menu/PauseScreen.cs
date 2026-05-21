@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PauseScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject _gridSystem;
     [SerializeField] private GameObject _fpsText;
     [SerializeField] private Toggle _toggle;
 
@@ -15,16 +14,6 @@ public class PauseScreen : MonoBehaviour
     private void Start()
     {
         _fpsText.SetActive(_showingFPS);
-    }
-
-    public void ResumeGame()
-    {
-        _gridSystem.SetActive(true);
-    }
-
-    public void PauseGame()
-    {
-        _gridSystem.SetActive(false);
     }
 
     // Pause Screen Options
