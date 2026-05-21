@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -57,5 +58,15 @@ public class EndScreenUI : MonoBehaviour
         SceneManager.LoadScene("StartScreen");
     }
 
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
+    public void Continue()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelSelector");
+    }
 }

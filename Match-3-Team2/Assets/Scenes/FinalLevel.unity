@@ -5963,10 +5963,85 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7157763136562670412}
     m_Modifications:
+    - target: {fileID: 563345186729323867, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 563345186729323867, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 563345186729323867, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7157763136562670414}
+    - target: {fileID: 563345186729323867, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 563345186729323867, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 563345186729323867, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: EndScreenUI, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1705120614333690364, guid: 2d843c0aed247074ea81cb90083dc175,
         type: 3}
       propertyPath: m_Name
       value: EndScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160194691055717590, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160194691055717590, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160194691055717590, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7157763136562670414}
+    - target: {fileID: 2160194691055717590, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160194691055717590, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160194691055717590, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EndScreenUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160194691055717590, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787485216450556780, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7157763136562670414}
+    - target: {fileID: 8787485216450556780, guid: 2d843c0aed247074ea81cb90083dc175,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 8940625120251139643, guid: 2d843c0aed247074ea81cb90083dc175,
         type: 3}
