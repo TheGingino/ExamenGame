@@ -51,7 +51,14 @@ Kiana (Jasper) Hiemstra:
   * [Main Scene]()
     
 Bo Bakker:
-*
+* [enemy model]
+* [boss enviroment]
+* [tutorial]
+* [health bar]
+* [slash animation]
+* [special attack animation]
+* [game border]
+* [damage rim] 
  
 Robin van Wandelen:
 *
