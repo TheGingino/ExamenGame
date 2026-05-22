@@ -339,6 +339,7 @@ De move counter laat zien hoeveel zetten de speler nog kan doen voordat de enemy
 
 <img width="125" height="125" alt="TurnCounter" src="https://github.com/user-attachments/assets/11689393-9e81-4cfa-b033-992496309671" />
 
+
 Energy Counter
 De energy counter laat zien dat de speler 3 abilities kan gebruiken per beurt.
 Als er een ability gebruikt is, word 1 van de buttons donker van kleur.
