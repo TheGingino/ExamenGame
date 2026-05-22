@@ -511,6 +511,326 @@ Het doel was om meerdere levels te maken en daarvoor is een LevelCreator voor ge
 <img src="https://github.com/TheGingino/ExamenGame/blob/Develop/WikiResources/Gino/LevelCreator.png" width="80%">
 
 ---
+## 11. Player behaviour
+
+De speler heeft meerdere abilities. Hier leggen we uit hoe deze allemaal in elkaar zitten.
+
+## Player Attack
+De speler kan de enemy aanvallen met twee verschillende aanvallen: een standaard aanval en een special attack. Beide abilities moeten eerst worden opgeladen door matches te maken met de juiste tiles. Zodra een ability volledig is opgeladen, kan de speler deze activeren via de bijbehorende knop in de UI.
+
+Een standaard aanval doet 5 damage aan de enemy en kan meerdere keren gebruikt worden tijdens een level. De special attack is krachtiger en doet 10 damage, maar kan slechts één keer gebruikt worden. Wanneer een aanval wordt uitgevoerd, ontvangt de enemy damage en gaat de healthbar omlaag. Hierdoor krijgt de speler direct feedback op de impact van de aanval.
+
+
+
+### Flowchart
+
+```mermaid
+flowchart TD
+
+    A["Game Starts"] --> B["Awake"]
+
+    B --> C["Find EnemyHealth"]
+
+    C --> D{"Player Action"}
+
+    D -->|Normal Attack| E["DoDamage"]
+
+    E --> F["EnemyHealth TakeDamage attackDamage"]
+
+    F --> G{"Enemy Current Health > 0"}
+
+    G -->|Yes| H["Trigger Hit Small Animation"]
+
+    H --> I["Play hitSFX"]
+
+    I --> J["Debug Log Damage"]
+
+    G -->|No| J
+
+    D -->|Special Attack| K["SpecialAttack"]
+
+    K --> L["EnemyHealth TakeDamage specialAttackDamage"]
+
+    L --> M{"Enemy Current Health > 0"}
+
+    M -->|Yes| N["Trigger Hit Big Animation"]
+
+    N --> O["Play specialHitSFX"]
+
+    O --> P["Debug Log Special Damage"]
+
+    M -->|No| P
+```
+
+### Class Diagram
+
+```mermaid
+classDiagram
+
+class PlayerAttack {
+    - int _attackDamage
+    - int _specialAttackDamage
+    - Animator animator
+    - AudioSource hitSFX
+    - AudioSource specialHitSFX
+    - EnemyHealth enemyHealth
+
+    + Awake()
+    + DoDamage()
+    + SpecialAttack()
+}
+
+class EnemyHealth {
+    + int _currentHealth
+    + TakeDamage(int damage)
+}
+
+class Animator {
+    + SetTrigger(string triggerName)
+}
+
+class AudioSource {
+    + Play()
+}
+
+PlayerAttack --> EnemyHealth : damages enemy
+PlayerAttack --> Animator : triggers animation
+PlayerAttack --> AudioSource : plays audio
+```
+
+## Player health
+De speler verliest health wanneer hij wordt aangevallen door de enemy. Iedere aanval vermindert de huidige health van de speler, waardoor de healthbar omlaag gaat. Hoeveel health de speler verliest, hangt af van de damage die de enemy tijdens zijn beurt rolt.
+
+Om health terug te krijgen, kan de speler de Heal ability gebruiken. Deze ability wordt opgeladen door groene tiles met een hart erop te matchen. Elke match vult de ability verder op. Zodra de Heal ability volledig is opgeladen, wordt de heal move vrijgespeeld en kan de speler deze activeren via de bijbehorende knop in de UI.
+
+Wanneer de speler de heal move gebruikt, krijgt de speler health terug en wordt de healthbar weer verhoogd. Hierdoor kan de speler langer overleven en strategisch omgaan met de aanvallen van de enemy.
+
+
+
+<img width="1200" height="900" alt="HealVS" src="https://github.com/user-attachments/assets/8d415bcb-1b55-4c82-a933-41fb26774b22" />
+
+
+### Flowchart
+
+```mermaid
+flowchart TD
+
+    A["Game Starts"] --> B["Start"]
+
+    B --> C["Set Current Health = Max Health"]
+
+    C --> D["HealthBar SetMaxHealth"]
+
+    D --> E["Find GameEndManager"]
+
+    E --> F["Find ImageFader"]
+
+    F --> G{"Action"}
+
+    G -->|Take Damage| H["TakeDamage"]
+
+    H --> I{"Current Health <= 0"}
+
+    I -->|Yes| J["Return"]
+
+    I -->|No| K{"Shield Amount > 0"}
+
+    K -->|Yes| L["Shield Takes Damage"]
+
+    L --> M{"Remaining Damage <= 0"}
+
+    M -->|Yes| N["Return"]
+
+    M -->|No| O["Apply Remaining Damage"]
+
+    K -->|No| O
+
+    O --> P["Reduce Current Health"]
+
+    P --> Q["Clamp Health Minimum To 0"]
+
+    Q --> R["Update Health Bar"]
+
+    R --> S["Show Damage Effect"]
+
+    S --> T["Debug Log Current Health"]
+
+    T --> U["CheckState"]
+
+    U --> V{"Current Health <= 0 AND Not Lost"}
+
+    V -->|No| W["Continue Game"]
+
+    V -->|Yes| X["Set hasLost = true"]
+
+    X --> Y{"GameEndManager Exists"}
+
+    Y -->|No| Z["End"]
+
+    Y -->|Yes| AA["Start WaitForLos Coroutine"]
+
+    AA --> AB["Wait 2 Seconds"]
+
+    AB --> AC["Trigger Lose"]
+
+    G -->|Heal| AD["Heal"]
+
+    AD --> AE["Increase Current Health"]
+
+    AE --> AF["Clamp To Max Health"]
+
+    AF --> AG["Update Health Bar"]
+
+    AG --> AH["Play Heal SFX"]
+
+    AH --> AI["Debug Log Heal"]
+```
+
+### Class Diagram
+
+```mermaid
+classDiagram
+
+class PlayerHealth {
+    - int _maxHealth
+    - int _healAmount
+    - int _currentHealth
+    - bool _hasLost
+
+    - HealthBar _healthBar
+    - PlayerShield _playerShield
+    - AudioSource healSFX
+    - GameEndManager _gameEndManager
+    - ImageFader _imageFader
+
+    + Start()
+    + TakeDamage(int damage)
+    + Heal()
+    + CheckState()
+    + WaitForLos()
+}
+
+class HealthBar {
+    + SetMaxHealth(int value)
+    + SetHealth(int value)
+}
+
+class PlayerShield {
+    + int shieldAmmount
+    + TakeDamage(int damage)
+}
+
+class AudioSource {
+    + Play()
+}
+
+class GameEndManager {
+    + TriggerLose()
+}
+
+class ImageFader {
+    + ShowDamage()
+}
+
+PlayerHealth --> HealthBar : updates UI
+PlayerHealth --> PlayerShield : absorbs damage
+PlayerHealth --> AudioSource : plays heal sound
+PlayerHealth --> GameEndManager : triggers lose state
+PlayerHealth --> ImageFader : shows damage effect
+```
+
+## Player Shield
+De speler kan een Shield ability gebruiken om zichzelf te beschermen tegen aanvallen van de enemy. De ability wordt opgeladen door blauwe tiles met een schild erop te matchen. Zodra de ability volledig is opgeladen, kan de speler de shield move activeren via de knop in de UI.
+
+Wanneer het shield actief is, kan het maximaal 5 damage absorberen. Damage wordt eerst door het shield opgevangen voordat de speler health verliest.
+
+
+### Flowchart
+
+```mermaid
+flowchart TD
+
+    A["Game Starts"] --> B["Start"]
+
+    B --> C["Set Shield Amount = 0"]
+
+    C --> D{"Player Action"}
+
+    D -->|Gain Shield| E["GainShield"]
+
+    E --> F["Increase Shield Amount"]
+
+    F --> G["Play Shield SFX"]
+
+    G --> H["Debug Log Shield Amount"]
+
+    H --> I["Show Shield Visual"]
+
+    D -->|Take Damage| J["TakeDamage"]
+
+    J --> K["Calculate Absorbed Damage"]
+
+    K --> L["Reduce Shield Amount"]
+
+    L --> M["Debug Log Remaining Shield"]
+
+    M --> N{"Shield Amount <= 0"}
+
+    N -->|Yes| O["Hide Shield Visual"]
+
+    N -->|No| P["Keep Shield Visual"]
+
+    O --> Q["Return Remaining Damage"]
+
+    P --> Q
+
+    D -->|Enemy Turn Starts| R["RemoveShieldVisual"]
+
+    R --> S["Hide Shield Visual"]
+
+    S --> T["Remove Listener From Enemy Turn Event"]
+```
+
+### Class Diagram
+
+```mermaid
+classDiagram
+
+class PlayerShield {
+    + int shieldAmmount
+
+    - int _shieldToAdd
+    - AudioSource shieldSFX
+    - HealthBar playerHealth
+    - TurnManager turnManager
+
+    + Start()
+    + GainShield()
+    + TakeDamage(int damage)
+    + RemoveShieldVisual()
+}
+
+class AudioSource {
+    + Play()
+}
+
+class HealthBar {
+    + ShowShieldVisual()
+    + HideShieldVisual()
+}
+
+class TurnManager {
+    + OnEnemyTurnStart
+}
+
+PlayerShield --> AudioSource : plays shield sound
+PlayerShield --> HealthBar : updates shield UI
+PlayerShield --> TurnManager : listens for enemy turn
+```
+
+
+
+---
 ## Tile grid visuals
 De tile grid is natuurlijk waar de gameplay zelf speelt hiervoor hebben wij art nodig om de vershilende soorten tiles te onderschieden. Rood voor attack, Blauw voor shield, Groen voor healing, Wit als een filler tile en geel voor special attack.
 
