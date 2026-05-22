@@ -265,9 +265,197 @@ Het spel verloopt in beurten. Per beurt heeft de speler vijf sets om zetten te d
 
 ## 8. Enemy Boss
 
-De vijand is een boss met een vaste set aan aanvallen. Elke beurt kiest de boss willekeurig één aanval uit zijn movepool. De schade van die aanval wordt beïnvloed door de Block Slider van de speler.
+## Enemy Attack
+Na elke 5 matches van de speler start de beurt van de vijand. De vijand voert vervolgens een aanval uit met een willekeurig gekozen attack animation. Tijdens deze aanval wordt er ook een sound effect afgespeeld om de aanval meer feedback te geven aan de speler.
 
----
+Wanneer de aanval is uitgevoerd, gebruikt het systeem een random roll om te bepalen hoeveel damage de speler ontvangt. Dit gebeurt met een gewogen random systeem. Eerst wordt er een willekeurig getal tussen de 0 en 100 gerold. Op basis van deze uitkomst wordt bepaald hoeveel damage de vijand doet.
+
+De kansverdeling werkt als volgt:
+
+* 1 damage → 50% kans
+* 2 damage → 25% kans
+* 3 damage → 15% kans
+* 4 damage → 10% kans
+
+Hierdoor komen lage damagewaarden vaker voor dan hoge damagewaarden. Dit zorgt ervoor dat de aanvallen van de vijand onvoorspelbaar blijven, terwijl de speler meestal geen extreem hoge damage ontvangt. Zodra de damage is berekend, verliest de speler health en gaat de healthbar omlaag.
+
+
+### Flowchart
+```mermaid
+flowchart TD
+
+    A["Game Starts"] --> B["Awake"]
+    B --> C["Find PlayerHealth"]
+
+    C --> D["DoDamage Called"]
+
+    D --> E["Start AttackRoutine Coroutine"]
+
+    E --> F["Generate Random Attack Index 1-3"]
+
+    F --> G["Trigger Attack Animation"]
+
+    G --> H["Play Attack SFX"]
+
+    H --> I["Wait 1 Second"]
+
+    I --> J["RollDamage"]
+
+    J --> K["Generate Random Number 0-99"]
+
+    K --> L{"Damage Roll Result"}
+
+    L -->|0-49| M["Damage = 1"]
+    L -->|50-74| N["Damage = 2"]
+    L -->|75-89| O["Damage = 3"]
+    L -->|90-99| P["Damage = 4"]
+
+    M --> Q["Debug Log Damage"]
+    N --> Q
+    O --> Q
+    P --> Q
+
+    Q --> R["PlayerHealth TakeDamage"]
+```
+### Class Diagram
+
+```mermaid
+classDiagram
+
+class EnemyAttack {
+    - PlayerHealth playerHealth
+    - bool enemyTurn
+    - Animator animator
+    - AudioSource attackSFX
+
+    + Awake()
+    + DoDamage()
+    + RollDamage()
+    + AttackRoutine()
+}
+
+class PlayerHealth {
+    + TakeDamage(int damage)
+}
+
+class Animator {
+    + SetTrigger(string triggerName)
+}
+
+class AudioSource {
+    + Play()
+}
+
+class Random {
+    + Range(int min, int max)
+}
+
+EnemyAttack --> PlayerHealth : damages player
+EnemyAttack --> Animator : triggers animations
+EnemyAttack --> AudioSource : plays audio
+EnemyAttack --> Random : generates values
+```
+
+## Enemy Health
+De enemy heeft een eigen health systeem dat gekoppeld is aan een healthbar. Wanneer de speler een attack of special attack gebruikt, ontvangt de enemy damage en gaat de healthbar omlaag. Hierdoor krijgt de speler direct visuele feedback over hoeveel health de enemy nog over heeft.
+
+De damage wordt verwerkt via het enemy health script. Dit script houdt bij hoeveel health de enemy nog heeft en vermindert deze waarde wanneer de enemy geraakt wordt. Daarna wordt de healthbar automatisch geüpdatet zodat de nieuwe hoeveelheid health zichtbaar wordt op het scherm.
+
+Als de health van de enemy op 0 komt, wordt de enemy verslagen. Er wordt dan een death state geactiveerd en de speler wint het level. Hierdoor vormt de healthbar niet alleen een visuele indicator, maar ook een belangrijk onderdeel van de gameplay loop.
+
+
+### Flowchart
+
+```mermaid
+flowchart TD
+
+    A["Game Starts"] --> B["Start"]
+
+    B --> C["Set Current Health = Max Health"]
+
+    C --> D["HealthBar SetMaxHealth"]
+
+    D --> E["Find GameEndManager"]
+
+    E --> F["TakeDamage Called"]
+
+    F --> G{"Current Health <= 0?"}
+
+    G -->|Yes| H["Return"]
+
+    G -->|No| I["Subtract Damage"]
+
+    I --> J["Clamp Health Minimum To 0"]
+
+    J --> K["Debug Log Current Health"]
+
+    K --> L["Update HealthBar"]
+
+    L --> M["CheckState"]
+
+    M --> N{"Current Health <= 0?"}
+
+    N -->|No| O["Continue Game"]
+
+    N -->|Yes| P["Trigger Boss_Death Animation"]
+
+    P --> Q["Start AudioEffect Coroutine"]
+
+    Q --> R["Debug Log Won"]
+
+    R --> S{"GameEndManager Exists?"}
+
+    S -->|No| T["End"]
+
+    S -->|Yes| U["Start WinAfterAnim Coroutine"]
+
+    U --> V["Wait 3 Seconds"]
+
+    V --> W["Trigger Win"]
+```
+
+### Class Diagram
+
+```mermaid
+classDiagram
+
+class EnemyHealth {
+    - int maxHealth
+    - int currentHealth
+    - Animator animator
+    - AudioSource deathSFX
+    - HealthBar healthBar
+    - GameEndManager gameEndManager
+
+    + Start()
+    + TakeDamage(int damage)
+    + CheckState()
+    + AudioEffect()
+    + WinAfterAnim()
+}
+
+class Animator {
+    + SetTrigger(string triggerName)
+}
+
+class AudioSource {
+    + Play()
+}
+
+class HealthBar {
+    + SetMaxHealth(int value)
+    + SetHealth(int value)
+}
+
+class GameEndManager {
+    + TriggerWin()
+}
+
+EnemyHealth --> Animator : triggers death animation
+EnemyHealth --> AudioSource : plays death sound
+EnemyHealth --> HealthBar : updates UI
+EnemyHealth --> GameEndManager : triggers win state
+```
 
 ## 9. Tile PowerUp Slider
 
