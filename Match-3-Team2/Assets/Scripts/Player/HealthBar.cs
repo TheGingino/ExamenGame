@@ -41,6 +41,6 @@ public class HealthBar : MonoBehaviour
     }
     public void HideShieldVisual()
     {
-        _healthBarImage.sprite = _shieldSprite;
+        _healthBarImage.sprite = _normalSprite;
     }
 }
