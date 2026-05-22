@@ -482,16 +482,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1dd055c71c1de64980d581f4a3315a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pages:
+  _pages:
   - {fileID: 2584865902033401508}
   - {fileID: 2627813547217747181}
   - {fileID: 4124477726118642391}
   - {fileID: 2483811155313394180}
   - {fileID: 3459859691708949064}
-  nextButton: {fileID: 1619719984423987042}
-  prevButton: {fileID: 8522938808637534615}
-  mainPage: {fileID: 7269061192563599099}
-  nextButtonText: {fileID: 0}
+  _nextButton: {fileID: 0}
+  _prevButton: {fileID: 0}
+  _mainPage: {fileID: 0}
+  _nextButtonText: {fileID: 0}
 --- !u!1 &4073420906345056456
 GameObject:
   m_ObjectHideFlags: 0
