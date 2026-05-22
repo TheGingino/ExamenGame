@@ -357,29 +357,29 @@ We hadden best wel veel tijd over dus er zijn ideen voor een 2e level. Omdat we 
 ## Enemy model
 Onze antagonisten in de game zjin aliens. Daarom hebben we voor de boss level een groot en sterke alien gekozen. Die alien kan jou als speler aanvallen en jij kan hem terug aanvallen. Er is veel gespeeld met lichaamshouding en met kleuren theorie. Hij staat met de borst naar voren wat hem intimiderend maakt en heeft koude kleuren wat hem er kil uit laat zien. 
 
-<img width="960" height="540" alt="Texture alien" src="https://github.com/user-attachments/assets/50e52304-462e-4bbd-9524-bfab94e93bb0" />
+<img width="480" height="270" alt="Texture alien" src="https://github.com/user-attachments/assets/50e52304-462e-4bbd-9524-bfab94e93bb0" />
 
 Daarnaast heeft de alien ook een rig voor de animaties zodat hij kan bewegen. Dit maakt het model levendiger en interessanter voor de speler. 
 
-<img width="960" height="540" alt="rig eneemy" src="https://github.com/user-attachments/assets/1ca8f9dc-df5f-46db-b808-af1a72687948" />
+<img width="480" height="270" alt="rig eneemy" src="https://github.com/user-attachments/assets/1ca8f9dc-df5f-46db-b808-af1a72687948" />
 
-<img width="960" height="540" alt="poses enemy" src="https://github.com/user-attachments/assets/2c0130df-1043-444b-a3b8-ac48d6f5f24b" />
+<img width="480" height="270" alt="poses enemy" src="https://github.com/user-attachments/assets/2c0130df-1043-444b-a3b8-ac48d6f5f24b" />
 
 ## Tutorial
 
 Om het voor de speler zo duidelijk mogelijk te maken hoe de game werkt hebben wij een tutorial aan de game toegevoegd. De tutorial start aan het begin van het level en de speler kan zelf kiezen of die hem wilt skippen en hoe snel hij door de tutorial heen wilt gaan. 
 
-<img width="960" height="540" alt="tutorial new" src="https://github.com/user-attachments/assets/3008bfc6-65a2-44ba-b00b-e1e68e26a801" />
+<img width="480" height="270" alt="tutorial new" src="https://github.com/user-attachments/assets/3008bfc6-65a2-44ba-b00b-e1e68e26a801" />
 
 ## Slash animation
 Wanneer de speler de enemy aanvalt, komt deze animatie in het scherm. Het zorgt ervoor dat de speler meer visual feedback heeft over het aanvallen en het ziet er interessanter uit.
 
-<img width="960" height="540" alt="slash spritesheet" src="https://github.com/user-attachments/assets/a742867b-e8f1-4538-98c2-8babf864ca95" />
+<img width="480" height="270" alt="slash spritesheet" src="https://github.com/user-attachments/assets/a742867b-e8f1-4538-98c2-8babf864ca95" />
 
 ## Special attack animation
 Wanneer de speler de enemy aanvalt met een special attack, komt deze animatie in het scherm. Het zorgt ervoor dat de speler meer visual feedback heeft over het aanvallen en het ziet er interessanter uit.
 
-<img width="1001" height="540" alt="Special attck beam" src="https://github.com/user-attachments/assets/adb78eb7-8d38-48bb-9551-fc1403fd8dd5" />
+<img width="500" height="270" alt="Special attck beam" src="https://github.com/user-attachments/assets/adb78eb7-8d38-48bb-9551-fc1403fd8dd5" />
 
 ## health bar
 Om duidelijk health van de speler en de enemy te kunnen aangeven, hebben wij gebruik gemaakt van health bars. Als de speler volle health heeft, dan is de bar vol. Wanneer de speler damage neemt loopt de bar een beetje leeg. Als de bar leeg is, dan is de speler dood. Dit geldt ook voor de enemy. Het verschil tussen de 2 is dat de enemy healthbar een icon heeft om aan te geven dat dat die van hem is voor duidelijkheid.
