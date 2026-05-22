@@ -64,7 +64,7 @@ Min van der Veen:
  * Level select scherm
  * Wapen
  * UI knoppen
- * Pause screen
+ * Pause screen/ win-lose screen
  * Level 2 Environment
    
 ## 1. Grid System
