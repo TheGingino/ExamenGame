@@ -1,5 +1,3 @@
-# ExamenGame
-
 ### Beschrijving
 We hebben de opdracht gekregen van de klant om een Match 3 te maken waar complete artistieke creativiteit aan ons is gegeven buiten de Match 3, 
 waarbij we ervoor gekozen hebben om een Space Themed Dungeon ish Crawler .te maken
@@ -263,6 +261,84 @@ Het spel verloopt in beurten. Per beurt heeft de speler vijf sets om zetten te d
 
 ---
 
+### Flowchart
+
+```mermaid
+flowchart TD
+
+    A[Game Starts] --> B["TurnManager.Start()"]
+    B --> C[Find SwapTiles]
+    B --> D["StartPlayerTurn()"]
+
+    %% PLAYER TURN
+
+    D --> E[Set playerTurn = true]
+    E --> F[Reset Current Swaps = 0]
+    F --> G[Enable Tile Input]
+    G --> H[Invoke OnPlayerTurnStart]
+    H --> I[Show Player Turn Indicator]
+    I --> J[Update Swap UI]
+
+    %% PLAYER ACTION LOOP
+
+    J --> K[Player Swaps Tiles]
+    K --> L["RegisterSwap()"]
+
+    L --> M{Is Player Turn?}
+
+    M -->|No| N[Ignore Swap]
+    M -->|Yes| O[Increase Swap Count]
+
+    O --> P[Update Remaining Swaps UI]
+
+    P --> Q{Swaps >= Max Swaps?}
+
+    Q -->|No| K[Player Swaps Tiles]
+    Q -->|Yes| R["EndPlayerTurn()"]
+
+    %% END PLAYER TURN
+
+    R --> S[Set playerTurn = false]
+    S --> T[Disable Tile Input]
+    T --> U[Invoke OnEnemyTurnStart]
+    U --> V[Show Enemy Turn Indicator]
+    V --> W["Start EnemyTurnCoroutine()"]
+
+    %% ENEMY TURN
+
+    W --> X[Wait 0.5 Seconds]
+    X --> Y[Invoke OnEnemyTurn Event]
+    Y --> Z[Wait 2.5 Seconds]
+    Z --> D
+
+    %% TURN INDICATOR FLOW
+
+    I --> AA["ShowTurnImage(true)"]
+    V --> AB["ShowTurnImage(false)"]
+
+    AA --> AC["FadeTurnIndicator()"]
+    AB --> AC
+
+    AC --> AD[Fade Out Current Indicator]
+    AD --> AE[Fade In Next Indicator]
+    AE --> AF[Fade Out Next Indicator]
+
+    %% FADE SYSTEM
+
+    AF --> AG[Fade Coroutine]
+    AG --> AH[Get or Add CanvasGroup]
+    AH --> AI[Lerp Alpha Over Time]
+    AI --> AJ{Target Alpha = 0?}
+
+    AJ -->|Yes| AK[Disable Indicator]
+    AJ -->|No| AL[Keep Active]
+
+    %% UI
+
+    P --> AM[Update Counter Text]
+    AM --> AN[Remaining Swaps = Max - Current]
+```
+---
 ## 8. Enemy Boss
 
 ## Enemy Attack
