@@ -271,8 +271,7 @@ Het spel verloopt in beurten. Per beurt heeft de speler vijf sets om zetten te d
 
 ---
 
-### Flowchart
-
+### Flowchart 
 ```mermaid
 flowchart TD
 
@@ -578,6 +577,66 @@ Wordt getoond wanneer de speler het level wint. Er staat een tekst die aangeeft 
 - **Retry** → Herstart het huidige level
 - **Menu** → [Start Screen](#start-screen)
 
+---
+### Flowchart
+
+```mermaid
+flowchart TD
+
+    A[Game Starts] --> B["GameEndManager.Start()"]
+    B --> C[Time.timeScale = 1]
+    B --> D[Hide End Screen]
+
+    E[Gameplay Running] --> F{Win or Lose?}
+
+    F -->|Win| G["TriggerWin()"]
+    F -->|Lose| H["TriggerLose()"]
+
+    G --> I[Play Win SFX]
+    G --> J[Set State = WIN]
+    G --> K["HandleEndState()"]
+
+    H --> L[Play Lose SFX]
+    H --> M[Set State = LOSE]
+    H --> K["HandleEndState()"]
+
+    K --> N["DisableGameplay()"]
+    N --> O[Time.timeScale = 0]
+    N --> P[Disable SwapTiles Input]
+
+    K --> Q[Show End Screen]
+
+    Q --> R{Current State}
+
+    R -->|WIN| S[Set Text: You Win!]
+    S --> T[Invoke OnWin Event]
+    S --> U[Button Text = Continue]
+
+    R -->|LOSE| V[Set Text: You Lost]
+    V --> W[Invoke OnLose Event]
+    V --> X[Button Text = Retry]
+
+    %% EndScreenUI
+
+    Q --> Y[EndScreenUI Enabled]
+    Y --> Z["OnEnable()"]
+    Z --> AA["OnPrimaryButtonPressed()"]
+
+    AA --> AB{Game State?}
+
+    AB -->|WIN| AC["HandleWinAction()"]
+    AC --> AD[Time.timeScale = 1]
+    AC --> AE[Load Scene: LevelSelector]
+
+    AB -->|LOSE| AF["HandleLoseAction()"]
+    AF --> AG[Time.timeScale = 1]
+    AF --> AH[Reload Current Scene]
+
+    %% Main Menu Path
+
+    Y --> AI[Main Menu Button]
+    AI --> AJ[Load Scene: StartScreen]
+```
 ---
 
 ### Tutorial Screen
