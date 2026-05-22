@@ -316,6 +316,46 @@ Het doel was om meerdere levels te maken en daarvoor is een LevelCreator voor ge
 <img src="https://github.com/TheGingino/ExamenGame/blob/Develop/WikiResources/Gino/LevelCreator.png" width="80%">
 
 ---
+## Tile grid visuals
+De tile grid is natuurlijk waar de gameplay zelf speelt hiervoor hebben wij art nodig om de vershilende soorten tiles te onderschieden. Rood voor attack, Blauw voor shield, Groen voor healing, Wit als een filler tile en geel voor special attack.
+
+<img width="125" height="125" alt="Tile_SPATK_BaseColor" src="https://github.com/user-attachments/assets/0dc1a137-ad0d-4cd5-8f98-733d9affcf3a" />
+<img width="125" height="125" alt="Tile_SHD_BaseColor" src="https://github.com/user-attachments/assets/5652e3d8-137e-4f62-be4c-911254052f00" />
+<img width="125" height="125" alt="Tile_Null_BaseColor" src="https://github.com/user-attachments/assets/b69dc797-06e7-49c4-9d3c-bae8527cd395" />
+<img width="125" height="125" alt="Tile_HPL_BaseColor" src="https://github.com/user-attachments/assets/9977e03d-54ff-48d0-9df7-f91c688c11ae" />
+<img width="125" height="125" alt="Tile_ATK_BaseColor" src="https://github.com/user-attachments/assets/b48c5d2f-1265-449a-b8be-4ca713ddf23c" />
+
+## Move counter & Energy counter
+
+Move Counter
+<img width="125" height="125" alt="TurnCounter" src="https://github.com/user-attachments/assets/11689393-9e81-4cfa-b033-992496309671" />
+
+Energy Counter
+<img width="125" height="125" alt="EnergyCounter_On" src="https://github.com/user-attachments/assets/6e65f7b0-0c88-42e5-94bb-44f8669c6de6" />
+<img width="125" height="125" alt="EnergyCounter_Off" src="https://github.com/user-attachments/assets/ed0ad02a-3320-4f6f-8a1c-93e906f50fca" />
+
+
+## Turn indicator
+
+<img width="549" height="285" alt="Player Turn" src="https://github.com/user-attachments/assets/754781a8-e2f6-4d7b-8a55-46d21c1661f9" />
+<img width="549" height="285" alt="Enemy Turn" src="https://github.com/user-attachments/assets/13ef0a47-1e34-4ef3-a715-0e780d9879c7" />
+
+
+## Setting button
+
+<img width="125" height="125" alt="Settings" src="https://github.com/user-attachments/assets/e362008f-05b0-489a-ae61-551ca92924a7" />
+
+
+## Ability buttons & Ability charger
+
+<img width="218" height="251" alt="Screenshot 2026-05-21 135938" src="https://github.com/user-attachments/assets/63ebba9c-024c-447f-99c0-236cc62fd998" />
+
+## Bomb Visual
+
+<img width="250" height="250" alt="Dyamite_Outlined" src="https://github.com/user-attachments/assets/4d58862f-855c-4102-97b4-7f640448a70c" />
+<img width="250" height="250" alt="Dyamite" src="https://github.com/user-attachments/assets/cca52e76-52e4-42be-839f-e8b0d5c13973" />
+
+---
 
 ## Beginscherm 
 Elke game heeft wel een beginscherm. Het is het eerste dat je ziet als je een game start. Het moet de sfeer vertellen van de game en waar het over gaat. Ik heb 6 concepten gemaakt voor het beginscherm. Na ee poll om te stemmen kwam er een uitslag. Na verschillende concepten van het ruimteschip en nog een poll verder is er een winner. 
