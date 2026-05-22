@@ -51,14 +51,14 @@ Kiana (Jasper) Hiemstra:
   * [Main Scene]()
     
 Bo Bakker:
-* [enemy model]
-* [boss enviroment]
-* [tutorial]
-* [health bar]
-* [slash animation]
-* [special attack animation]
-* [game border]
-* [damage rim] 
+* enemy model
+* boss enviroment
+* tutorial
+* health bar
+* slash animation
+* special attack animation
+* game border
+* damage rim
  
 Robin van Wandelen:
 *
@@ -345,7 +345,56 @@ Als je het spel op pause zet dan krijg je een menu met opties. Dit is de UI.
 
 <img width="454" height="554" alt="image" src="https://github.com/user-attachments/assets/f8afb320-b677-45fc-9641-46c5e5671e2c" />
 
+## Enviroment Boss level
+Sinds wij begonnen bij het boss level was daar ook meteen een environment voor nodoig. We hadden als idee voor de environment dat je door het schip heen loopt van begin tot eind. Daarom hebben we de boss level in het puntje van het schip gezet, vaak omdat dat de belangrijkste ruimte is ivm besturing. Hier zijn ook concepten voor gemaakt waaruit de favoriete is gekozen door ons team. Dit is het level waar onze boss in staat en welke de speler het meeste terugziet. 
+
+<img width="611" height="450" alt="Screenshot 2026-05-21 141707" src="https://github.com/user-attachments/assets/f4c51fbe-90e9-43bb-b366-1ef18ccad158" />
+
 
 ## Environment level 2
 We hadden best wel veel tijd over dus er zijn ideen voor een 2e level. Omdat we als idee had dat je door het schip moet lopen en de eindbaas in de top zit, was de environment best wel vast in welke kamer het is. Daarom zijn er weinig variatie met vorm. Ik heb er concepten voor gemaakt, er is weer gestemt op een eindresultaat. 
 
+## Enemy model
+Onze antagonisten in de game zjin aliens. Daarom hebben we voor de boss level een groot en sterke alien gekozen. Die alien kan jou als speler aanvallen en jij kan hem terug aanvallen. Er is veel gespeeld met lichaamshouding en met kleuren theorie. Hij staat met de borst naar voren wat hem intimiderend maakt en heeft koude kleuren wat hem er kil uit laat zien. 
+
+<img width="1920" height="1080" alt="Texture alien" src="https://github.com/user-attachments/assets/50e52304-462e-4bbd-9524-bfab94e93bb0" />
+
+Daarnaast heeft de alien ook een rig voor de animaties zodat hij kan bewegen. Dit maakt het model levendiger en interessanter voor de speler. 
+
+<img width="1920" height="1080" alt="rig eneemy" src="https://github.com/user-attachments/assets/1ca8f9dc-df5f-46db-b808-af1a72687948" />
+
+<img width="1920" height="1080" alt="poses enemy" src="https://github.com/user-attachments/assets/2c0130df-1043-444b-a3b8-ac48d6f5f24b" />
+
+## Tutorial
+
+Om het voor de speler zo duidelijk mogelijk te maken hoe de game werkt hebben wij een tutorial aan de game toegevoegd. De tutorial start aan het begin van het level en de speler kan zelf kiezen of die hem wilt skippen en hoe snel hij door de tutorial heen wilt gaan. 
+
+<img width="1920" height="1080" alt="tutorial new" src="https://github.com/user-attachments/assets/3008bfc6-65a2-44ba-b00b-e1e68e26a801" />
+
+## Slash animation
+Wanneer de speler de enemy aanvalt, komt deze animatie in het scherm. Het zorgt ervoor dat de speler meer visual feedback heeft over het aanvallen en het ziet er interessanter uit.
+
+<img width="1920" height="1080" alt="slash spritesheet" src="https://github.com/user-attachments/assets/a742867b-e8f1-4538-98c2-8babf864ca95" />
+
+## Special attack animation
+Wanneer de speler de enemy aanvalt met een special attack, komt deze animatie in het scherm. Het zorgt ervoor dat de speler meer visual feedback heeft over het aanvallen en het ziet er interessanter uit.
+
+<img width="2002" height="1080" alt="Special attck beam" src="https://github.com/user-attachments/assets/adb78eb7-8d38-48bb-9551-fc1403fd8dd5" />
+
+## health bar
+Om duidelijk health van de speler en de enemy te kunnen aangeven, hebben wij gebruik gemaakt van health bars. Als de speler volle health heeft, dan is de bar vol. Wanneer de speler damage neemt loopt de bar een beetje leeg. Als de bar leeg is, dan is de speler dood. Dit geldt ook voor de enemy. Het verschil tussen de 2 is dat de enemy healthbar een icon heeft om aan te geven dat dat die van hem is voor duidelijkheid.
+
+<img width="175" height="150" alt="Health Bar blue" src="https://github.com/user-attachments/assets/ff5ed4e0-011b-4dcc-95cf-4e015f434fea" />
+
+Daarnaast is er ook een healthbar die blauw is die aangeeft wanneer de shield geactiveerd is
+<img width="175" height="150" alt="Health Bar" src="https://github.com/user-attachments/assets/d2a09335-f4c5-410e-a8e3-eaa88d3f70df" />
+
+## border
+Om de artstyle en de game bij elkaar te brengen hebben wij gebruik gemaakt van een game border. Deze maakt het spel visueel interessanter en zorgd voor een afgemaakte look in het spel 
+
+<img width="1080" height="2340" alt="S_Rim" src="https://github.com/user-attachments/assets/f2be57f4-a5d5-4db8-98ab-03b0400e48b1" />
+
+## damage rim
+Zodat de speler meteen en duidelijk weet dat hij damage heeft genomen, hebben wij een damage rim gemaakt. Deze komt snel te voorschijn wanneer de alien de speler aanvalt. De rim gaat over het hele scherm zodat de speler het niet kan missen.
+
+<img width="1080" height="2340" alt="S_Damage Rim" src="https://github.com/user-attachments/assets/3df684f4-a070-4398-b8af-0e4a2eab4ec1" />
