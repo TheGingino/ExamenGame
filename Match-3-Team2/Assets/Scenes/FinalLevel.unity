@@ -8252,7 +8252,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _slashAnimator
       value: 
-      objectReference: {fileID: 1588441052}
+      objectReference: {fileID: 1413059150}
     - target: {fileID: 1258916907258961627, guid: 8fb7035714748dc44ae8db709c225a33,
         type: 3}
       propertyPath: _specialHitSFX
