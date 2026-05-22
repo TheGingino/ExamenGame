@@ -392,9 +392,9 @@ Daarnaast is er ook een healthbar die blauw is die aangeeft wanneer de shield ge
 ## border
 Om de artstyle en de game bij elkaar te brengen hebben wij gebruik gemaakt van een game border. Deze maakt het spel visueel interessanter en zorgd voor een afgemaakte look in het spel 
 
-<img width="1080" height="2340" alt="S_Rim" src="https://github.com/user-attachments/assets/f2be57f4-a5d5-4db8-98ab-03b0400e48b1" />
+<img width="540" height="1170" alt="S_Rim" src="https://github.com/user-attachments/assets/f2be57f4-a5d5-4db8-98ab-03b0400e48b1" />
 
 ## damage rim
 Zodat de speler meteen en duidelijk weet dat hij damage heeft genomen, hebben wij een damage rim gemaakt. Deze komt snel te voorschijn wanneer de alien de speler aanvalt. De rim gaat over het hele scherm zodat de speler het niet kan missen.
 
-<img width="1080" height="2340" alt="S_Damage Rim" src="https://github.com/user-attachments/assets/3df684f4-a070-4398-b8af-0e4a2eab4ec1" />
+<img width="540" height="1170" alt="S_Damage Rim" src="https://github.com/user-attachments/assets/3df684f4-a070-4398-b8af-0e4a2eab4ec1" />
