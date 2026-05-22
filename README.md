@@ -59,7 +59,17 @@ Bo Bakker:
 * damage rim
  
 Robin van Wandelen:
-*
+*enemy shader
+*envoiroment Shader
+*Health bar shader
+*Healing animation
+*Special abilities charging shader
+*Special abilities charged vfx
+*death vfx and shader
+*starting screen shader
+*Skybox
+*Implode vfx
+*toonshader
 
  Guilherme Loures Oliveira
  * Grid visuals
