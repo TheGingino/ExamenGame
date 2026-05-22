@@ -1,0 +1,64 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class AbilitieCounterUI : MonoBehaviour
+{
+    [SerializeField] private GameObject _dotPrefab;
+    [SerializeField] private Transform _dotContainer;
+    [SerializeField] private Sprite _dotActiveSprite;
+    [SerializeField] private Sprite _dotInactiveSprite;
+
+    private Image[] _dots;
+
+    private void OnEnable()
+    {
+        if (CombatMeter.Instance != null)
+            CombatMeter.Instance.OnAbilityLimitChanged += UpdateDots;
+        Debug.Log("Subscribed to OnAbilityLimitChanged event");
+    }
+
+    private void OnDisable()
+    {
+        if (CombatMeter.Instance != null)
+            CombatMeter.Instance.OnAbilityLimitChanged -= UpdateDots;
+        Debug.Log("Unsubscribed from OnAbilityLimitChanged event");
+    }
+
+    private void Start()
+    {
+        SpawnDots();
+        UpdateDots();
+    }
+
+    private void SpawnDots()
+    {
+        foreach (Transform child in _dotContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        _dots = new Image[CombatMeter.Instance.maxAbilitiesPerTurn];
+
+        for (int i = 0; i < _dots.Length; i++)
+        {
+            GameObject dot = Instantiate(_dotPrefab, _dotContainer);
+            _dots[i] = dot.GetComponent<Image>();
+            Debug.Log("Dot {i} image: {dots[i]}");
+        }
+    }
+
+    private void UpdateDots()
+    {
+        if (_dots == null || CombatMeter.Instance == null) return;
+
+        int used = CombatMeter.Instance.maxAbilitiesPerTurn - CombatMeter.Instance.AbilitiesRemaining;
+
+        for (int i = 0; i < _dots.Length; i++)
+        {
+            _dots[i].sprite = (i >= _dots.Length - used) ? _dotInactiveSprite : _dotActiveSprite;
+        }
+    }
+}
