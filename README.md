@@ -64,7 +64,14 @@ Robin van Wandelen:
 *
 
  Guilherme Loures Oliveira
- * 
+ * Grid visuals
+ * Move counter
+ * Energy counter
+ * Turn indicator
+ * Settings button
+ * Ability button
+ * Ability charges
+ * Bomb
 
 Min van der Veen:
  * Beginscherm
@@ -328,30 +335,34 @@ De tile grid is natuurlijk waar de gameplay zelf speelt hiervoor hebben wij art 
 ## Move counter & Energy counter
 
 Move Counter
+De move counter laat zien hoeveel zetten de speler nog kan doen voordat de enemy aanvalt.
 <img width="125" height="125" alt="TurnCounter" src="https://github.com/user-attachments/assets/11689393-9e81-4cfa-b033-992496309671" />
 
 Energy Counter
+De energy counter laat zien dat de speler 3 abilities kan gebruiken per beurt.
+Als er een ability gebruikt is, word 1 van de buttons donker van kleur.
 <img width="125" height="125" alt="EnergyCounter_On" src="https://github.com/user-attachments/assets/6e65f7b0-0c88-42e5-94bb-44f8669c6de6" />
 <img width="125" height="125" alt="EnergyCounter_Off" src="https://github.com/user-attachments/assets/ed0ad02a-3320-4f6f-8a1c-93e906f50fca" />
 
 
 ## Turn indicator
-
+De turn indicator geeft aan of de speler aan zet is of dat de enemy aan de beurt is.
 <img width="549" height="285" alt="Player Turn" src="https://github.com/user-attachments/assets/754781a8-e2f6-4d7b-8a55-46d21c1661f9" />
 <img width="549" height="285" alt="Enemy Turn" src="https://github.com/user-attachments/assets/13ef0a47-1e34-4ef3-a715-0e780d9879c7" />
 
 
 ## Setting button
-
+Door op deze knop te drukken word het optie menu geopend
 <img width="125" height="125" alt="Settings" src="https://github.com/user-attachments/assets/e362008f-05b0-489a-ae61-551ca92924a7" />
 
 
 ## Ability buttons & Ability charger
-
+Door op 1 van deze knoppen te drukken word de bijbehorende ability geactiveerd. 
+De charge visuals laten zien hoeveel charges de speler verzameld heeft.
 <img width="218" height="251" alt="Screenshot 2026-05-21 135938" src="https://github.com/user-attachments/assets/63ebba9c-024c-447f-99c0-236cc62fd998" />
 
 ## Bomb Visual
-
+De bomb kan op de grid gesleept worden door de speler. Dan worden er in 1 keer meerdere tiles gebroken.
 <img width="250" height="250" alt="Dyamite_Outlined" src="https://github.com/user-attachments/assets/4d58862f-855c-4102-97b4-7f640448a70c" />
 <img width="250" height="250" alt="Dyamite" src="https://github.com/user-attachments/assets/cca52e76-52e4-42be-839f-e8b0d5c13973" />
 
